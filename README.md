@@ -1,4 +1,4 @@
-# Demand analise tool
+# Demand analysis tool
 
 ## Project setup
 ```
