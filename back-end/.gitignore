@@ -35,3 +35,9 @@ msbuild.wrn
 
 # Visual Studio
 .vs
+
+#webconfig
+published/netcoreapp3.1/*
+!published/netcoreapp3.1/web.config
+
+
