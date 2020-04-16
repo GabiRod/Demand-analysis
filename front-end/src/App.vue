@@ -1,19 +1,12 @@
 <template>
-  <div id="app">
-    <loginPage />
-  </div>
+  <v-app>
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
-<script>
-import loginPage from "./views/login_page.vue";
-
-export default {
-  name: "App",
-  components: {
-    loginPage,
-  },
-};
-</script>
+<script></script>
 
 <style>
 #app {

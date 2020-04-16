@@ -3,7 +3,7 @@
     <h1>Welcome to the scan page</h1>
     <input type="text" placeholder="enter the URL" />
     <br />
-    <router-link to="./views/scan_page">Scan</router-link>
+    <router-link to="/dashboard_page">Scan</router-link>
   </div>
 </template>
 
