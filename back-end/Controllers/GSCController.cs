@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using back_end.GoogleSearchConsole;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace back_end.Controllers
 {
@@ -19,10 +22,13 @@ namespace back_end.Controllers
         }
 
         // GET: api/GSC/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{siteUrl}", Name = "Get")]
+        public string Get([FromBody] RequestObject request)
         {
-            return "value";
+            var queryData = ApiController.GetData(request);
+            var json = JsonConvert.SerializeObject(queryData);
+
+            return json;
         }
 
         // POST: api/GSC
