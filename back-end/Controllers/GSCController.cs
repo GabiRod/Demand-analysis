@@ -14,14 +14,6 @@ namespace back_end.Controllers
     [ApiController]
     public class GSCController : ControllerBase
     {
-        // GET: api/GSC
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/GSC/5
         [HttpGet("{siteUrl}", Name = "Get")]
         public string Get([FromBody] RequestObject request)
         {
