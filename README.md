@@ -2,6 +2,8 @@
 
 Follow the README guides in back-end & front-end to set up the projects.
 
+Make sure you have the dotnet dev [SDK & runtime](https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-3.1.201-windows-x64-installer) installed: 
+
 After building, make sure you have IIS installed, then install the [ASP.NET Core Hosting Bundle.](https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.3-windows-hosting-bundle-installer)
 
 
