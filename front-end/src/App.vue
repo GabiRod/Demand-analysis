@@ -6,7 +6,29 @@
   </v-app>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      authenticated: false,
+    };
+  },
+  methods: {
+    setAuthenticated(status) {
+      this.authenticated = status;
+    },
+    logout() {
+      this.authenticated = false;
+    },
+  },
+  mounted() {
+    if (!this.authenticated) {
+      this.$router.replace({ path: "/" });
+    }
+  },
+};
+</script>
 
 <style>
 #app {

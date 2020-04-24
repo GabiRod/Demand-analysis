@@ -10,14 +10,17 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
+    name: "loginPage",
     component: loginPage
   },
   {
     path: '/scan_page',
+    name: "scanPage",
     component: scanPage
   },
   {
     path: '/dashboard_page',
+    name: "dashboardPage",
     component: dashboardPage
   }
 ]

@@ -10,21 +10,17 @@
 
 <script>
 import menuComponent from "../components/menu_component.vue";
-import variables from "../styles/variables.scss";
 
 export default {
   name: "dashboardPage",
   components: { menuComponent },
 
   data() {
-    return {
-      routes: this.$root.routes,
-    };
+    return {};
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 #dashboard_page {
   background-color: $grey;

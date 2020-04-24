@@ -54,9 +54,10 @@ export default {
           this.input.password == "123"
         ) {
           this.$emit("authenticated", true);
-          this.$router.replace({ name: "dashboardPage" });
+          this.$router.replace({ path: "/dashboard_page" });
         } else {
           console.log("The username and / or password is incorrect");
+          alert("The email adress and / or password is incorrect");
         }
       } else {
         console.log("A username and password must be present");
@@ -66,7 +67,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 #login_page {
   text-align: center;
@@ -96,5 +96,6 @@ h2 {
   text-decoration: none;
   border: 3px solid $green;
   color: $green;
+  background-color: $white;
 }
 </style>
