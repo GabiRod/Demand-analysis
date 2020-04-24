@@ -10,6 +10,7 @@
 
 <script>
 import menuComponent from "../components/menu_component.vue";
+import variables from "../styles/variables.scss";
 
 export default {
   name: "dashboardPage",
@@ -24,9 +25,9 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss">
 #dashboard_page {
-  background-color: #f2f2f2;
+  background-color: $grey;
   margin: 0px;
 }
 h3 {
@@ -41,6 +42,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: $green;
 }
 </style>

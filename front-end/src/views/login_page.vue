@@ -11,21 +11,58 @@
     </h2>
     <br />
     <div class="login_input_wrapper">
-      <input class="login_input" type="text" placeholder="email" />
+      <input
+        class="login_input"
+        type="text"
+        name="email"
+        v-model="input.email"
+        placeholder="email"
+      />
 
       <br />
       <br />
-      <input class="login_input" type="text" placeholder="password" />
+      <input
+        class="login_input"
+        type="text"
+        name="password"
+        v-model="input.password"
+        placeholder="password"
+      />
     </div>
     <br />
     <br />
-    <router-link class="button" to="/dashboard_page">LOG IN</router-link>
+    <button class="button" v-on:click="login()">LOG IN</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "loginPage",
+  data() {
+    return {
+      input: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    login() {
+      if (this.input.email != "" && this.input.password != "") {
+        if (
+          this.input.email == "gro@nozebra.dk" &&
+          this.input.password == "123"
+        ) {
+          this.$emit("authenticated", true);
+          this.$router.replace({ name: "dashboardPage" });
+        } else {
+          console.log("The username and / or password is incorrect");
+        }
+      } else {
+        console.log("A username and password must be present");
+      }
+    },
+  },
 };
 </script>
 
@@ -41,7 +78,7 @@ h1 {
 h2 {
   margin: 40px 0 0;
   text-align: center;
-  color: #42b983;
+  color: $green;
 }
 
 .login_input_wrapper {
@@ -57,7 +94,7 @@ h2 {
 .button {
   padding: 10px 20px;
   text-decoration: none;
-  border: 3px solid #42b983;
-  color: #42b983;
+  border: 3px solid $green;
+  color: $green;
 }
 </style>
