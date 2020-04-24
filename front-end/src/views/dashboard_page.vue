@@ -1,5 +1,5 @@
 <template>
-  <div id="dasboard_page">
+  <div id="dashboard_page">
     <menuComponent />
 
     <h1>Welcome to the dashboard</h1>
@@ -10,6 +10,7 @@
 
 <script>
 import menuComponent from "../components/menu_component.vue";
+import variables from "../styles/variables.scss";
 
 export default {
   name: "dashboardPage",
@@ -24,7 +25,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss">
+#dashboard_page {
+  background-color: $grey;
+  margin: 0px;
+}
 h3 {
   margin: 40px 0 0;
 }
@@ -37,6 +42,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: $green;
 }
 </style>
