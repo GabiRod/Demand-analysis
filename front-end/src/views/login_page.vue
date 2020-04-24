@@ -1,13 +1,25 @@
 <template>
   <div id="login_page">
     <h1>Welcome to the demand analysis tool</h1>
-    <input type="text" placeholder="email" />
+    <img
+      class="login_logo"
+      src="../assets/no_zebra.png"
+      alt="No zebra black and white logo"
+    />
+    <h2>
+      please enter your company email adress
+    </h2>
+    <br />
+    <div class="login_input_wrapper">
+      <input class="login_input" type="text" placeholder="email" />
+
+      <br />
+      <br />
+      <input class="login_input" type="text" placeholder="password" />
+    </div>
     <br />
     <br />
-    <input type="text" placeholder="password" />
-    <br />
-    <br />
-    <router-link to="/scan_page">Log in</router-link>
+    <router-link class="button" to="/dashboard_page">LOG IN</router-link>
   </div>
 </template>
 
@@ -18,19 +30,34 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
+<style lang="scss">
+#login_page {
+  text-align: center;
+}
+h1 {
   margin: 40px 0 0;
+  color: $green;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+h2 {
+  margin: 40px 0 0;
+  text-align: center;
+  color: #42b983;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.login_input_wrapper {
+  text-align: center;
 }
-a {
+.login_logo {
+  width: 30%;
+}
+.login_input {
+  padding: 5px;
+  box-shadow: 5px whitesmoke;
+}
+.button {
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 3px solid #42b983;
   color: #42b983;
 }
 </style>

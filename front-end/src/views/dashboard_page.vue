@@ -1,5 +1,5 @@
 <template>
-  <div id="dasboard_page">
+  <div id="dashboard_page">
     <menuComponent />
 
     <h1>Welcome to the dashboard</h1>
@@ -25,6 +25,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#dashboard_page {
+  background-color: #f2f2f2;
+  margin: 0px;
+}
 h3 {
   margin: 40px 0 0;
 }
