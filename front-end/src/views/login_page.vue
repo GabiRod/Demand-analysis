@@ -31,7 +31,7 @@
     </div>
     <br />
     <br />
-    <button class="button" v-on:click="login()">LOG IN</button>
+    <button class="login_button" v-on:click="login()">LOG IN</button>
   </div>
 </template>
 
@@ -70,9 +70,12 @@ export default {
 <style lang="scss">
 #login_page {
   text-align: center;
+  background-color: $grey;
+  height: 100vh;
+  width: 100%;
 }
 h1 {
-  margin: 40px 0 0;
+  margin: 0px 0 0;
   color: $green;
 }
 h2 {
@@ -91,11 +94,11 @@ h2 {
   padding: 5px;
   box-shadow: 5px whitesmoke;
 }
-.button {
+.login_button {
   padding: 10px 20px;
   text-decoration: none;
   border: 3px solid $green;
   color: $green;
-  background-color: $white;
+  background-color: $grey;
 }
 </style>

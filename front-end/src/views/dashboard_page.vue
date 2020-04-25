@@ -1,5 +1,5 @@
 <template>
-  <div id="dashboard_page">
+  <div id="dashboard_page" class="dashboard_page">
     <menuComponent />
 
     <h1>Welcome to the dashboard</h1>
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-#dashboard_page {
+.dashboard_page {
   background-color: $grey;
   margin: 0px;
 }
