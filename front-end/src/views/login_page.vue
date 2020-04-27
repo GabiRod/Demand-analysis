@@ -1,5 +1,5 @@
 <template>
-  <div id="login_page">
+  <div id="login_page" class="login_page">
     <h1>Welcome to the demand analysis tool</h1>
     <img
       class="login_logo"
@@ -68,14 +68,16 @@ export default {
 </script>
 
 <style lang="scss">
-#login_page {
+.login_page {
+  margin: 0;
   text-align: center;
   background-color: $grey;
   height: 100vh;
   width: 100%;
 }
 h1 {
-  margin: 0px 0 0;
+  margin: 0px;
+  padding: 24px 0 0;
   color: $green;
 }
 h2 {
@@ -91,8 +93,9 @@ h2 {
   width: 30%;
 }
 .login_input {
-  padding: 5px;
-  box-shadow: 5px whitesmoke;
+  padding: 10px;
+  border: none;
+  box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
 .login_button {
   padding: 10px 20px;
@@ -100,5 +103,10 @@ h2 {
   border: 3px solid $green;
   color: $green;
   background-color: $grey;
+
+  :hover {
+    background-color: $green;
+    color: $grey;
+  }
 }
 </style>

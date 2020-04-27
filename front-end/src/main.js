@@ -11,15 +11,12 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
-// Create a request variable and assign a new XMLHttpRequest object to it.
-var request = new XMLHttpRequest()
 
-// Open a new connection, using the GET request on the URL endpoint
-request.open('GET', 'https://ghibliapi.herokuapp.com/films', true)
+fetch('http://demand-analysis.local/#/api/sites')
+  .then(response => {
+    return response.json();
+  })
+  .then(sites => {
+    console.log(sites);
+  })
 
-request.onload = function () {
-  // Begin accessing JSON data here
-}
-
-// Send request
-request.send()
