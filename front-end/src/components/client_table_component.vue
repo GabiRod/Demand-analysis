@@ -2,7 +2,12 @@
   <div id="client_table_component" class="client_table_component">
     <thead>
       <tr>
-        <th v-for="col in columns" v-on:click="sortTable(col)" :key="col">
+        <th
+          class="clients_column_menu"
+          v-for="col in columns"
+          v-on:click="sortTable(col)"
+          :key="col"
+        >
           {{ col }}
           <div
             class="arrow"
@@ -13,8 +18,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="row in get_rows()" :key="row">
-        <td v-for="col in columns" :key="col">{{ row[col] }}</td>
+      <tr class="clients_row" v-for="row in get_rows()" :key="row">
+        <td class="clients_row_data" v-for="col in columns" :key="col">
+          {{ row[col] }}
+        </td>
       </tr>
     </tbody>
   </div>
@@ -26,7 +33,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      elementsPerPage: 3,
+      elementsPerPage: 100,
       ascending: false,
       sortColumn: "",
       rows: [
@@ -111,5 +118,21 @@ export default {
 <style lang="scss">
 .client_table_component {
   background-color: $white;
+}
+
+.clients_column_menu {
+  padding: 5px 10px;
+  border-bottom: 1px solid $grey;
+  color: grey;
+}
+
+.clients_row {
+  width: 100%;
+}
+
+.clients_row_data {
+  color: $blue;
+  padding: 5px 10px;
+  border-bottom: 1px solid $grey;
 }
 </style>

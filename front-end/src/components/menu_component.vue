@@ -71,5 +71,6 @@ export default {
   position: fixed;
   left: 0;
   height: 100vh;
+  text-align: center;
 }
 </style>
