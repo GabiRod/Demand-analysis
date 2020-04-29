@@ -75,6 +75,7 @@ export default {
   height: 100vh;
   width: 100%;
 }
+
 h1 {
   margin: 0px;
   padding: 24px 0 0;
@@ -89,14 +90,17 @@ h2 {
 .login_input_wrapper {
   text-align: center;
 }
+
 .login_logo {
-  width: 30%;
+  height: 30%;
 }
+
 .login_input {
   padding: 10px;
   border: none;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
+
 .login_button {
   padding: 10px 20px;
   text-decoration: none;
@@ -104,7 +108,7 @@ h2 {
   color: $green;
   background-color: $grey;
 
-  :hover {
+  &:hover {
     background-color: $green;
     color: $grey;
   }

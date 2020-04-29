@@ -2,7 +2,19 @@
   <div id="dashboard_page" class="dashboard_page">
     <menuComponent />
 
-    <h1>Welcome to the dashboard</h1>
+    <div class="column_one">
+      <div class="clients_board">
+        Name
+        <clientTableComponent />
+      </div>
+
+      <div class="column_two">
+        <div class="clients_keywords">number of keywords</div>
+        <div class="clients_charts_board">
+          clients charts board
+        </div>
+      </div>
+    </div>
 
     <router-link to="/scan_page">go back</router-link>
   </div>
@@ -10,13 +22,13 @@
 
 <script>
 import menuComponent from "../components/menu_component.vue";
+import clientTableComponent from "../components/client_table_component.vue";
 
 export default {
   name: "dashboardPage",
-  components: { menuComponent },
-
-  data() {
-    return {};
+  components: {
+    menuComponent,
+    clientTableComponent,
   },
 };
 </script>
@@ -25,19 +37,42 @@ export default {
 .dashboard_page {
   background-color: $grey;
   margin: 0px;
+  margin: 0 0 0 80px;
+  height: 100vh;
 }
-h3 {
-  margin: 40px 0 0;
+
+.column_one {
+  display: grid;
+  grid-template-columns: 70% 25%;
+  column-gap: 24px;
+  margin: 24px;
+  height: 80%;
+  width: 100%;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.column_two {
+  display: grid;
+  grid-template-rows: 20% 77%;
+  row-gap: 24px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.clients_board {
+  background-color: $white;
+  padding: 24px;
+  height: 100% -24px;
+  width: 100% -24px;
 }
-a {
-  color: $green;
+.clients_keywords {
+  background-color: $white;
+  padding: 24px;
+  height: 100% -24px;
+  width: 100% -24px;
+}
+
+.clients_charts_board {
+  background-color: $white;
+  padding: 24px;
+  height: 100% -24px;
+  width: 100% -24px;
 }
 </style>
