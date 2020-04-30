@@ -59,6 +59,11 @@ export default {
   border: 3px solid $green;
   color: $green;
   background-color: $white;
+
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
 }
 
 .secondary_menu_bar {

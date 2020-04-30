@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -8,6 +10,7 @@ export default {
   data() {
     return {
       authenticated: false,
+      info: null,
     };
   },
   methods: {
@@ -19,6 +22,13 @@ export default {
     },
   },
   mounted() {
+    fetch("http://demand-analysis.local/#/api/sites")
+      .then((response) => {
+        return response.json();
+      })
+      .then((sites) => {
+        console.log(sites);
+      });
     if (!this.authenticated) {
       this.$router.replace({ path: "/" });
     }

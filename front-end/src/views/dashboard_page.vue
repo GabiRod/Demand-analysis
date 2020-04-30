@@ -11,7 +11,8 @@
         <div class="clients_keywords"><clientKeywordsComponent /></div>
 
         <div class="clients_charts_board">
-          clients charts board
+          Number of keywords by intent
+          <clientIntentComponent />
         </div>
       </div>
     </div>
@@ -24,6 +25,7 @@
 import menuComponent from "../components/menu_component.vue";
 import clientTableComponent from "../components/client_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
+import clientIntentComponent from "../components/client_intent_component.vue";
 
 export default {
   name: "dashboardPage",
@@ -31,6 +33,7 @@ export default {
     menuComponent,
     clientTableComponent,
     clientKeywordsComponent,
+    clientIntentComponent,
   },
 };
 </script>
@@ -45,7 +48,7 @@ export default {
 
 .column_one {
   display: grid;
-  grid-template-columns: 70% 25%;
+  grid-template-columns: 70vw 20vw;
   column-gap: 24px;
   margin: 24px;
   height: 80%;
@@ -67,14 +70,10 @@ export default {
 .clients_keywords {
   background-color: $white;
   padding: 24px;
-  height: 100% -24px;
-  width: 100% -24px;
 }
 
 .clients_charts_board {
   background-color: $white;
   padding: 24px;
-  height: 100% -24px;
-  width: 100% -24px;
 }
 </style>

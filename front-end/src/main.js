@@ -12,11 +12,4 @@ new Vue({
 }).$mount('#app')
 
 
-// fetch('http://demand-analysis.local/#/api/sites')
-//   .then(response => {
-//     return response.json();
-//   })
-//   .then(sites => {
-//     console.log(sites);
-//   })
 

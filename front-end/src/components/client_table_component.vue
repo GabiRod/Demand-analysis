@@ -1,5 +1,11 @@
 <template>
   <div id="client_table_component" class="client_table_component">
+    <input
+      class="search_input"
+      type="text"
+      name="search"
+      placeholder="search"
+    />
     <thead>
       <tr>
         <th
@@ -30,6 +36,7 @@
 <script>
 export default {
   name: "clientTableComponent",
+  search: "",
   data() {
     return {
       currentPage: 1,
@@ -112,6 +119,11 @@ export default {
       return Object.keys(this.rows[0]);
     },
   },
+  filteredList() {
+    return this.postList.filter((post) => {
+      return post.title.toLowerCase().includes(this.search.toLowerCase());
+    });
+  },
 };
 </script>
 
@@ -132,7 +144,12 @@ export default {
 
 .clients_row_data {
   color: $blue;
-  padding: 5px 10px;
+  padding: 5px 5%;
   border-bottom: 1px solid $grey;
+}
+
+.search_input {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
