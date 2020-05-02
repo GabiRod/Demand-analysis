@@ -14,42 +14,6 @@ export default {
       keywords: 268238,
     };
   },
-
-  methods: {
-    sortTable: function sortTable(col) {
-      if (this.sortColumn === col) {
-        this.ascending = !this.ascending;
-      } else {
-        this.ascending = true;
-        this.sortColumn = col;
-      }
-
-      var ascending = this.ascending;
-
-      this.rows.sort(function(a, b) {
-        if (a[col] > b[col]) {
-          return ascending ? 1 : -1;
-        } else if (a[col] < b[col]) {
-          return ascending ? -1 : 1;
-        }
-        return 0;
-      });
-    },
-    get_rows: function get_rows() {
-      var start = (this.currentPage - 1) * this.elementsPerPage;
-      var end = start + this.elementsPerPage;
-      return this.rows.slice(start, end);
-    },
-  },
-
-  computed: {
-    columns: function columns() {
-      if (this.rows.length == 0) {
-        return [];
-      }
-      return Object.keys(this.rows[0]);
-    },
-  },
 };
 </script>
 
@@ -60,6 +24,7 @@ export default {
 }
 
 .client_keywords_number {
+  font-size: 40px;
   color: $green;
 }
 

@@ -11,6 +11,7 @@ export default {
     return {
       authenticated: false,
       info: null,
+      axios: require("axios").default,
     };
   },
   methods: {
@@ -22,13 +23,10 @@ export default {
     },
   },
   mounted() {
-    fetch("http://demand-analysis.local/#/api/sites")
-      .then((response) => {
-        return response.json();
-      })
-      .then((sites) => {
-        console.log(sites);
-      });
+    fetch("http://demand-analysis.local/api/sites")
+      .then((response) => response.json())
+      .then((data) => (this.sites = data));
+
     if (!this.authenticated) {
       this.$router.replace({ path: "/" });
     }
