@@ -3,8 +3,11 @@
     <menuComponent />
 
     <div class="column_one">
-      <div class="clients_board">
-        <clientTableComponent />
+      <div class="column_two">
+        <div class="categories"></div>
+        <div class="clients_board">
+          <clientTableComponent />
+        </div>
       </div>
 
       <div class="column_two">
@@ -13,13 +16,9 @@
         <div class="clients_charts_board">
           <div>{{ sites }}</div>
           Number of keywords by intent
-
-          <clientIntentComponent />
         </div>
       </div>
     </div>
-
-    <router-link to="/keywords_dashboard_page">go back</router-link>
   </div>
 </template>
 
@@ -27,7 +26,6 @@
 import menuComponent from "../components/menu_component.vue";
 import clientTableComponent from "../components/client_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
-import clientIntentComponent from "../components/client_intent_component.vue";
 
 export default {
   name: "dashboardPage",
@@ -35,7 +33,6 @@ export default {
     menuComponent,
     clientTableComponent,
     clientKeywordsComponent,
-    clientIntentComponent,
   },
 };
 </script>

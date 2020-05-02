@@ -41,20 +41,11 @@ export const intentChartData = {
   options: {
     responsive: true,
     lineTension: 1,
-    legend: {
-      display: true,
-      labels: {
-        fontColor: '#283c66'
-      },
-      position: 'bottom',
-    },
+    labels: true,
     scales: {
       yAxes: [{
-        ticks: {
-          beginAtZero: true,
-          padding: 15,
-          max: 200,
-        }
+        display: false
+
       }],
       xAxes: [{
         display: false

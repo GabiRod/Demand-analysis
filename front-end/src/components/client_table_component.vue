@@ -29,7 +29,7 @@
           <td class="clients_row_data" v-for="col in columns" :key="col">
             {{ row[col] }}
           </td>
-          <router-link class="client_button" to="/scan_page">
+          <router-link class="client_button" to="/keywords_dashboard_page">
             ENTER
           </router-link>
         </tr>
@@ -41,6 +41,7 @@
 <script>
 export default {
   name: "clientTableComponent",
+
   search: "",
   data() {
     return {
