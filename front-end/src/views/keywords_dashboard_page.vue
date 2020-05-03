@@ -6,7 +6,7 @@
       <div class="column_two">
         <div class="categories"></div>
         <div class="clients_board">
-          <clientTableComponent />
+          <keywordsTableComponent />
         </div>
       </div>
 
@@ -24,14 +24,14 @@
 
 <script>
 import menuComponent from "../components/menu_component.vue";
-import clientTableComponent from "../components/client_table_component.vue";
+import keywordsTableComponent from "../components/keywords_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
 
 export default {
   name: "dashboardPage",
   components: {
     menuComponent,
-    clientTableComponent,
+    keywordsTableComponent,
     clientKeywordsComponent,
   },
 };

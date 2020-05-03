@@ -124,12 +124,12 @@ export default {
       }
       return Object.keys(this.rows[0]);
     },
-  },
 
-  filteredList() {
-    return this.postList.filter((post) => {
-      return post.title.toLowerCase().includes(this.search.toLowerCase());
-    });
+    filteredList() {
+      return this.postList.filter((post) => {
+        return post.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
   },
 };
 </script>

@@ -1,135 +1,123 @@
 <template>
-  <div id="client_table_component" class="client_table_component">
+  <div id="keywords_table_component" class="keywords_table_component">
     <input
       class="search_input"
       type="text"
       name="search"
+      v-model="search"
       placeholder="search"
     />
     <div class="client_table">
-      <thead>
-        <tr>
-          <th
-            class="clients_column_menu"
-            v-for="col in columns"
-            v-on:click="sortTable(col)"
-            :key="col"
-          >
-            {{ col }}
-            <div
-              class="arrow"
-              v-if="col == sortColumn"
-              v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"
-            ></div>
-          </th>
-        </tr>
-      </thead>
       <tbody>
-        <tr class="clients_row" v-for="row in get_rows()" :key="row">
-          <td class="clients_row_data" v-for="col in columns" :key="col">
-            {{ row[col] }}
-          </td>
-          <router-link class="client_button" to="/keywords_dashboard_page">
-            ENTER
-          </router-link>
-        </tr>
+        <div class="row" :key="post" v-for="post in filteredList">
+          <div class="keyword_row">{{ post.keyword }}</div>
+          <div class="keyword_row">{{ post.volume }}</div>
+          <div class="keyword_row">{{ post.position }}</div>
+          <div class="keyword_row">{{ post.cta }}</div>
+          <div class="keyword_row">{{ post.category }}</div>
+          <div class="keyword_row">{{ post.subcategory1 }}</div>
+          <div class="keyword_row">{{ post.subcategory2 }}</div>
+          <div class="keyword_row">{{ post.intent }}</div>
+        </div>
       </tbody>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "clientTableComponent",
+class Post {
+  constructor(
+    keyword,
+    volume,
+    position,
+    cta,
+    category,
+    subcategory1,
+    subcategory2,
+    intent
+  ) {
+    this.keyword = keyword;
+    this.volume = volume;
+    this.position = position;
+    this.cta = cta;
+    this.category = category;
+    this.subcategory1 = subcategory1;
+    this.subcategory2 = subcategory2;
+    this.intent = intent;
+  }
+}
 
-  search: "",
+export default {
+  name: "keywordsTableComponent",
+
   data() {
     return {
-      currentPage: 1,
-      elementsPerPage: 100,
-      ascending: false,
-      sortColumn: "",
-      rows: [
-        {
-          id: 1,
-          name: "Chandler Bing",
-          phone: "305-917-1301",
-          profession: "IT Manager",
-        },
-        {
-          id: 2,
-          name: "Ross Geller",
-          phone: "210-684-8953",
-          profession: "Paleontologist",
-        },
-        {
-          id: 3,
-          name: "Rachel Green",
-          phone: "765-338-0312",
-          profession: "Waitress",
-        },
-        {
-          id: 4,
-          name: "Monica Geller",
-          phone: "714-541-3336",
-          profession: "Head Chef",
-        },
-        {
-          id: 5,
-          name: "Joey Tribbiani",
-          phone: "972-297-6037",
-          profession: "Actor",
-        },
-        {
-          id: 6,
-          name: "Phoebe Buffay",
-          phone: "760-318-8376",
-          profession: "Masseuse",
-        },
+      search: "",
+      postList: [
+        new Post(
+          "Vue.js",
+          "https://vuejs.org/",
+          "Chris",
+          "https://vuejs.org//images/logo.png"
+        ),
+        new Post(
+          "React.js",
+          "https://facebook.github.io/react/",
+          "Tim",
+          "https://daynin.github.io/clojurescript-presentation/img/react-logo.png"
+        ),
+        new Post(
+          "Angular.js",
+          "https://angularjs.org/",
+          "Sam",
+          "https://angularjs.org/img/ng-logo.png"
+        ),
+        new Post(
+          "Ember.js",
+          "http://emberjs.com/",
+          "Rachel",
+          "http://www.gravatar.com/avatar/0cf15665a9146ba852bf042b0652780a?s=200"
+        ),
+        new Post(
+          "Meteor.js",
+          "https://www.meteor.com/",
+          "Chris",
+          "http://hacktivist.in/introduction-to-nodejs-mongodb-meteor/img/meteor.png"
+        ),
+        new Post(
+          "Aurelia",
+          "http://aurelia.io/",
+          "Tim",
+          "https://cdn.auth0.com/blog/aurelia-logo.png"
+        ),
+        new Post(
+          "Node.js",
+          "https://nodejs.org/en/",
+          "A. A. Ron",
+          "https://code-maven.com/img/node.png"
+        ),
+        new Post(
+          "Pusher",
+          "https://pusher.com/",
+          "Alex",
+          "https://avatars1.githubusercontent.com/u/739550?v=3&s=400"
+        ),
+        new Post(
+          "Feathers.js",
+          "http://feathersjs.com/",
+          "Chuck",
+          "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
+        ),
       ],
     };
   },
 
-  methods: {
-    sortTable: function sortTable(col) {
-      if (this.sortColumn === col) {
-        this.ascending = !this.ascending;
-      } else {
-        this.ascending = true;
-        this.sortColumn = col;
-      }
-
-      var ascending = this.ascending;
-
-      this.rows.sort(function(a, b) {
-        if (a[col] > b[col]) {
-          return ascending ? 1 : -1;
-        } else if (a[col] < b[col]) {
-          return ascending ? -1 : 1;
-        }
-        return 0;
+  computed: {
+    filteredList() {
+      return this.postList.filter((post) => {
+        return post.keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
-    get_rows: function get_rows() {
-      var start = (this.currentPage - 1) * this.elementsPerPage;
-      var end = start + this.elementsPerPage;
-      return this.rows.slice(start, end);
-    },
-  },
-
-  computed: {
-    columns: function columns() {
-      if (this.rows.length == 0) {
-        return [];
-      }
-      return Object.keys(this.rows[0]);
-    },
-  },
-
-  filteredList() {
-    return this.postList.filter((post) => {
-      return post.title.toLowerCase().includes(this.search.toLowerCase());
-    });
   },
 };
 </script>
@@ -146,15 +134,8 @@ export default {
   font-size: 15px;
 }
 
-tbody {
-  display: grid;
-  grid-template-columns: 100%;
-}
-
-thead {
-  display: grid;
-  grid-template-columns: 100%;
-  border-bottom: 1px solid $grey;
+.row {
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
 }
 
 .clients_row {
