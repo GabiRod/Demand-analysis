@@ -11,7 +11,6 @@ export default {
     return {
       authenticated: false,
       info: null,
-      axios: require("axios").default,
     };
   },
   methods: {
@@ -23,7 +22,7 @@ export default {
     },
   },
   mounted() {
-    fetch("http://demand-analysis.local/api/sites")
+    fetch("http://demand-analysis.local/#/api/gsc/siteurl")
       .then((response) => response.json())
       .then((data) => (this.sites = data));
 
