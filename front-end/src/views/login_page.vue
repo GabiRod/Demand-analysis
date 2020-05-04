@@ -54,7 +54,7 @@ export default {
           this.input.password == "123"
         ) {
           this.$emit("authenticated", true);
-          this.$router.replace({ path: "/dashboard_page" });
+          this.$router.replace({ path: "/client_dashboard_page" });
         } else {
           console.log("The username and / or password is incorrect");
           alert("The email adress and / or password is incorrect");

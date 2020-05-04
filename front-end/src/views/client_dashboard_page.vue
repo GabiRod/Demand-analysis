@@ -1,5 +1,5 @@
 <template>
-  <div id="dashboard_page" class="dashboard_page">
+  <div id="client_dashboard_page" class="client_dashboard_page">
     <menuComponent />
 
     <div class="column_one">
@@ -13,7 +13,7 @@
         <div class="clients_charts_board">
           Number of keywords by intent
 
-          <clientIntentComponent />
+          <clientChartComponent />
         </div>
       </div>
     </div>
@@ -26,21 +26,21 @@
 import menuComponent from "../components/menu_component.vue";
 import clientTableComponent from "../components/client_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
-import clientIntentComponent from "../components/client_intent_component.vue";
+import clientChartComponent from "../components/client_chart_component.vue";
 
 export default {
-  name: "dashboardPage",
+  name: "clientDashboardPage",
   components: {
     menuComponent,
     clientTableComponent,
     clientKeywordsComponent,
-    clientIntentComponent,
+    clientChartComponent,
   },
 };
 </script>
 
 <style lang="scss">
-.dashboard_page {
+.client_dashboard_page {
   background-color: $grey;
   margin: 0px;
   margin: 0 0 0 80px;

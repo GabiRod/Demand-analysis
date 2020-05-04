@@ -19,15 +19,14 @@
       v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"
     ></div>
     <div class="client_table">
-      <tbody>
-        <div class="row" :key="client.id" v-for="client in filteredList">
-          <div class="keyword_row">{{ client.keyword }}</div>
-          <div class="keyword_row">{{ client.volume }}</div>
-          <div class="keyword_row">{{ client.position }}</div>
-          <div class="keyword_row">{{ client.cta }}</div>
-          <input class="keyword_row" v:model="client.category" />
-        </div>
-      </tbody>
+      <div class="row" :key="client.id" v-for="client in filteredList">
+        <div class="keyword_row">{{ client.keyword }}</div>
+        <div class="keyword_row">{{ client.volume }}</div>
+        <div class="keyword_row">{{ client.position }}</div>
+        <div class="keyword_row">{{ client.cta }}</div>
+        <input class="keyword_row" v:model="client.category" />
+        <router-link to="/keywords_dashboard_page">Enter</router-link>
+      </div>
     </div>
   </div>
 </template>

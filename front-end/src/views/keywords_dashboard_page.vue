@@ -1,12 +1,16 @@
 <template>
-  <div id="dashboard_page" class="dashboard_page">
-    <menuComponent />
+  <div id="keywords_dashboard_page" class="keywords_dashboard_page">
+    <menuComponentClient />
 
     <div class="column_one">
       <div class="column_two">
         <div class="categories"></div>
         <div class="clients_board">
-          <keywordsTableComponent />
+          <button v-on:click="keywords()">Keywords</button>
+          <button v-on:click="words()">Words</button>
+          <keep-alive>
+            <component :is="component"></component>
+          </keep-alive>
         </div>
       </div>
 
@@ -23,16 +27,32 @@
 </template>
 
 <script>
-import menuComponent from "../components/menu_component.vue";
+import menuComponentClient from "../components/menu_component_client.vue";
 import keywordsTableComponent from "../components/keywords_table_component.vue";
+import wordsTableComponent from "../components/words_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
 
 export default {
   name: "dashboardPage",
+  data() {
+    return {
+      component: "keywordsTableComponent ",
+    };
+  },
   components: {
-    menuComponent,
+    menuComponentClient,
     keywordsTableComponent,
+    wordsTableComponent,
     clientKeywordsComponent,
+  },
+  methods: {
+    keywords() {
+      this.component = "keywordsTableComponent";
+    },
+    words() {
+      this.component = "wordsTableComponent";
+      console.log("hey");
+    },
   },
 };
 </script>

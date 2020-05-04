@@ -1,5 +1,5 @@
 <template>
-  <div id="keywords_table_component" class="keywords_table_component">
+  <div id="words_table_component" class="words_table_component">
     <input
       class="search_input"
       type="text"
@@ -24,10 +24,6 @@
         <div class="keyword_row">{{ post.volume }}</div>
         <div class="keyword_row">{{ post.position }}</div>
         <div class="keyword_row">{{ post.cta }}</div>
-        <input class="keyword_row" v:model="post.category" />
-        <input class="keyword_row" v:model="post.subcategory1" />
-        <input class="keyword_row" v:model="post.subcategory2" />
-        <input class="keyword_row" v:model="post.intent" />
       </div>
     </div>
   </div>
@@ -57,7 +53,7 @@ class Post {
 }
 
 export default {
-  name: "keywordsTableComponent",
+  name: "wordsTableComponent",
 
   data() {
     return {

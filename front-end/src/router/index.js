@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import loginPage from '../views/login_page.vue'
 import scanPage from '../views/scan_page.vue'
-import dashboardPage from '../views/dashboard_page.vue'
+import clientDashboardPage from '../views/client_dashboard_page.vue'
 import keywordsDashboardPage from '../views/keywords_dashboard_page.vue'
 
 
@@ -20,9 +20,9 @@ const routes = [
     component: scanPage
   },
   {
-    path: '/dashboard_page',
-    name: "dashboardPage",
-    component: dashboardPage
+    path: '/client_dashboard_page',
+    name: "client_dashboardPage",
+    component: clientDashboardPage
   },
   {
     path: '/keywords_dashboard_page',

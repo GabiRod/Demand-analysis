@@ -1,12 +1,15 @@
 <template>
-  <div id="menu_component" class="menu_component">
-    <div class="secondary_menu_bar"></div>
+  <div id="menu_component_client" class="menu_component_client">
+    <div class="secondary_menu_bar">
+      subsites menu
+      <!-- <li v-for="subsite in subsites"></li> -->
+    </div>
 
     <div class="primary_menu_bar">
       <div class="menu_bar">
         <img class="menu_logo" src="../assets/resize.png" alt="" />
-
-        <h1 class="menu_title">Clients</h1>
+        <router-link to="/dashboard_page">back</router-link>
+        <h1 class="menu_title">Client name</h1>
       </div>
 
       <button class="logout_button" v-on:click="logout()">LOG OUT</button>
@@ -16,7 +19,7 @@
 
 <script>
 export default {
-  name: "menuComponent",
+  name: "menuComponentClient",
   methods: {
     logout() {
       this.$emit("authenticated", false);
@@ -27,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss">
-.menu_component {
+.menu_component_client {
   background-color: $white;
 }
 
