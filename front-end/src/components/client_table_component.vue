@@ -1,133 +1,123 @@
 <template>
-  <div id="client_table_component" class="client_table_component">
+  <div id="keywords_table_component" class="keywords_table_component">
     <input
       class="search_input"
       type="text"
       name="search"
+      v-model="search"
       placeholder="search"
     />
+    <div
+      class="clients_column_menu"
+      v-for="menu in constructor"
+      v-on:click="sortTable(post)"
+      :key="menu.id"
+    ></div>
+    <div
+      class="arrow"
+      v-if="col == sortColumn"
+      v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"
+    ></div>
     <div class="client_table">
-      <thead>
-        <tr>
-          <th
-            class="clients_column_menu"
-            v-for="col in columns"
-            v-on:click="sortTable(col)"
-            :key="col"
-          >
-            {{ col }}
-            <div
-              class="arrow"
-              v-if="col == sortColumn"
-              v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"
-            ></div>
-          </th>
-        </tr>
-      </thead>
       <tbody>
-        <tr class="clients_row" v-for="row in get_rows()" :key="row">
-          <td class="clients_row_data" v-for="col in columns" :key="col">
-            {{ row[col] }}
-          </td>
-          <router-link class="client_button" to="/keywords_dashboard_page">
-            ENTER
-          </router-link>
-        </tr>
+        <div class="row" :key="client.id" v-for="client in filteredList">
+          <div class="keyword_row">{{ client.keyword }}</div>
+          <div class="keyword_row">{{ client.volume }}</div>
+          <div class="keyword_row">{{ client.position }}</div>
+          <div class="keyword_row">{{ client.cta }}</div>
+          <input class="keyword_row" v:model="client.category" />
+        </div>
       </tbody>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "clientTableComponent",
+class Client {
+  constructor(keyword, volume, position, cta, category) {
+    this.keyword = keyword;
+    this.volume = volume;
+    this.position = position;
+    this.cta = cta;
+    this.category = category;
+  }
+}
 
-  search: "",
+export default {
+  name: "keywordsTableComponent",
+
   data() {
     return {
-      currentPage: 1,
-      elementsPerPage: 100,
       ascending: false,
       sortColumn: "",
-      rows: [
-        {
-          id: 1,
-          name: "Chandler Bing",
-          phone: "305-917-1301",
-          profession: "IT Manager",
-        },
-        {
-          id: 2,
-          name: "Ross Geller",
-          phone: "210-684-8953",
-          profession: "Paleontologist",
-        },
-        {
-          id: 3,
-          name: "Rachel Green",
-          phone: "765-338-0312",
-          profession: "Waitress",
-        },
-        {
-          id: 4,
-          name: "Monica Geller",
-          phone: "714-541-3336",
-          profession: "Head Chef",
-        },
-        {
-          id: 5,
-          name: "Joey Tribbiani",
-          phone: "972-297-6037",
-          profession: "Actor",
-        },
-        {
-          id: 6,
-          name: "Phoebe Buffay",
-          phone: "760-318-8376",
-          profession: "Masseuse",
-        },
+      client: "",
+      search: "",
+      clientList: [
+        new Client("Vue.js", "https://vuejs.org/", "Chris", "456", " "),
+        new Client(
+          "React.js",
+          "https://facebook.github.io/react/",
+          "Tim",
+          "456",
+          " "
+        ),
+        new Client("Angular.js", "https://angularjs.org/", "Sam", "4568", " "),
+        new Client("Ember.js", "http://emberjs.com/", "Rachel", "200", " "),
+        new Client(
+          "Meteor.js",
+          "https://www.meteor.com/",
+          "Chris",
+          "1235",
+          " "
+        ),
+        new Client("Aurelia", "http://aurelia.io/", "Tim", "896", " "),
+        new Client(
+          "Node.js",
+          "https://nodejs.org/en/",
+          "A. A. Ron",
+          "4568",
+          " "
+        ),
+        new Client("Pusher", "https://pusher.com/", "Alex", "1238", " "),
+        new Client(
+          "Feathers.js",
+          "http://feathersjs.com/",
+          "Chuck",
+          "4568",
+          " "
+        ),
       ],
     };
   },
 
+  computed: {
+    filteredList() {
+      return this.clientList.filter((client) => {
+        return client.keyword.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
+    fullName: function() {
+      return this.client.category + " " + this.client.intent;
+    },
+  },
   methods: {
-    sortTable: function sortTable(col) {
-      if (this.sortColumn === col) {
+    sortTable: function sortTable(client) {
+      if (this.sortColumn === client) {
         this.ascending = !this.ascending;
       } else {
         this.ascending = true;
-        this.sortColumn = col;
+        this.sortColumn = client;
       }
 
       var ascending = this.ascending;
 
-      this.rows.sort(function(a, b) {
-        if (a[col] > b[col]) {
+      this.filteredList.sort(function(a, b) {
+        if (a[client] > b[client]) {
           return ascending ? 1 : -1;
-        } else if (a[col] < b[col]) {
+        } else if (a[client] < b[client]) {
           return ascending ? -1 : 1;
         }
         return 0;
-      });
-    },
-    get_rows: function get_rows() {
-      var start = (this.currentPage - 1) * this.elementsPerPage;
-      var end = start + this.elementsPerPage;
-      return this.rows.slice(start, end);
-    },
-  },
-
-  computed: {
-    columns: function columns() {
-      if (this.rows.length == 0) {
-        return [];
-      }
-      return Object.keys(this.rows[0]);
-    },
-
-    filteredList() {
-      return this.postList.filter((post) => {
-        return post.name.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },
@@ -146,15 +136,11 @@ export default {
   font-size: 15px;
 }
 
-tbody {
+.row {
+  text-align: left;
+  font-size: 12px;
   display: grid;
-  grid-template-columns: 100%;
-}
-
-thead {
-  display: grid;
-  grid-template-columns: 100%;
-  border-bottom: 1px solid $grey;
+  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% auto;
 }
 
 .clients_row {
