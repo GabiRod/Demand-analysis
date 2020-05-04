@@ -17,8 +17,6 @@
         </div>
       </div>
     </div>
-
-    <router-link to="/keywords_dashboard_page">go back</router-link>
   </div>
 </template>
 

@@ -8,7 +8,7 @@
     <div class="primary_menu_bar">
       <div class="menu_bar">
         <img class="menu_logo" src="../assets/resize.png" alt="" />
-        <router-link to="/dashboard_page">back</router-link>
+        <router-link to="/client_dashboard_page">back</router-link>
         <h1 class="menu_title">Client name</h1>
       </div>
 

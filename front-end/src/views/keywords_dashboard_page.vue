@@ -36,7 +36,7 @@ export default {
   name: "dashboardPage",
   data() {
     return {
-      component: "keywordsTableComponent ",
+      component: "keywordsTableComponent",
     };
   },
   components: {
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss">
-.dashboard_page {
+.keywords_dashboard_page {
   background-color: $grey;
   margin: 0px;
   margin: 0 0 0 80px;
