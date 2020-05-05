@@ -49,8 +49,11 @@ export default {
 }
 
 .menu_title {
-  padding-left: 20px;
+  padding: 0px 20px;
+
   color: $blue;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .logout_button {
@@ -73,7 +76,7 @@ export default {
   flex-direction: column;
   float: left;
   background-color: $white;
-  width: 80px;
+  width: 60px;
   position: fixed;
   left: 0;
   height: 100vh;

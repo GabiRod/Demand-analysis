@@ -20,6 +20,9 @@
       />
 
       <br />
+      <div>
+        {{ info }}
+      </div>
       <br />
       <input
         class="login_input"
@@ -40,6 +43,7 @@ export default {
   name: "loginPage",
   data() {
     return {
+      info: null,
       input: {
         email: "",
         password: "",

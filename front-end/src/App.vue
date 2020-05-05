@@ -1,10 +1,15 @@
 <template>
   <div id="app">
+    <div>
+      {{ info }}
+    </div>
     <router-view />
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "App",
   data() {
@@ -22,9 +27,9 @@ export default {
     },
   },
   mounted() {
-    fetch("http://demand-analysis.local/#/api/gsc/siteurl")
-      .then((response) => response.json())
-      .then((data) => (this.sites = data));
+    axios
+      .get("http://demand-analysis.local/api/sites")
+      .then((response) => (this.info = response));
 
     if (!this.authenticated) {
       this.$router.replace({ path: "/" });
