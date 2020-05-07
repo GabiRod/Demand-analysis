@@ -38,6 +38,8 @@ class Client {
   }
 }
 
+<input type="text" placeholder="enter the URL" />;
+
 export default {
   name: "clientTableComponent",
 
@@ -91,7 +93,7 @@ export default {
   text-align: left;
   font-size: 12px;
   display: grid;
-  grid-template-columns: 15% 20% 15% auto 10%;
+  grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
   color: $blue;
   font-size: 12px;
@@ -126,8 +128,8 @@ export default {
   border: 2px solid $green;
   color: $green;
   background-color: $white;
-  font-size: 10px;
-  margin: 2px;
+  font-size: 12px;
+  margin: 1px 2px;
 
   &:hover {
     background-color: $green;

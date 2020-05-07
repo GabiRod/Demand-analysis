@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import menuComponent from "../components/menu_component.vue";
 import clientTableComponent from "../components/client_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";

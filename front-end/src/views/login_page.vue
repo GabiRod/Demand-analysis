@@ -43,7 +43,6 @@ export default {
   name: "loginPage",
   data() {
     return {
-      info: null,
       input: {
         email: "",
         password: "",

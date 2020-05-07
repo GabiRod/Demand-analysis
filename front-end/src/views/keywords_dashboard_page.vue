@@ -1,6 +1,6 @@
 <template>
   <div id="keywords_dashboard_page" class="keywords_dashboard_page">
-    <menuComponentClient />
+    <menuComponentClient :info="info" />
 
     <div class="column_one">
       <div class="column_two">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import menuComponentClient from "../components/menu_component_client.vue";
 import keywordsTableComponent from "../components/keywords_table_component.vue";
 import wordsTableComponent from "../components/words_table_component.vue";
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       component: "keywordsTableComponent",
+      info: null,
     };
   },
   components: {
@@ -53,6 +55,11 @@ export default {
       this.component = "wordsTableComponent";
       console.log("hey");
     },
+  },
+  mounted() {
+    axios
+      .get("http://demand-analysis.local/api/sites")
+      .then((response) => (this.info = response));
   },
 };
 </script>
