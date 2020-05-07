@@ -43,10 +43,10 @@ namespace back_end.Controllers
                 IList<string> dimensions = new List<string>();
                 dimensions.Add("query");
                 dimensions.Add("page");
-                body.StartDate = request.startDate;
-                body.EndDate = request.endDate;
+                body.StartDate = DateTime.Today.AddDays(-90).ToShortDateString();
+                body.EndDate = DateTime.Today.ToShortDateString();
                 body.Dimensions = dimensions;
-                body.RowLimit = request.rowLimit > 250000 ? 25000 : request.rowLimit;
+                body.RowLimit = 25000;
 
                 var result = searchConsole.Searchanalytics.Query(body, request.siteUrl).Execute();
 
@@ -96,10 +96,10 @@ namespace back_end.Controllers
                 IList<string> dimensions = new List<string>();
                 dimensions.Add("query");
                 dimensions.Add("page");
-                body.StartDate = request.startDate;
-                body.EndDate = request.endDate;
+                body.StartDate = DateTime.Today.AddDays(-90).ToShortDateString();
+                body.EndDate = DateTime.Today.ToShortDateString();
                 body.Dimensions = dimensions;
-                body.RowLimit = request.rowLimit;
+                body.RowLimit = 25000;
 
                 var result = searchConsole.Searchanalytics.Query(body, request.siteUrl).Execute();
 
