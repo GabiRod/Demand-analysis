@@ -7,5 +7,6 @@
         public string startDate { get; set; }
         public string endDate { get; set; }
         public int rowLimit { get; set; }
+        public int analysisId { get; set; }
     }
 }

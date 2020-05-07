@@ -57,10 +57,10 @@ namespace back_end.GoogleSearchConsole
                     {
                         Query = row.Keys[0],
                         Page = row.Keys[1],
-                        Clicks = row.Clicks,
-                        Impressions = row.Impressions,
+                        Clicks = (int)row.Clicks,
+                        Impressions = (int)row.Impressions,
                         Ctr = row.Ctr,
-                        Position = row.Position
+                        Position = (int)row.Position
                     });
                 }
 
