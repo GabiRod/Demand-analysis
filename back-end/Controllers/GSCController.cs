@@ -148,7 +148,6 @@ namespace back_end.Controllers
             return "No data found";
         }
 
-
         [Route("/analysis/all")]
         [HttpGet]
         public string GetAnalysis()
@@ -186,6 +185,56 @@ namespace back_end.Controllers
             }
 
             return JsonConvert.SerializeObject(analysesResultList);
+        }
+
+        [Route("/analysis/category/{id}")]
+        [HttpPut]
+        public string PutCategory([FromBody] CategoryData categoryData, int id)
+        {
+            try
+            {
+                using SqlConnection conn = new SqlConnection(connString.SQLConnection);
+
+                var sqlUpdate = "UPDATE AnalysisData " +
+                                "SET Category = @Category, " +
+                                "SubCategory1 = @SubCategory1," +
+                                "SubCategory2 = @SubCategory2," +
+                                "Intent = @Intent " +
+                                "WHERE DataId = @DataId";
+
+                using SqlCommand cmd = new SqlCommand(sqlUpdate, conn);
+                cmd.Parameters.Add("@Category", SqlDbType.NVarChar).Value = categoryData.category;
+                cmd.Parameters.Add("@SubCategory1", SqlDbType.NVarChar).Value = categoryData.subCategory1;
+                cmd.Parameters.Add("@SubCategory2", SqlDbType.NVarChar).Value = categoryData.subCategory2;
+                cmd.Parameters.Add("@Intent", SqlDbType.NVarChar).Value = categoryData.intent;
+                cmd.Parameters.Add("@DataId", SqlDbType.Int).Value = id;
+
+                conn.Open();
+                var res = cmd.ExecuteNonQuery();
+
+                conn.Close();
+                if (res == 1)
+                {
+                    return $"Updated id: {id}";
+                }
+                else
+                {
+                    return "Something went wrong";
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return $"Something went wrong: {e.Message}";
+            }
+        }
+
+        public class CategoryData
+        {
+            public string? category { get; set; }
+            public string? subCategory1 { get; set; }
+            public string? subCategory2 { get; set; }
+            public string? intent { get; set; }
         }
 
         private class AnalysisMeta
