@@ -28,100 +28,11 @@ namespace back_end.Controllers
             connString = connStringsAccessor.Value;
         }
 
-        [Route("/siteUrl")]
-        [HttpGet]
-        public string GetData([FromBody] RequestObject request)
-        {
-            using (var searchConsole = new Google.Apis.Webmasters.v3.WebmastersService(
-                new Google.Apis.Services.BaseClientService.Initializer
-                {
-                    HttpClientInitializer = credential,
-                    ApplicationName = "Search Console API test"
-                }))
-            {
-                SearchAnalyticsQueryRequest body = new SearchAnalyticsQueryRequest();
-                IList<string> dimensions = new List<string>();
-                dimensions.Add("query");
-                dimensions.Add("page");
-                body.StartDate = DateTime.Today.AddDays(-90).ToShortDateString();
-                body.EndDate = DateTime.Today.ToShortDateString();
-                body.Dimensions = dimensions;
-                body.RowLimit = 25000;
-
-                var result = searchConsole.Searchanalytics.Query(body, request.siteUrl).Execute();
-
-                List<SearchConsoleResult> dataList = new List<SearchConsoleResult>();
-
-                foreach (var row in result.Rows)
-                {
-                    dataList.Add(new SearchConsoleResult
-                    {
-                        Query = row.Keys[0],
-                        Page = row.Keys[1],
-                        Clicks = (int)row.Clicks,
-                        Impressions = (int)row.Impressions,
-                        Ctr = row.Ctr,
-                        Position = (int)row.Position
-                    });
-                }
-
-                var dataResult = new SearchConsoleData
-                {
-                    Results = new List<SearchConsoleResult>()
-                };
-                dataResult.Results.AddRange(dataList);
-                dataResult.NumberOfRows = dataList.Count;
-
-                return JsonConvert.SerializeObject(dataResult);
-            }
-        }
-
-
         [Route("/CreateAnalysis")]
         [HttpPost("{id}")]
         public string CreateAnalysis([FromBody] RequestObject request)
         {
-            var dataResult = new SearchConsoleData
-            {
-                Results = new List<SearchConsoleResult>()
-            };
-            using (var searchConsole = new Google.Apis.Webmasters.v3.WebmastersService(
-                new Google.Apis.Services.BaseClientService.Initializer
-                {
-                    HttpClientInitializer = credential,
-                    ApplicationName = "Search Console API test"
-                }))
-            {
-                SearchAnalyticsQueryRequest body = new SearchAnalyticsQueryRequest();
-                IList<string> dimensions = new List<string>();
-                dimensions.Add("query");
-                dimensions.Add("page");
-                body.StartDate = DateTime.Today.AddDays(-90).ToShortDateString();
-                body.EndDate = DateTime.Today.ToShortDateString();
-                body.Dimensions = dimensions;
-                body.RowLimit = 25000;
-
-                var result = searchConsole.Searchanalytics.Query(body, request.siteUrl).Execute();
-
-                List<SearchConsoleResult> dataList = new List<SearchConsoleResult>();
-
-                foreach (var row in result.Rows)
-                {
-                    dataList.Add(new SearchConsoleResult
-                    {
-                        Query = row.Keys[0],
-                        Page = row.Keys[1],
-                        Clicks = (int)row.Clicks,
-                        Impressions = (int) row.Impressions,
-                        Ctr = row.Ctr,
-                        Position = (int)row.Position
-                    });
-                }
-
-                dataResult.Results.AddRange(dataList);
-                dataResult.NumberOfRows = dataList.Count;
-            }
-
+            SearchConsoleData dataResult = GetSearchConsoleData(request);
 
             try
             {
@@ -147,7 +58,6 @@ namespace back_end.Controllers
 
                 table.Columns.Add(idColumn);
                 table.Columns.Add("DataId", typeof(int));
-
                 table.Columns.Add("Keyword", typeof(string));
                 table.Columns.Add("SiteUrl", typeof(string));
                 table.Columns.Add("Impressions", typeof(int));
@@ -178,35 +88,9 @@ namespace back_end.Controllers
                 };
 
                 bulk.WriteToServer(table);
-
-
-                var dataResult2 = new SearchConsoleData();
-                dataResult2.Results = new List<SearchConsoleResult>();
-
-                var sqlQuery2 =
-                    "SELECT DataId, Keyword, PageUrl, Impressions, Clicks, CTR, Position, Category, SubCategory1, SubCategory2, Intent FROM AnalysisData WHERE Id = @Id";
-                using SqlCommand cmd2 = new SqlCommand(sqlQuery2, conn);
-                cmd2.Parameters.Add("@Id", SqlDbType.Int).Value = newId;
-
-                var reader2 = cmd2.ExecuteReader();
-                while (reader2.Read())
-                {
-                    var searchResult = new SearchConsoleResult();
-                    searchResult.DataId = (int) reader2["DataId"];
-                    searchResult.Query = reader2["Keyword"].ToString();
-                    searchResult.Impressions = (int) reader2["Impressions"];
-                    searchResult.Clicks = (int) reader2["Clicks"];
-                    searchResult.Position = (int) reader2["Position"];
-                    searchResult.Category = reader2["Category"].ToString();
-                    searchResult.SubCategory1 = reader2["SubCategory1"].ToString();
-                    searchResult.SubCategory2 = reader2["SubCategory2"].ToString();
-                    searchResult.Intent = reader2["Intent"].ToString();
-                    searchResult.Page = reader2["PageUrl"].ToString();
-                    searchResult.Ctr = Double.Parse(reader2["CTR"].ToString());
-                    dataResult2.Results.Add(searchResult);
-                }
-
                 conn.Close();
+
+                var dataResult2 = GetAnalysis(conn, newId);
 
                 dataResult2.NumberOfRows = dataResult2.Results.Count;
                 dataResult2.AnalysisId = newId;
@@ -228,20 +112,19 @@ namespace back_end.Controllers
         [HttpGet]
         public string GetAnalysis(int id)
         {
-            var dataResult = new SearchConsoleData();
-            dataResult.Results = new List<SearchConsoleResult>();
-
             try
             {
                 using SqlConnection conn = new SqlConnection(connString.SQLConnection);
 
+                var dataResult = GetAnalysis(conn, id);
+
                 var sqlQuery1 = "SELECT TOP 1 Id, Customer, Url, CreatedDate FROM Analyses WHERE Id = @Id";
 
-                conn.Open();
+                using SqlCommand cmd = new SqlCommand(sqlQuery1, conn);
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
 
-                using SqlCommand cmd1 = new SqlCommand(sqlQuery1, conn);
-                cmd1.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-                var reader = cmd1.ExecuteReader();
+                conn.Open();
+                var reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -250,43 +133,20 @@ namespace back_end.Controllers
                 }
 
                 reader.Close();
-
-                var sqlQuery2 =
-                    "SELECT DataId, Keyword, PageUrl, Impressions, Clicks, CTR, Position, Category, SubCategory1, SubCategory2, Intent FROM AnalysisData WHERE Id = @Id";
-                using SqlCommand cmd2 = new SqlCommand(sqlQuery2, conn);
-                cmd2.Parameters.Add("@Id", SqlDbType.Int).Value = id;
-
-                var reader2 = cmd2.ExecuteReader();
-                while (reader2.Read())
-                {
-                    var searchResult = new SearchConsoleResult();
-                    searchResult.DataId = (int) reader2["DataId"];
-                    searchResult.Query = reader2["Keyword"].ToString();
-                    searchResult.Impressions = (int) reader2["Impressions"];
-                    searchResult.Clicks = (int) reader2["Clicks"];
-                    searchResult.Position = (int) reader2["Position"];
-                    searchResult.Category = reader2["Category"].ToString();
-                    searchResult.SubCategory1 = reader2["SubCategory1"].ToString();
-                    searchResult.SubCategory2 = reader2["SubCategory2"].ToString();
-                    searchResult.Intent = reader2["Intent"].ToString();
-                    searchResult.Page = reader2["PageUrl"].ToString();
-                    searchResult.Ctr = Double.Parse(reader2["CTR"].ToString());
-                    dataResult.Results.Add(searchResult);
-                }
-
                 conn.Close();
 
                 dataResult.NumberOfRows = dataResult.Results.Count;
                 dataResult.AnalysisId = id;
+
+                return JsonConvert.SerializeObject(dataResult);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
             }
 
-            return JsonConvert.SerializeObject(dataResult);
+            return "No data found";
         }
-
 
         [Route("/analysis/all")]
         [HttpGet]
@@ -327,6 +187,56 @@ namespace back_end.Controllers
             return JsonConvert.SerializeObject(analysesResultList);
         }
 
+        [Route("/analysis/category/{id}")]
+        [HttpPut]
+        public string PutCategory([FromBody] CategoryData categoryData, int id)
+        {
+            try
+            {
+                using SqlConnection conn = new SqlConnection(connString.SQLConnection);
+
+                var sqlUpdate = "UPDATE AnalysisData " +
+                                "SET Category = @Category, " +
+                                "SubCategory1 = @SubCategory1," +
+                                "SubCategory2 = @SubCategory2," +
+                                "Intent = @Intent " +
+                                "WHERE DataId = @DataId";
+
+                using SqlCommand cmd = new SqlCommand(sqlUpdate, conn);
+                cmd.Parameters.Add("@Category", SqlDbType.NVarChar).Value = categoryData.category;
+                cmd.Parameters.Add("@SubCategory1", SqlDbType.NVarChar).Value = categoryData.subCategory1;
+                cmd.Parameters.Add("@SubCategory2", SqlDbType.NVarChar).Value = categoryData.subCategory2;
+                cmd.Parameters.Add("@Intent", SqlDbType.NVarChar).Value = categoryData.intent;
+                cmd.Parameters.Add("@DataId", SqlDbType.Int).Value = id;
+
+                conn.Open();
+                var res = cmd.ExecuteNonQuery();
+
+                conn.Close();
+                if (res == 1)
+                {
+                    return $"Updated id: {id}";
+                }
+                else
+                {
+                    return "Something went wrong";
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+                return $"Something went wrong: {e.Message}";
+            }
+        }
+
+        public class CategoryData
+        {
+            public string? category { get; set; }
+            public string? subCategory1 { get; set; }
+            public string? subCategory2 { get; set; }
+            public string? intent { get; set; }
+        }
+
         private class AnalysisMeta
         {
             public string id { get; set; }
@@ -335,6 +245,87 @@ namespace back_end.Controllers
             public DateTime createdDate { get; set; }
         }
 
+        private SearchConsoleData GetAnalysis(SqlConnection conn, int id)
+        {
+            var dataResult = new SearchConsoleData
+            {
+                Results = new List<SearchConsoleResult>()
+            };
+
+            var sqlQuery =
+                "SELECT DataId, Keyword, PageUrl, Impressions, Clicks, CTR, Position, Category, SubCategory1, SubCategory2, Intent FROM AnalysisData WHERE Id = @Id";
+            using SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+            cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+            conn.Open();
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var searchResult = new SearchConsoleResult();
+                searchResult.DataId = (int) reader["DataId"];
+                searchResult.Query = reader["Keyword"].ToString();
+                searchResult.Impressions = (int) reader["Impressions"];
+                searchResult.Clicks = (int) reader["Clicks"];
+                searchResult.Position = (int) reader["Position"];
+                searchResult.Category = reader["Category"].ToString();
+                searchResult.SubCategory1 = reader["SubCategory1"].ToString();
+                searchResult.SubCategory2 = reader["SubCategory2"].ToString();
+                searchResult.Intent = reader["Intent"].ToString();
+                searchResult.Page = reader["PageUrl"].ToString();
+                searchResult.Ctr = Double.Parse(reader["CTR"].ToString());
+                dataResult.Results.Add(searchResult);
+            }
+
+            conn.Close();
+
+            return dataResult;
+        }
+
+        private SearchConsoleData GetSearchConsoleData(RequestObject request)
+        {
+            var dataResult = new SearchConsoleData
+            {
+                Results = new List<SearchConsoleResult>()
+            };
+
+            using var searchConsole = new Google.Apis.Webmasters.v3.WebmastersService(
+                new Google.Apis.Services.BaseClientService.Initializer
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = "Search Console API test"
+                });
+            SearchAnalyticsQueryRequest body = new SearchAnalyticsQueryRequest();
+            IList<string> dimensions = new List<string>();
+            dimensions.Add("query");
+            dimensions.Add("page");
+            body.StartDate = DateTime.Today.AddDays(-90).ToShortDateString();
+            body.EndDate = DateTime.Today.ToShortDateString();
+            body.Dimensions = dimensions;
+            body.RowLimit = 25000;
+
+            var result = searchConsole.Searchanalytics.Query(body, request.siteUrl).Execute();
+
+            List<SearchConsoleResult> dataList = new List<SearchConsoleResult>();
+
+            foreach (var row in result.Rows)
+            {
+                dataList.Add(new SearchConsoleResult
+                {
+                    Query = row.Keys[0],
+                    Page = row.Keys[1],
+                    Clicks = (int) row.Clicks,
+                    Impressions = (int) row.Impressions,
+                    Ctr = row.Ctr,
+                    Position = (int) row.Position
+                });
+            }
+
+            dataResult.Results.AddRange(dataList);
+            dataResult.NumberOfRows = dataList.Count;
+
+            return dataResult;
+        }
 
         private static readonly GoogleCredential credential = GoogleCredential
             .FromFile("credentials.json")
