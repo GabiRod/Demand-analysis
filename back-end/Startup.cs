@@ -13,11 +13,17 @@ using Microsoft.Extensions.Logging;
 
 namespace back_end
 {
+    public class ConnectionStrings
+    {
+        public string SQLConnection { get; set; }
+    }
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder().AddJsonFile("appSettings.json", true,true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +32,8 @@ namespace back_end
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddOptions();
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

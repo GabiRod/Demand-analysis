@@ -14,7 +14,7 @@ namespace back_end.Controllers
     [ApiController]
     public class SitesController : ControllerBase
     {
-        private static readonly GoogleCredential credential = Google.Apis.Auth.OAuth2.GoogleCredential.FromFile("credentials.json")
+        private static readonly GoogleCredential credential = GoogleCredential.FromFile("credentials.json")
             .CreateScoped(new[] { Google.Apis.Webmasters.v3.WebmastersService.Scope.WebmastersReadonly
             });
 
@@ -42,5 +42,7 @@ namespace back_end.Controllers
             }
 
         }
+
+
     }
 }
