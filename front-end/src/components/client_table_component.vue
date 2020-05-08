@@ -38,8 +38,6 @@ class Client {
   }
 }
 
-<input type="text" placeholder="enter the URL" />;
-
 export default {
   name: "clientTableComponent",
 
