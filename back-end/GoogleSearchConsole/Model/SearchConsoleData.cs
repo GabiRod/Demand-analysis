@@ -14,7 +14,7 @@ namespace back_end.GoogleSearchConsole
     public class SearchConsoleResult
     {
         public int DataId { get; set; }
-        public string Query { get; set; }
+        public string Keyword { get; set; }
         public string Page { get; set; }
         public int Clicks { get; set; }
         public int Impressions { get; set; }

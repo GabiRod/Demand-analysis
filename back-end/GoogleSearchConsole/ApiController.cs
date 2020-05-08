@@ -55,7 +55,7 @@ namespace back_end.GoogleSearchConsole
                 {
                     dataList.Add(new SearchConsoleResult
                     {
-                        Query = row.Keys[0],
+                        Keyword = row.Keys[0],
                         Page = row.Keys[1],
                         Clicks = (int)row.Clicks,
                         Impressions = (int)row.Impressions,

@@ -72,7 +72,7 @@ namespace back_end.Controllers
                 foreach (var data in dataResult.Results)
                 {
                     var row = table.NewRow();
-                    row["Keyword"] = data.Query;
+                    row["Keyword"] = data.Keyword;
                     row["SiteUrl"] = data.Page;
                     row["Clicks"] = data.Clicks;
                     row["Impressions"] = data.Impressions;
@@ -264,7 +264,7 @@ namespace back_end.Controllers
             {
                 var searchResult = new SearchConsoleResult();
                 searchResult.DataId = (int) reader["DataId"];
-                searchResult.Query = reader["Keyword"].ToString();
+                searchResult.Keyword = reader["Keyword"].ToString();
                 searchResult.Impressions = (int) reader["Impressions"];
                 searchResult.Clicks = (int) reader["Clicks"];
                 searchResult.Position = (int) reader["Position"];
@@ -312,7 +312,7 @@ namespace back_end.Controllers
             {
                 dataList.Add(new SearchConsoleResult
                 {
-                    Query = row.Keys[0],
+                    Keyword = row.Keys[0],
                     Page = row.Keys[1],
                     Clicks = (int) row.Clicks,
                     Impressions = (int) row.Impressions,
