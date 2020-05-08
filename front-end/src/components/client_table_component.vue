@@ -14,11 +14,12 @@
         <div class="">URL</div>
         <div class="">Keywords</div>
         <div class="">Note</div>
+        {{clin}}
       </div>
-      <div class="client_row" :key="client.id" v-for="client in filteredList">
-        <div class="client_data">{{ client.name }}</div>
+      <div class="client_row" :key="client.id" v-for="client in clientList">
+        <div class="client_data">{{ client.customerName }}</div>
         <div class="client_data">{{ client.url }}</div>
-        <div class="client_data">{{ client.keywords }}</div>
+        <div class="client_data">{{ client.createdDate }}</div>
         <input class="client_data client_data_note" v:model="client.note" />
         <router-link class="client_button" to="/keywords_dashboard_page"
           >Enter</router-link
@@ -29,39 +30,21 @@
 </template>
 
 <script>
-class Client {
-  constructor(name, url, keywords, note) {
-    this.name = name;
-    this.url = url;
-    this.keywords = keywords;
-    this.note = note;
-  }
-}
 
 export default {
   name: "clientTableComponent",
-
   data() {
     return {
       ascending: false,
       sortColumn: "",
-      client: "",
       search: "",
-      clientList: [
-        new Client("Vue.js", "https://vuejs.org/", "456", " "),
-        new Client("React.js", "https://facebook.github.io/react/", "456", " "),
-        new Client("Angular.js", "https://angularjs.org/", "4568", " "),
-        new Client("Ember.js", "http://emberjs.com/", "200", " "),
-        new Client("Meteor.js", "https://www.meteor.com/", "1235", " "),
-        new Client("Aurelia", "http://aurelia.io/", "Tim", "896", " "),
-        new Client("Node.js", "https://nodejs.org/en/", "A. A. Ron", " "),
-        new Client("Pusher", "https://pusher.com/", "1238", " "),
-        new Client("Feathers.js", "http://feathersjs.com/", "4568", " "),
-      ],
+      props:{
+          clientList: Array
+      },
     };
   },
-
   computed: {
+    
     filteredList() {
       return this.clientList.filter((client) => {
         return client.name.toLowerCase().includes(this.search.toLowerCase());

@@ -18,7 +18,6 @@
         <div class="clients_keywords"><clientKeywordsComponent /></div>
 
         <div class="clients_charts_board">
-          <div>{{ sites }}</div>
           Number of keywords by intent
         </div>
       </div>

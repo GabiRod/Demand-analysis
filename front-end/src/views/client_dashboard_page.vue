@@ -4,7 +4,8 @@
 
     <div class="column_one">
       <div class="clients_board">
-        <clientTableComponent />
+        <clientTableComponent :clientlist="clientlist" />
+         {{clientList}}
       </div>
 
       <div class="column_two">
@@ -12,7 +13,7 @@
 
         <div class="clients_charts_board">
           Number of keywords by intent
-
+               
           <clientChartComponent />
         </div>
       </div>
@@ -29,11 +30,17 @@ import clientChartComponent from "../components/client_chart_component.vue";
 
 export default {
   name: "clientDashboardPage",
+   clientList: null,
   components: {
     menuComponent,
     clientTableComponent,
     clientKeywordsComponent,
     clientChartComponent,
+  },
+   mounted() {
+    axios
+      .get("http://demand-analysis.local/api/analysis/all")
+      .then((response) => (this.clientList = response));
   },
 };
 </script>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 
 export default {
   name: "App",
@@ -25,11 +25,7 @@ export default {
     },
   },
   mounted() {
-    axios
-      .get("http://demand-analysis.local/api/sites")
-      .then((response) => (this.info = response));
-
-    if (!this.authenticated) {
+       if (!this.authenticated) {
       this.$router.replace({ path: "/" });
     }
   },
