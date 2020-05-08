@@ -14,10 +14,10 @@
         <div class="">URL</div>
         <div class="">Keywords</div>
         <div class="">Note</div>
-        {{clin}}
       </div>
-      <div class="client_row" :key="client.id" v-for="client in clientList">
-        <div class="client_data">{{ client.customerName }}</div>
+  
+      <div class="client_row" :key="client.id" v-for="client in filteredList">
+        <div class="client_data">{{ client.customerName}}</div>
         <div class="client_data">{{ client.url }}</div>
         <div class="client_data">{{ client.createdDate }}</div>
         <input class="client_data client_data_note" v:model="client.note" />
@@ -30,24 +30,18 @@
 </template>
 
 <script>
-
 export default {
   name: "clientTableComponent",
+  props:{ clientList: Object },
   data() {
     return {
-      ascending: false,
-      sortColumn: "",
       search: "",
-      props:{
-          clientList: Array
-      },
     };
   },
-  computed: {
-    
+   computed: {
     filteredList() {
       return this.clientList.filter((client) => {
-        return client.name.toLowerCase().includes(this.search.toLowerCase());
+        return client.customerName.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },

@@ -4,8 +4,8 @@
 
     <div class="column_one">
       <div class="clients_board">
-        <clientTableComponent :clientlist="clientlist" />
-         {{clientList}}
+        <clientTableComponent :clientList="clientList.data" />
+       
       </div>
 
       <div class="column_two">
@@ -30,7 +30,12 @@ import clientChartComponent from "../components/client_chart_component.vue";
 
 export default {
   name: "clientDashboardPage",
-   clientList: null,
+  data(){
+    return{
+      clientList: null,
+    
+    }
+  },
   components: {
     menuComponent,
     clientTableComponent,

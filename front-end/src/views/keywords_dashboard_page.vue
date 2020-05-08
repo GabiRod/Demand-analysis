@@ -1,13 +1,13 @@
 <template>
   <div id="keywords_dashboard_page" class="keywords_dashboard_page">
-    <menuComponentClient :info="info" />
+    <menuComponentClient :keywords="keywords" />
 
     <div class="column_one">
       <div class="column_two">
         <div class="categories"></div>
         <div class="clients_board">
-          <button v-on:click="keywords()">Keywords</button>
-          <button v-on:click="words()">Words</button>
+          <button v-on:click="keywordsComponent()">Keywords</button>
+          <button v-on:click="wordsComponent()">Words</button>
           <keep-alive>
             <component :is="component"></component>
           </keep-alive>
@@ -36,8 +36,8 @@ export default {
   name: "dashboardPage",
   data() {
     return {
-      component: "keywordsTableComponent",
-      info: null,
+      id:"",
+      keywords: null,
     };
   },
   components: {
@@ -47,18 +47,18 @@ export default {
     clientKeywordsComponent,
   },
   methods: {
-    keywords() {
+    keywordsComponent() {
       this.component = "keywordsTableComponent";
     },
-    words() {
+    wordsComponent() {
       this.component = "wordsTableComponent";
-      console.log("hey");
+     
     },
   },
   mounted() {
     axios
-      .get("http://demand-analysis.local/api/sites")
-      .then((response) => (this.info = response));
+      .get("http://demand-analysis.local/api/analysis/1")
+      .then((response) => (this.keywords = response));
   },
 };
 </script>

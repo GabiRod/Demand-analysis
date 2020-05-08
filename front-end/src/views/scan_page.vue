@@ -1,8 +1,8 @@
 <template>
   <div id="scan_page">
     <h1>Welcome to the scan page</h1>
-    <input type="text" placeholder="Enter client's name" />
-    <input type="text" placeholder="Enter the URL" />
+    <input type="text" placeholder="Enter client's name" :customerName="customerName" />
+    <input type="text" placeholder="Enter the URL" :siteUrl="siteUrl" />
     <br />
     <router-link to="/dashboard_page">Scan</router-link>
   </div>
@@ -16,9 +16,9 @@ export default {
 
   mounted() {
     axios
-      .post("http://demand-analysis.local/api/sites", {
-        customerName: "Fred",
-        siteUrl: "23",
+      .post("demand-analysis.local/api/createAnalysis", {
+        customerName: "",
+        siteUrl: "",
       })
       .then((response) => (this.info = response));
     (function(response) {

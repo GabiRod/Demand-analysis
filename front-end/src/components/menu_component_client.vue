@@ -2,14 +2,14 @@
   <div id="menu_component_client" class="menu_component_client">
     <div class="secondary_menu_bar">
       subsites menu
-      <!-- <li v-for="subsite in subsites"></li> -->
+
     </div>
 
     <div class="primary_menu_bar">
       <div class="menu_bar">
         <img class="menu_logo" src="../assets/resize.png" alt="" />
         <router-link to="/client_dashboard_page">back</router-link>
-        <h1 class="menu_title">{{ info.data }}</h1>
+        <h1 class="menu_title">{{ keywords.data.CustomerName }}</h1>
       </div>
 
       <button class="logout_button" v-on:click="logout()">LOG OUT</button>
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: "menuComponentClient",
-  props: { info: String },
+  props: { keywords: Object },
   methods: {
     logout() {
       this.$emit("authenticated", false);

@@ -11,89 +11,62 @@
     <div class="keyword_table">
       <div class="keyword_row keyword_menu_row">
         <div class="">Keyword</div>
-        <div class="">Volume</div>
+        <div class="">Clicks</div>
         <div class="">Position</div>
-        <div class="">CTA</div>
+        <div class="">CTR</div>
         <div class="">Category</div>
         <div class="">Subcategory1</div>
         <div class="">Subcategory2</div>
         <div class="">Intent</div>
+        
       </div>
-      <div class="keyword_row" :key="post.id" v-for="post in filteredList">
-        <div class="keyword_data">{{ post.keyword }}</div>
-        <div class="keyword_data">{{ post.volume }}</div>
-        <div class="keyword_data">{{ post.position }}</div>
-        <div class="keyword_data">{{ post.cta }}</div>
+      <div class="keyword_row" :key="keyword.id" v-for="keyword in keywords">
+        <div class="keyword_data"><a href="{{keyword.Page}}">{{ keyword.Keyword }}</a></div>
+        <div class="keyword_data">{{ keyword.Clicks }}</div>
+        <div class="keyword_data">{{ keyword.Position }}</div>
+        <div class="keyword_data">{{ keyword.Ctr }}</div>
         <input
           class="keyword_data keyword_data_input"
-          v:model="post.category"
+          v:model="keyword.category"
         />
         <input
           class="keyword_data keyword_data_input"
-          v:model="post.subcategory1"
+          v:model="keyword.subcategory1"
         />
         <input
           class="keyword_data keyword_data_input"
-          v:model="post.subcategory2"
+          v:model="keyword.subcategory2"
         />
-        <input class="keyword_data keyword_data_input" v:model="post.intent" />
+        <input class="keyword_data keyword_data_input" v:model="keyword.intent" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-class Post {
-  constructor(
-    keyword,
-    volume,
-    position,
-    cta,
-    category,
-    subcategory1,
-    subcategory2,
-    intent
-  ) {
-    this.keyword = keyword;
-    this.volume = volume;
-    this.position = position;
-    this.cta = cta;
-    this.category = category;
-    this.subcategory1 = subcategory1;
-    this.subcategory2 = subcategory2;
-    this.intent = intent;
-  }
-}
 
+import axios from "axios";
 export default {
   name: "keywordsTableComponent",
 
   data() {
     return {
-      ascending: false,
-      sortColumn: "",
-      col: "",
-      search: "",
-      postList: [
-        new Post("Vue.js", "258", "Chris", "456", " ", " ", " ", " "),
-        new Post("React.js", "526", "Tim", "456", " ", " ", " ", " "),
-        new Post("Angular.js", "258", "Sam", "4568", " ", " ", " ", " "),
-        new Post("Ember.js", "566", "Rachel", "200", " ", " ", " ", " "),
-        new Post("Meteor.js", "528", "Chris", "1235", " ", " ", " ", " "),
-        new Post("Aurelia", "525", "Tim", "896", " ", " ", " ", " "),
-        new Post("Node.js", "452", "A. A. Ron", "4568", " ", " ", " ", " "),
-        new Post("Pusher", "4525", "Alex", "1238", " ", " ", " ", " "),
-        new Post("Feathers.js", "252", "Chuck", "4568", " ", " ", " ", " "),
-      ],
+      keywords:null,
+      search: ""
     };
   },
 
   computed: {
     filteredList() {
-      return this.postList.filter((post) => {
-        return post.keyword.toLowerCase().includes(this.search.toLowerCase());
+      return this.keywords.filter((keyword) => {
+        return keyword.Keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
+  },
+  mounted() {
+    axios
+      .get("http://demand-analysis.local/api/analysis/1")
+      .then((response) => (this.keywords = response));
   },
 };
 </script>
