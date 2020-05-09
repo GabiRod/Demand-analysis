@@ -1,9 +1,8 @@
-export const intentChartData = {
+export const clientChartData = {
   type: 'line',
   data: {
     labels: ['Janurary', 'February', 'March', 'April', 'May'],
-    datasets: [
-      { // one line graph
+    datasets: [{ // one line graph
         label: ' Upper',
         data: [0, 56, 1, 2, 67, 144],
         backgroundColor: [
@@ -54,4 +53,4 @@ export const intentChartData = {
   }
 }
 
-export default intentChartData;
+export default clientChartData;

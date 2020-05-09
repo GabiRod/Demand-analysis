@@ -5,11 +5,11 @@
     <div class="column_one">
       <div class="column_two">
         <div class="categories"></div>
-        <div class="clients_board">
-          <button v-on:click="keywordsComponent()">Keywords</button>
-          <button v-on:click="wordsComponent()">Words</button>
+        <div class="clients_board2">
+          <button class="keywords_menu" v-on:click="keywordsComponent()">Keywords</button>
+          <button class="keywords_menu" v-on:click="wordsComponent()">Words</button>
           <keep-alive>
-            <component :is="component"></component>
+            <component :is="component" :keywords="keywords.data"></component>
           </keep-alive>
         </div>
       </div>
@@ -19,6 +19,7 @@
 
         <div class="clients_charts_board">
           Number of keywords by intent
+          <keywordsChartComponent/>
         </div>
       </div>
     </div>
@@ -31,6 +32,7 @@ import menuComponentClient from "../components/menu_component_client.vue";
 import keywordsTableComponent from "../components/keywords_table_component.vue";
 import wordsTableComponent from "../components/words_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
+import keywordsChartComponent from "../components/keywords_chart_component.vue";
 
 export default {
   name: "dashboardPage",
@@ -45,6 +47,7 @@ export default {
     keywordsTableComponent,
     wordsTableComponent,
     clientKeywordsComponent,
+    keywordsChartComponent,
   },
   methods: {
     keywordsComponent() {
@@ -67,16 +70,15 @@ export default {
 .keywords_dashboard_page {
   background-color: $grey;
   margin: 0px;
-  margin: 0 0 0 80px;
+  margin: 0 0 0 60px;
   height: 100vh;
 }
 
 .column_one {
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 70vw 20vw;
-  column-gap: 24px;
-  margin: 24px;
-  height: 80%;
+  grid-template-columns: 70vw 27vw;
+  height: 88%;
   width: 100%;
 }
 
@@ -86,19 +88,28 @@ export default {
   row-gap: 24px;
 }
 
-.clients_board {
+.clients_board2 {
+  margin: 0 24px 0 24px;
+  overflow: hidden;
   background-color: $white;
   padding: 24px;
-  height: 100% -24px;
-  width: 100% -24px;
+ 
 }
 .clients_keywords {
+  margin: 24px 24px 0 0 ;
+  overflow: hidden;
   background-color: $white;
   padding: 24px;
 }
 
 .clients_charts_board {
+  margin:0 24px 0 0;
+  overflow: hidden;
   background-color: $white;
   padding: 24px;
+}
+
+.keywords_menu{
+  float:left
 }
 </style>

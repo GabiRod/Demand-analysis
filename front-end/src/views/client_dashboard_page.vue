@@ -54,37 +54,39 @@ export default {
 .client_dashboard_page {
   background-color: $grey;
   margin: 0px;
-  margin: 0 0 0 80px;
+  margin: 0 0 0 60px;
   height: 100vh;
 }
 
 .column_one {
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 70vw 20vw;
-  column-gap: 24px;
-  margin: 24px;
-  height: 80%;
-  width: 100%;
+  grid-template-columns: 70vw 27vw;
+  height: 88%;
 }
 
 .column_two {
   display: grid;
   grid-template-rows: 20% 77%;
-  row-gap: 24px;
 }
 
 .clients_board {
+  margin: 24px 24px 0 24px;
+  overflow: hidden;
   background-color: $white;
   padding: 24px;
-  height: 100% -24px;
-  width: 100% -24px;
 }
+
 .clients_keywords {
+  margin: 24px 24px 0 0 ;
+  overflow: hidden;
   background-color: $white;
   padding: 24px;
 }
 
 .clients_charts_board {
+  margin:24px 24px 0 0;
+  overflow: hidden;
   background-color: $white;
   padding: 24px;
 }

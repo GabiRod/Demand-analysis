@@ -1,5 +1,7 @@
 <template>
   <div id="client_table_component" class="client_table_component">
+    <router-link class="new_client" to="/scan_page">NEW</router-link>
+
     <input
       class="search_input"
       type="text"
@@ -22,7 +24,7 @@
         <div class="client_data">{{ client.createdDate }}</div>
         <input class="client_data client_data_note" v:model="client.note" />
         <router-link class="client_button" to="/keywords_dashboard_page"
-          >Enter</router-link
+          >ENTER</router-link
         >
       </div>
     </div>
@@ -92,7 +94,7 @@ export default {
 }
 
 .client_table {
-  padding-top: 40px;
+  padding-top: 50px;
 }
 
 .client_button {
@@ -104,6 +106,21 @@ export default {
   color: $green;
   background-color: $white;
   font-size: 12px;
+  margin: 1px 2px;
+
+  &:hover {
+    background-color: $green;
+    color: $white;
+  }
+}
+
+.new_client{
+  padding: 5px 20px;
+   text-decoration: none;
+  border: 2px solid $green;
+  color: $green;
+  background-color: $white;
+  font-size: 15px;
   margin: 1px 2px;
 
   &:hover {

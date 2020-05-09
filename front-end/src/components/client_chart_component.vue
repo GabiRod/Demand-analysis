@@ -8,12 +8,12 @@
 
 <script>
 import Chart from "chart.js";
-import planetChartData from "../chart-data.js";
+import clientChartData from "../chart-data.js";
 
 export default {
   data() {
     return {
-      planetChartData: planetChartData,
+     clientChartData: clientChartData,
     };
   },
 
@@ -29,7 +29,7 @@ export default {
     },
   },
   mounted() {
-    this.createChart("intent-chart", this.planetChartData);
+    this.createChart("intent-chart", this.clientChartData);
   },
 };
 </script>

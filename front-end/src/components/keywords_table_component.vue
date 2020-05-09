@@ -20,24 +20,25 @@
         <div class="">Intent</div>
         
       </div>
-      <div class="keyword_row" :key="keyword.id" v-for="keyword in keywords">
-        <div class="keyword_data"><a href="{{keyword.Page}}">{{ keyword.Keyword }}</a></div>
-        <div class="keyword_data">{{ keyword.Clicks }}</div>
-        <div class="keyword_data">{{ keyword.Position }}</div>
-        <div class="keyword_data">{{ keyword.Ctr }}</div>
+    
+      <div class="keyword_row" :key="query.id" v-for="query in keywords">
+        <div class="keyword_data"><a :href="href">{{ query.Keyword }}</a></div>
+        <div class="keyword_data">{{ query.Clicks }}</div>
+        <div class="keyword_data">{{ query.Position }}</div>
+        <div class="keyword_data">{{ query.Ctr }}</div>
         <input
           class="keyword_data keyword_data_input"
-          v:model="keyword.category"
+          v:model="query.category"
         />
         <input
           class="keyword_data keyword_data_input"
-          v:model="keyword.subcategory1"
+          v:model="query.subcategory1"
         />
         <input
           class="keyword_data keyword_data_input"
-          v:model="keyword.subcategory2"
+          v:model="query.subcategory2"
         />
-        <input class="keyword_data keyword_data_input" v:model="keyword.intent" />
+        <input class="keyword_data keyword_data_input" v:model="query.intent" />
       </div>
     </div>
   </div>
@@ -45,29 +46,24 @@
 
 <script>
 
-import axios from "axios";
 export default {
   name: "keywordsTableComponent",
-
+  props: { keywords: Object },
   data() {
     return {
-      keywords:null,
-      search: ""
+      search: "",
+      href: 'query.SiteUrl'
     };
   },
 
   computed: {
     filteredList() {
-      return this.keywords.filter((keyword) => {
-        return keyword.Keyword.toLowerCase().includes(this.search.toLowerCase());
+      return this.keywords.filter((query) => {
+        return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },
-  mounted() {
-    axios
-      .get("http://demand-analysis.local/api/analysis/1")
-      .then((response) => (this.keywords = response));
-  },
+  
 };
 </script>
 

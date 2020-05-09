@@ -72,6 +72,7 @@ export default {
 }
 
 .secondary_menu_bar {
+      z-index: -1;
   margin: 100px 0 0 0;
   display: flex;
   flex-direction: column;
