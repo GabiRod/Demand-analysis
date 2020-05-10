@@ -1,15 +1,15 @@
 <template>
   <div id="keywords_dashboard_page" class="keywords_dashboard_page">
-    <menuComponentClient :keywords="keywords" />
+    <menuComponentClient :keywordList="keywordList" />
 
     <div class="column_one">
       <div class="column_two">
         <div class="categories"></div>
         <div class="clients_board2">
-          <button class="keywords_menu" v-on:click="keywordsComponent()">Keywords</button>
-          <button class="keywords_menu" v-on:click="wordsComponent()">Words</button>
+          <button class="keywords_menu" :click="keywordsComponent()">Keywords</button>
+          <button class="keywords_menu" :click="wordsComponent()">Words</button>
           <keep-alive>
-            <component :is="component" :keywords="keywords.data"></component>
+            <component :is="component"></component>
           </keep-alive>
         </div>
       </div>
@@ -35,11 +35,12 @@ import clientKeywordsComponent from "../components/client_keywords_component.vue
 import keywordsChartComponent from "../components/keywords_chart_component.vue";
 
 export default {
-  name: "dashboardPage",
+  name: "keywordsDashboardPage",
   data() {
     return {
       id:"",
-      keywords: null,
+      keywordList: null,
+      component: "keywordsTableComponent"
     };
   },
   components: {
@@ -61,7 +62,7 @@ export default {
   mounted() {
     axios
       .get("http://demand-analysis.local/api/analysis/1")
-      .then((response) => (this.keywords = response));
+      .then((response) => (this.keywordList = response));
   },
 };
 </script>

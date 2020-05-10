@@ -13,186 +13,79 @@
       v-on:click="sortTable(post)"
       :key="menu.id"
     ></div>
-   
-    <div class="client_table">
-      <div class="row" :key="post.id" v-for="post in filteredList">
-        <div class="keyword_row">{{ post.keyword }}</div>
-        <div class="keyword_row">{{ post.volume }}</div>
-        <div class="keyword_row">{{ post.position }}</div>
-        <div class="keyword_row">{{ post.cta }}</div>
+     <div class="words_table">
+      <div class="words_row words_menu_row">
+        <div class="">Word</div>
+        <div class="">Volume</div>
+      </div>
+  
+    
+      <div class="words_row" :key="post.id" v-for="post in keywordList.Results">
+        <div class="words_data">{{ post.Keyword }}</div>
+        <div class="words_data">{{ post.Clicks}}</div>
+        <router-link class="client_button" to="/keywords_dashboard_page"
+          >ENTER</router-link>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
-class Post {
-  constructor(
-    keyword,
-    volume,
-    position,
-    cta,
-    category,
-    subcategory1,
-    subcategory2,
-    intent
-  ) {
-    this.keyword = keyword;
-    this.volume = volume;
-    this.position = position;
-    this.cta = cta;
-    this.category = category;
-    this.subcategory1 = subcategory1;
-    this.subcategory2 = subcategory2;
-    this.intent = intent;
-  }
-}
+import axios from "axios";
 
 export default {
   name: "wordsTableComponent",
-
   data() {
     return {
-      ascending: false,
-      sortColumn: "",
-      col: "",
+      keywordList:null,
       search: "",
-      postList: [
-        new Post(
-          "Vue.js",
-          "https://vuejs.org/",
-          "Chris",
-          "456",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "React.js",
-          "https://facebook.github.io/react/",
-          "Tim",
-          "456",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Angular.js",
-          "https://angularjs.org/",
-          "Sam",
-          "4568",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Ember.js",
-          "http://emberjs.com/",
-          "Rachel",
-          "200",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Meteor.js",
-          "https://www.meteor.com/",
-          "Chris",
-          "1235",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Aurelia",
-          "http://aurelia.io/",
-          "Tim",
-          "896",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Node.js",
-          "https://nodejs.org/en/",
-          "A. A. Ron",
-          "4568",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Pusher",
-          "https://pusher.com/",
-          "Alex",
-          "1238",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-        new Post(
-          "Feathers.js",
-          "http://feathersjs.com/",
-          "Chuck",
-          "4568",
-          " ",
-          " ",
-          " ",
-          " "
-        ),
-      ],
     };
   },
-
   computed: {
     filteredList() {
-      return this.postList.filter((post) => {
+      return this.keywordList.filter((post) => {
         return post.keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
-    fullName: function() {
-      return this.post.category + " " + this.post.intent;
-    },
+  },
+   mounted() {
+    axios
+      .get("http://demand-analysis.local/api/analysis/1")
+      .then((response) => (this.keywordList = response));
   },
   
 };
 </script>
 
 <style lang="scss">
-.client_table_component {
+.words_table_component {
   background-color: $white;
   text-align: start;
 }
 
-.clients_column_menu {
+.words_column_menu {
   padding: 5px 10px;
   color: grey;
   font-size: 15px;
 }
 
-.row {
+.words_menu_row {
+  padding: 10px 0px;
+}
+
+.words_row {
   text-align: left;
   font-size: 12px;
   display: grid;
-  grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% auto;
-}
-
-.clients_row {
+  grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
-}
-
-.clients_row_data {
   color: $blue;
   font-size: 12px;
-  padding: 5px 5%;
+  padding: 1px 10px;
+}
+
+.words_data {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .search_input {
@@ -201,7 +94,7 @@ export default {
   border: none;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
-.client_table {
+.words_table {
   padding-top: 40px;
 }
 

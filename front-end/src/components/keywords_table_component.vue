@@ -18,10 +18,9 @@
         <div class="">Subcategory1</div>
         <div class="">Subcategory2</div>
         <div class="">Intent</div>
-        
       </div>
     
-      <div class="keyword_row" :key="query.id" v-for="query in keywords">
+      <div class="keyword_row" :key="query.id" v-for="query in keywordList ">
         <div class="keyword_data"><a :href="href">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
@@ -45,23 +44,27 @@
 </template>
 
 <script>
-
+import axios from "axios";
 export default {
   name: "keywordsTableComponent",
-  props: { keywords: Object },
   data() {
     return {
+      keywordList:null,
       search: "",
       href: 'query.SiteUrl'
     };
   },
-
   computed: {
     filteredList() {
-      return this.keywords.filter((query) => {
+      return this.keywordList.filter((query) => {
         return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
+  },
+  mounted() {
+    axios
+      .get("http://demand-analysis.local/api/analysis/1")
+      .then((response) => (this.keywordList = response));
   },
   
 };
