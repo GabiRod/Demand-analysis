@@ -8,8 +8,7 @@ import keywordsDashboardPage from '../views/keywords_dashboard_page.vue'
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: "loginPage",
     component: loginPage
@@ -25,9 +24,10 @@ const routes = [
     component: clientDashboardPage
   },
   {
-    path: '/keywords_dashboard_page',
+    path: '/keywords_dashboard_page/:id',
     name: "keywordsDashboardPage",
-    component: keywordsDashboardPage
+    component: keywordsDashboardPage,
+    props: true,
   }
 ]
 

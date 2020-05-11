@@ -14,7 +14,7 @@
       </div>
   
   
-      <div class="words_row" :key="post.id" v-for="post in keywordList.data.Results">
+      <div class="words_row" :key="post.id" v-for="post in wordList.data.Results">
         <div class="words_data">{{ post.Keyword }}</div>
         <div class="words_data">{{ post.Clicks}}</div>
          <button class="keywords_redirect" v-on:click="keywordsComponent()">Keywords</button>
@@ -29,23 +29,24 @@ import axios from "axios";
 
 export default {
   name: "wordsTableComponent",
+  props: ['id'],
   data() {
     return {
-      keywordList:null,
+      wordList:null,
       search: "",
     };
   },
   computed: {
     filteredList() {
-      return this.keywordList.filter((post) => {
+      return this.wordList.filter((post) => {
         return post.keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },
    mounted() {
     axios
-      .get("http://demand-analysis.local/api/analysis/1/keywords")
-      .then((response) => (this.keywordList = response));
+      .get('http://demand-analysis.local/api/analysis/' + this.id +'/categories')
+      .then((response) => (this.wordList = response.data));
   },
   
 };

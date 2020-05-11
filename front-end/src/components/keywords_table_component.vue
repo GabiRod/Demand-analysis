@@ -20,9 +20,8 @@
         <div class="">Intent</div>
       </div>
     
-      <div class="keyword_row" :key="query.id" v-for="query in filteredList
-       ">
-        <div class="keyword_data"><a :href="href">{{ query.Keyword }}</a></div>
+      <div class="keyword_row" :key="query.id" v-for="query in keywordList.Results">
+        <div class="keyword_data"><a v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
         <div class="keyword_data">{{ query.Ctr }}</div>
@@ -53,28 +52,25 @@
 import axios from "axios";
 export default {
   name: "keywordsTableComponent",
+  props: ['id'],
   data() {
     return {
-      keywordList:'keywordList.data.Results',
+      keywordList:null,
       search: "",
-      href: '{{query.SiteUrl}}',
-    
     };
    
   },
   computed: {
     filteredList() {
       return this.keywordList.filter((query) => {
-        return query.keyword.toLowerCase().includes(this.search.toLowerCase());
+        return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
       });
-    },
-     
+    },  
   },
-
   mounted() {
     axios
-      .get("http://demand-analysis.local/api/analysis/1")
-      .then((response) => (this.keywordList = response));
+      .get('http://demand-analysis.local/api/analysis/' + this.id)
+      .then((response) => (this.keywordList = response.data));
   },
   
 };

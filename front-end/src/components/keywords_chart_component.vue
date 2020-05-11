@@ -13,14 +13,17 @@
 import Chart from "chart.js";
 
 export default {
+  name: "keywordsChartComponent",
+  props: ['id'],
   data() {
     return {
+      categoriesChart: null,
       keywordsChartData: keywordsChartData,
       intentChartData: intentChartData,
     };
   },
 
-  name: "keywordsChartComponent",
+  
   methods: {
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
@@ -32,6 +35,10 @@ export default {
     },
   },
   mounted() {
+    axios
+      .get('http://demand-analysis.local/api/analysis/' + this.id +'/categories')
+      .then((response) => (this.categoriesChart = response.data));
+ 
     this.createChart("keywords-chart", this.keywordsChartData);
     this.createChart("intent-chart", this.intentChartData);
   },

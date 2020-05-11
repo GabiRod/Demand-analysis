@@ -21,11 +21,10 @@
       <div class="client_row" :key="client.id" v-for="client in filteredList">
         <div class="client_data">{{ client.customerName}}</div>
         <div class="client_data">{{ client.url }}</div>
-        <div class="client_data">{{ client.createdDate }}</div>
+        <div class="client_data">{{ client.numberOfRows }}</div>
         <input class="client_data client_data_note" v:model="client.note" />
-        <router-link class="client_button" to="/keywords_dashboard_page" :id="id"
-          >ENTER</router-link
-        >
+        <router-link class="client_button" :to="'/keywords_dashboard_page/' + client.id + ''"
+          >ENTER</router-link>
       </div>
     </div>
   </div>
@@ -38,7 +37,6 @@ export default {
   data() {
     return {
       search: "",
-      id:"{{client.id}}"
     };
   },
    computed: {

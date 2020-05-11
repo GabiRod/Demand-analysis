@@ -1,6 +1,6 @@
 <template>
   <div id="keywords_dashboard_page" class="keywords_dashboard_page">
-    <menuComponentClient :keywordList="keywordList.data" />
+    <menuComponentClient :keywordList="keywordList" />
 
     <div class="column_one">
       <div class="column_two_full">
@@ -9,7 +9,7 @@
           <button v-bind:class="{ active: isActive }" class="keywords_menu" @click="keywordsComponent()">Keywords</button>
           <button class="keywords_menu" @click="wordsComponent()">Words</button>
           <keep-alive>
-            <component :is="component"></component>
+            <component :is="component" :id='id'></component>
           </keep-alive>
         </div>
       </div>
@@ -19,7 +19,7 @@
 
         <div class="clients_charts_board">
           Number of keywords by intent
-          <keywordsChartComponent/>
+          <keywordsChartComponent :id='id' />
         </div>
       </div>
     </div>
@@ -36,10 +36,10 @@ import keywordsChartComponent from "../components/keywords_chart_component.vue";
 
 export default {
   name: "keywordsDashboardPage",
-  props:{ id: Object },
+  props: ['id'],
+
   data() {
     return {
-      isActive: true,
       keywordList: null,
       component:"keywordsTableComponent"
     };
@@ -54,18 +54,15 @@ export default {
   methods: {
     keywordsComponent() {
       this.component = "keywordsTableComponent";
-      this.component.isActive
     },
     wordsComponent() {
       this.component = "wordsTableComponent";
-      this.component.isActive
-     
     },
   },
   mounted() {
     axios
-      .get("http://demand-analysis.local/api/analysis/1")
-      .then((response) => (this.keywordList = response));
+      .get('http://demand-analysis.local/api/analysis/' + this.id)
+      .then((response) => (this.keywordList = response.data));
   },
 };
 </script>
