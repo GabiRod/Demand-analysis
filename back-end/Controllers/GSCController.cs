@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.Extensions.Logging.EventSource;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -81,7 +82,7 @@ namespace back_end.Controllers
                     row["Impressions"] = data.Impressions;
                     row["CTR"] = data.Ctr;
                     row["Position"] = data.Position;
-
+                    keywords.AddRange(data.Keyword.Split());
 
                     table.Rows.Add(row);
                 }
@@ -92,11 +93,35 @@ namespace back_end.Controllers
                 };
 
                 bulk.WriteToServer(table);
-                
-                
-                
+
+                bulk.DestinationTableName = "SplitKeywords";
+                var keywordsTable = new DataTable();
+                keywordsTable.Columns.Add("Id", typeof(int));
+                var analysisIdColumn = new DataColumn("AnalysisId", typeof(int))
+                {
+                    DefaultValue = newId
+                };
+
+                keywordsTable.Columns.Add(analysisIdColumn);
+                keywordsTable.Columns.Add("Keyword", typeof(string));
+                keywordsTable.Columns.Add("Count", typeof(int));
+
+                var distinctKeywords = keywords.Distinct().ToList();
+                distinctKeywords.RemoveAll(word => word.Length <= 2);
+                Dictionary<string,int> keywordDictionary = distinctKeywords.ToDictionary(d => d, x => keywords.Count(s => x==s));
+
+                foreach (var keyword in keywordDictionary)
+                {
+                    var row = keywordsTable.NewRow();
+                    row["Keyword"] = keyword.Key;
+                    row["Count"] = keyword.Value;
+                    keywordsTable.Rows.Add(row);
+                }
+
+                bulk.WriteToServer(keywordsTable);
+
                 conn.Close();
-                
+
                 var dataResult2 = GetAnalysis(conn, newId);
 
                 dataResult2.NumberOfRows = dataResult2.Results.Count;
@@ -238,12 +263,52 @@ namespace back_end.Controllers
             }
         }
 
-        //[Route("/analysis/{id}/keywords")]
-        //[HttpGet]
-        //public string GetSplitKeywords(int id)
-        //{
+        [Route("/analysis/{id}/keywords")]
+        [HttpGet]
+        public string GetSplitKeywords(int id)
+        {
+            List<KeywordData> keywords = new List<KeywordData>();
+            try
+            {
+                using SqlConnection conn = new SqlConnection(connString.SQLConnection);
 
-        //}
+                var sqlQuery =
+                    "SELECT AnalysisId, Keyword, Count FROM SplitKeywords  " +
+                    "WHERE AnalysisId = @AnalysisId " +
+                    "ORDER BY Count DESC";
+                conn.Open();
+
+                using SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+                cmd.Parameters.Add("@AnalysisId", SqlDbType.Int).Value = id;
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var keyword = new KeywordData();
+                    keyword.analysisId = (int) reader["AnalysisId"];
+                    keyword.keyword = reader["Keyword"].ToString();
+                    keyword.count = (int) reader["Count"];
+                    keywords.Add(keyword);
+                }
+
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+
+            return JsonConvert.SerializeObject(keywords);
+        }
+
+        public class KeywordData
+        {
+            public int analysisId { get; set; }
+            public string keyword { get; set; }
+            public int count { get; set; }
+        }
 
         public class CategoryData
         {
