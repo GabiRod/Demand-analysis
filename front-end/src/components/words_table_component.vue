@@ -44,7 +44,7 @@ export default {
   },
    mounted() {
     axios
-      .get("http://demand-analysis.local/api/analysis/1")
+      .get("http://demand-analysis.local/api/analysis/1/keywords")
       .then((response) => (this.keywordList = response));
   },
   

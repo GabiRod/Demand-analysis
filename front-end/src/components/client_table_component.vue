@@ -23,7 +23,7 @@
         <div class="client_data">{{ client.url }}</div>
         <div class="client_data">{{ client.createdDate }}</div>
         <input class="client_data client_data_note" v:model="client.note" />
-        <router-link class="client_button" to="/keywords_dashboard_page"
+        <router-link class="client_button" to="/keywords_dashboard_page" :id="id"
           >ENTER</router-link
         >
       </div>
@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       search: "",
+      id:"{{client.id}}"
     };
   },
    computed: {

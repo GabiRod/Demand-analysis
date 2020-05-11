@@ -20,27 +20,30 @@
         <div class="">Intent</div>
       </div>
     
-      <div class="keyword_row" :key="query.id" v-for="query in keywordList.data.Results ">
+      <div class="keyword_row" :key="query.id" v-for="query in filteredList
+       ">
         <div class="keyword_data"><a :href="href">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
         <div class="keyword_data">{{ query.Ctr }}</div>
+        
         <input
-        v-on:click="categoryColor()"
+        
           class="keyword_data keyword_data_input"
           v:model="query.category"
-         
         />
-        <input
 
+        <input
          class="keyword_data keyword_data_input"
           v:model="query.subcategory1"
         />
+
         <input
           class="keyword_data keyword_data_input"
           v:model="query.subcategory2"
         />
-        <input class="keyword_data keyword_data_input" v:model="query.intent" />
+
+        <input class="keyword_data keyword_data_input" v:model="query.intent"/>
       </div>
     </div>
   </div>
@@ -52,14 +55,10 @@ export default {
   name: "keywordsTableComponent",
   data() {
     return {
-      keywordList:null,
+      keywordList:'keywordList.data.Results',
       search: "",
-      href: 'query.SiteUrl',
-      menuItems: [
-      red='Home',
-      blue='About',
-      green=' '
-      ]
+      href: '{{query.SiteUrl}}',
+    
     };
    
   },

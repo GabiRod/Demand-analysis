@@ -6,8 +6,8 @@
       <div class="column_two_full">
         <div class="categories"></div>
         <div class="clients_board2">
-          <button v-bind:class="{ active: isActive }" class="keywords_menu" v-on:click="keywordsComponent()">Keywords</button>
-          <button class="keywords_menu" v-on:click="wordsComponent()">Words</button>
+          <button v-bind:class="{ active: isActive }" class="keywords_menu" @click="keywordsComponent()">Keywords</button>
+          <button class="keywords_menu" @click="wordsComponent()">Words</button>
           <keep-alive>
             <component :is="component"></component>
           </keep-alive>
@@ -36,10 +36,10 @@ import keywordsChartComponent from "../components/keywords_chart_component.vue";
 
 export default {
   name: "keywordsDashboardPage",
+  props:{ id: Object },
   data() {
     return {
       isActive: true,
-      id:"",
       keywordList: null,
       component:"keywordsTableComponent"
     };

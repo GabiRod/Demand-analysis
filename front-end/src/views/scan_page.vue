@@ -3,14 +3,17 @@
     <h1>Add new client</h1>
     <br />
     <br />
-    <input type="text" class="scan_input" placeholder="Enter client's name" :customerName="customerName" />
+    <input type="text" class="scan_input" placeholder="Enter client's name" v-model="customerName" />
     <br/>
     <br/>
-    <input type="text" class="scan_input" placeholder="Enter the URL" :siteUrl="siteUrl" />
+    <input type="text" class="scan_input" placeholder="Enter the URL" v-model="siteUrl" />
     <br />
     <br />
     <br />
-    <router-link class="scan_button" to="/client_dashboard_page">SAVE</router-link>
+    <button @click="save()">
+      save
+    </button>
+    <router-link  class="scan_button" to="/client_dashboard_page">SAVE</router-link>
   </div>
 </template>
 
@@ -19,19 +22,26 @@ import axios from "axios";
 
 export default {
   name: "scanPage",
+  data(){
+    return{
+      customerName: " ",
+      siteUrl: " ",
+    }
+  },
 
-  mounted() {
+  methods: {
+   save(){
     axios
-      .post("demand-analysis.local/api/createAnalysis", {
+      .post("https://demand-analysis.local/api/createAnalysis", {
         customerName: "",
         siteUrl: "",
       })
-      .then((response) => (this.info = response));
-    (function(response) {
+     .then(function (response) {
       console.log(response);
-    });
-  },
-};
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss">
