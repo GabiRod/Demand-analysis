@@ -306,6 +306,43 @@ namespace back_end.Controllers
             return JsonConvert.SerializeObject(keywords);
         }
 
+        [Route("/analysis/{id}/categories")]
+        [HttpGet]
+        public string GetCategoriesWithKeywords(int id)
+        {
+            Dictionary<string, int> categories = new Dictionary<string, int>();
+            try
+            {
+                using SqlConnection conn = new SqlConnection(connString.SQLConnection);
+
+                var sqlQuery =
+                    "SELECT Category, Count(Keyword)[Count] FROM AnalysisData " +
+                    "WHERE Id = @Id " +
+                    "GROUP BY Category " +
+                    "ORDER BY Count DESC";
+                conn.Open();
+
+                using SqlCommand cmd = new SqlCommand(sqlQuery, conn);
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    categories.Add(reader["Category"].ToString(), (int)reader["Count"]);
+                }
+                
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+
+            return JsonConvert.SerializeObject(categories);
+        }
+
         public class KeywordData
         {
             public int analysisId { get; set; }
