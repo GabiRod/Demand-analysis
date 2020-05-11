@@ -24,5 +24,6 @@ namespace back_end.GoogleSearchConsole
         public string? SubCategory1 { get; set; }
         public string? SubCategory2 { get; set; }
         public string Intent { get; set; }
+        public string Colour { get; set; }
     }
 }

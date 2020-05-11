@@ -70,6 +70,7 @@ namespace back_end.Controllers
                 table.Columns.Add("SubCategory1", typeof(string));
                 table.Columns.Add("SubCategory2", typeof(string));
                 table.Columns.Add("Intent", typeof(string));
+                table.Columns.Add("Colour", typeof(string));
 
                 List<string> keywords = new List<string>();
 
@@ -231,9 +232,10 @@ namespace back_end.Controllers
 
                 var sqlUpdate = "UPDATE AnalysisData " +
                                 "SET Category = @Category, " +
-                                "SubCategory1 = @SubCategory1," +
-                                "SubCategory2 = @SubCategory2," +
-                                "Intent = @Intent " +
+                                "SubCategory1 = @SubCategory1, " +
+                                "SubCategory2 = @SubCategory2, " +
+                                "Intent = @Intent, " +
+                                "Colour = @Colour " +
                                 "WHERE DataId = @DataId";
 
                 using SqlCommand cmd = new SqlCommand(sqlUpdate, conn);
@@ -241,6 +243,7 @@ namespace back_end.Controllers
                 cmd.Parameters.Add("@SubCategory1", SqlDbType.NVarChar).Value = categoryData.subCategory1;
                 cmd.Parameters.Add("@SubCategory2", SqlDbType.NVarChar).Value = categoryData.subCategory2;
                 cmd.Parameters.Add("@Intent", SqlDbType.NVarChar).Value = categoryData.intent;
+                cmd.Parameters.Add("@Colour", SqlDbType.NVarChar).Value = categoryData.colour;
                 cmd.Parameters.Add("@DataId", SqlDbType.Int).Value = id;
 
                 conn.Open();
@@ -316,6 +319,7 @@ namespace back_end.Controllers
             public string? subCategory1 { get; set; }
             public string? subCategory2 { get; set; }
             public string? intent { get; set; }
+            public string? colour { get; set; }
         }
 
         private class AnalysisMeta
@@ -335,7 +339,7 @@ namespace back_end.Controllers
             };
 
             var sqlQuery =
-                "SELECT DataId, Keyword, PageUrl, Impressions, Clicks, CTR, Position, Category, SubCategory1, SubCategory2, Intent FROM AnalysisData WHERE Id = @Id";
+                "SELECT DataId, Keyword, PageUrl, Impressions, Clicks, CTR, Position, Category, SubCategory1, SubCategory2, Intent, Colour FROM AnalysisData WHERE Id = @Id";
             using SqlCommand cmd = new SqlCommand(sqlQuery, conn);
             cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
 
@@ -354,6 +358,7 @@ namespace back_end.Controllers
                 searchResult.SubCategory1 = reader["SubCategory1"].ToString();
                 searchResult.SubCategory2 = reader["SubCategory2"].ToString();
                 searchResult.Intent = reader["Intent"].ToString();
+                searchResult.Colour = reader["Colour"].ToString();
                 searchResult.Page = reader["PageUrl"].ToString();
                 searchResult.Ctr = Double.Parse(reader["CTR"].ToString());
                 dataResult.Results.Add(searchResult);
