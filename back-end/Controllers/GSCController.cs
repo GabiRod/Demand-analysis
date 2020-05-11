@@ -12,6 +12,7 @@ using Google.Apis.Webmasters.v3.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -69,6 +70,8 @@ namespace back_end.Controllers
                 table.Columns.Add("SubCategory2", typeof(string));
                 table.Columns.Add("Intent", typeof(string));
 
+                List<string> keywords = new List<string>();
+
                 foreach (var data in dataResult.Results)
                 {
                     var row = table.NewRow();
@@ -79,6 +82,7 @@ namespace back_end.Controllers
                     row["CTR"] = data.Ctr;
                     row["Position"] = data.Position;
 
+
                     table.Rows.Add(row);
                 }
 
@@ -88,8 +92,11 @@ namespace back_end.Controllers
                 };
 
                 bulk.WriteToServer(table);
+                
+                
+                
                 conn.Close();
-
+                
                 var dataResult2 = GetAnalysis(conn, newId);
 
                 dataResult2.NumberOfRows = dataResult2.Results.Count;
@@ -158,7 +165,7 @@ namespace back_end.Controllers
                 using SqlConnection conn = new SqlConnection(connString.SQLConnection);
 
                 var sqlQuery =
-                    "SELECT a.Id, Customer, Url, CreatedDate FROM Analyses A INNER JOIN AnalysisData ad ON a.Id = ad.Id " +
+                    "SELECT a.Id, Customer, Url, CreatedDate, count(ad.id)[NumberOfRows] FROM Analyses A INNER JOIN AnalysisData ad ON a.Id = ad.Id " +
                     "GROUP BY a.Id, Customer, Url, CreatedDate " +
                     "ORDER BY CreatedDate DESC";
 
@@ -174,6 +181,7 @@ namespace back_end.Controllers
                     analysis.customerName = reader["Customer"].ToString();
                     analysis.url = reader["Url"].ToString();
                     analysis.createdDate = (DateTime) reader["CreatedDate"];
+                    analysis.numberOfRows = (int) reader["NumberOfRows"];
                     analysesResultList.Add(analysis);
                 }
 
@@ -183,6 +191,7 @@ namespace back_end.Controllers
             {
                 Debug.WriteLine(e.Message);
             }
+
 
             return JsonConvert.SerializeObject(analysesResultList);
         }
@@ -229,6 +238,13 @@ namespace back_end.Controllers
             }
         }
 
+        //[Route("/analysis/{id}/keywords")]
+        //[HttpGet]
+        //public string GetSplitKeywords(int id)
+        //{
+
+        //}
+
         public class CategoryData
         {
             public string? category { get; set; }
@@ -239,6 +255,7 @@ namespace back_end.Controllers
 
         private class AnalysisMeta
         {
+            public int numberOfRows { get; set; }
             public string id { get; set; }
             public string customerName { get; set; }
             public string url { get; set; }
