@@ -69,10 +69,7 @@ export default {
         return query.keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
-    categoryColor(){
-      for
-    }
-   
+     
   },
 
   mounted() {
