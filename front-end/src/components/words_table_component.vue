@@ -7,26 +7,21 @@
       v-model="search"
       placeholder="search"
     />
-    <div
-      class="clients_column_menu"
-      v-for="menu in constructor"
-      v-on:click="sortTable(post)"
-      :key="menu.id"
-    ></div>
      <div class="words_table">
-      <div class="words_row words_menu_row">
+      <div class="words_menu_row">
         <div class="">Word</div>
         <div class="">Volume</div>
       </div>
   
-    
-      <div class="words_row" :key="post.id" v-for="post in keywordList.Results">
+  
+      <div class="words_row" :key="post.id" v-for="post in keywordList.data.Results">
         <div class="words_data">{{ post.Keyword }}</div>
         <div class="words_data">{{ post.Clicks}}</div>
-        <router-link class="client_button" to="/keywords_dashboard_page"
-          >ENTER</router-link>
+         <button class="keywords_redirect" v-on:click="keywordsComponent()">Keywords</button>
+      
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -62,14 +57,15 @@ export default {
   text-align: start;
 }
 
-.words_column_menu {
-  padding: 5px 10px;
-  color: grey;
-  font-size: 15px;
-}
+
 
 .words_menu_row {
   padding: 10px 0px;
+  color: grey;
+  font-size: 15px;
+   display: grid;
+  grid-template-columns: 15% 20% 15% auto 70px;
+  border-bottom: 1px solid $grey;
 }
 
 .words_row {

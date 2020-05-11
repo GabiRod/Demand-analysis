@@ -9,7 +9,7 @@
       <div class="menu_bar">
         <img class="menu_logo" src="../assets/resize.png" alt="" />
         <router-link to="/client_dashboard_page">back</router-link>
-        <h1 class="menu_title">{{ keywordList.data.CustomerName }}</h1>
+        <h1 class="menu_title">{{ keywordList.CustomerName }}</h1>
       </div>
 
       <button class="logout_button" v-on:click="logout()">LOG OUT</button>
@@ -23,7 +23,6 @@ export default {
   props: { keywordList: Object },
   data() {
     return {
-     data:""
     }
   },
   methods: {

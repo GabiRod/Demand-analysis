@@ -1,13 +1,13 @@
 <template>
   <div id="keywords_dashboard_page" class="keywords_dashboard_page">
-    <menuComponentClient :keywordList="keywordList" />
+    <menuComponentClient :keywordList="keywordList.data" />
 
     <div class="column_one">
-      <div class="column_two">
+      <div class="column_two_full">
         <div class="categories"></div>
         <div class="clients_board2">
-          <button class="keywords_menu" :click="keywordsComponent()">Keywords</button>
-          <button class="keywords_menu" :click="wordsComponent()">Words</button>
+          <button v-bind:class="{ active: isActive }" class="keywords_menu" v-on:click="keywordsComponent()">Keywords</button>
+          <button class="keywords_menu" v-on:click="wordsComponent()">Words</button>
           <keep-alive>
             <component :is="component"></component>
           </keep-alive>
@@ -38,9 +38,10 @@ export default {
   name: "keywordsDashboardPage",
   data() {
     return {
+      isActive: true,
       id:"",
       keywordList: null,
-      component: "keywordsTableComponent"
+      component:"keywordsTableComponent"
     };
   },
   components: {
@@ -53,9 +54,11 @@ export default {
   methods: {
     keywordsComponent() {
       this.component = "keywordsTableComponent";
+      this.component.isActive
     },
     wordsComponent() {
       this.component = "wordsTableComponent";
+      this.component.isActive
      
     },
   },
@@ -74,18 +77,27 @@ export default {
   margin: 0 0 0 60px;
   height: 100vh;
 }
+ 
+.isActive{
+  border-bottom: 5px green;
+}
+.column_two_full{
+
+grid-template-rows: 100vh;
+padding-top: 24px;
+}
 
 .column_one {
   overflow: hidden;
   display: grid;
-  grid-template-columns: 70vw 27vw;
+  grid-template-columns: 75vw 21vw;
   height: 88%;
   width: 100%;
 }
 
 .column_two {
   display: grid;
-  grid-template-rows: 20% 77%;
+  grid-template-rows: 20vh 77vh;
   row-gap: 24px;
 }
 

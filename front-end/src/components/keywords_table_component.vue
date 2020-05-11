@@ -9,7 +9,7 @@
     />
 
     <div class="keyword_table">
-      <div class="keyword_row keyword_menu_row">
+      <div class="keyword_menu_row">
         <div class="">Keyword</div>
         <div class="">Clicks</div>
         <div class="">Position</div>
@@ -20,17 +20,20 @@
         <div class="">Intent</div>
       </div>
     
-      <div class="keyword_row" :key="query.id" v-for="query in keywordList ">
+      <div class="keyword_row" :key="query.id" v-for="query in keywordList.data.Results ">
         <div class="keyword_data"><a :href="href">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
         <div class="keyword_data">{{ query.Ctr }}</div>
         <input
+        v-on:click="categoryColor()"
           class="keyword_data keyword_data_input"
           v:model="query.category"
+         
         />
         <input
-          class="keyword_data keyword_data_input"
+
+         class="keyword_data keyword_data_input"
           v:model="query.subcategory1"
         />
         <input
@@ -51,16 +54,27 @@ export default {
     return {
       keywordList:null,
       search: "",
-      href: 'query.SiteUrl'
+      href: 'query.SiteUrl',
+      menuItems: [
+      red='Home',
+      blue='About',
+      green=' '
+      ]
     };
+   
   },
   computed: {
     filteredList() {
       return this.keywordList.filter((query) => {
-        return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
+        return query.keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
+    categoryColor(){
+      for
+    }
+   
   },
+
   mounted() {
     axios
       .get("http://demand-analysis.local/api/analysis/1")
@@ -74,27 +88,27 @@ export default {
 .keywords_table_component {
   background-color: $white;
   text-align: start;
-}
 
-.keyword_column_menu {
-  padding: 5px 10px;
-  color: grey;
-  font-size: 15px;
 }
 
 .keyword_menu_row {
   padding: 10px 0px;
+    color: grey;
+  font-size: 15px;
+    display: grid;
+  grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
+  border-bottom: 1px solid $grey;
 }
 
 .keyword_row {
   text-align: left;
   font-size: 12px;
   display: grid;
-  grid-template-columns: 15% 10% 10% 10% 15% 15% 15% 10%;
+  grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
   color: $blue;
   font-size: 12px;
-  padding: 1px 10px;
+  padding: 1px 0px;
 }
 
 .keyword_data {
@@ -114,7 +128,7 @@ export default {
 }
 
 .keyword_search_input {
-  margin-top: -30px;
+
   float: right;
   padding: 10px;
   border: none;
@@ -122,6 +136,6 @@ export default {
 }
 
 .keyword_table {
-  padding-top: 40px;
+  padding-top: 50px;
 }
 </style>

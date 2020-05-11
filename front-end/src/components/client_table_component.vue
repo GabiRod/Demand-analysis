@@ -56,14 +56,13 @@ export default {
   text-align: start;
 }
 
-.clients_column_menu {
-  padding: 5px 10px;
-  color: grey;
-  font-size: 15px;
-}
-
 .client_menu_row {
   padding: 10px 0px;
+  color: grey;
+    font-size: 15px;
+      display: grid;
+  grid-template-columns: 15% 20% 15% auto 70px;
+  border-bottom: 1px solid $grey;
 }
 
 .client_row {

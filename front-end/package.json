@@ -41,6 +41,10 @@
     },
     "rules": {}
   },
+  "resolutions": {
+    "moment": "2.24.0",
+    "moment-timezone": "0.5.28"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions"
