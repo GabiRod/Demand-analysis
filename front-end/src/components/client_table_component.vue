@@ -11,7 +11,7 @@
     />
 
     <div class="client_table">
-      <div class="client_row client_menu_row">
+      <div class=" client_menu_row">
         <div class="">Name</div>
         <div class="">URL</div>
         <div class="">Keywords</div>
@@ -31,6 +31,14 @@
 </template>
 
 <script>
+import Vue from 'vue';
+    // Import component
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
+    // Init plugin
+    Vue.use(Loading);
+
 export default {
   name: "clientTableComponent",
   props:{ clientList: Object },
@@ -46,6 +54,22 @@ export default {
       });
     },
   },
+  beforeMount(){
+    this.submit()
+  },
+  methods:{
+    submit() {
+                let loader = this.$loading.show({
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                  color: '#17bb7c',
+                });
+                // simulate AJAX
+                setTimeout(() => {
+                  loader.hide()
+                },1000)                 
+            }    
+  }
 };
 </script>
 
@@ -58,8 +82,8 @@ export default {
 .client_menu_row {
   padding: 10px 0px;
   color: grey;
-    font-size: 15px;
-      display: grid;
+  font-size: 15px;
+  display: grid;
   grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
 }
@@ -72,7 +96,7 @@ export default {
   border-bottom: 1px solid $grey;
   color: $blue;
   font-size: 12px;
-  padding: 1px 10px;
+  padding: 1px 0px;
 }
 
 .client_data {
@@ -114,11 +138,11 @@ export default {
 
 .new_client{
   padding: 5px 20px;
-   text-decoration: none;
+  text-decoration: none;
   border: 2px solid $green;
   color: $green;
   background-color: $white;
-  font-size: 15px;
+  font-size: 12px;
   margin: 1px 2px;
 
   &:hover {

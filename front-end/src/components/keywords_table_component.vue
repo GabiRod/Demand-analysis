@@ -19,36 +19,39 @@
         <div class="">Subcategory2</div>
         <div class="">Intent</div>
       </div>
-    
+    <div class="scroll" >
       <div class="keyword_row" :key="query.id" v-for="query in keywordList.Results">
-        <div class="keyword_data"><a v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
+        <div class="keyword_data"><a class="keyword_link" v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
         <div class="keyword_data">{{ query.Ctr }}</div>
-        
         <input
-        
           class="keyword_data keyword_data_input"
           v:model="query.category"
         />
-
         <input
          class="keyword_data keyword_data_input"
           v:model="query.subcategory1"
         />
-
         <input
           class="keyword_data keyword_data_input"
           v:model="query.subcategory2"
         />
-
         <input class="keyword_data keyword_data_input" v:model="query.intent"/>
+      </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
+    // Import component
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
+    // Init plugin
+    Vue.use(Loading);
 import axios from "axios";
 export default {
   name: "keywordsTableComponent",
@@ -72,6 +75,22 @@ export default {
       .get('http://demand-analysis.local/api/analysis/' + this.id)
       .then((response) => (this.keywordList = response.data));
   },
+   beforeMount(){
+    this.submit()
+  },
+  methods:{
+    submit() {
+                let loader = this.$loading.show({
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                  color: '#17bb7c',
+                });
+                // simulate AJAX
+                setTimeout(() => {
+                  loader.hide()
+                },5000)                 
+            }    
+  }
   
 };
 </script>
@@ -84,10 +103,10 @@ export default {
 }
 
 .keyword_menu_row {
-  padding: 10px 0px;
-    color: grey;
+  padding: 1px 0px;
+  color: grey;
   font-size: 15px;
-    display: grid;
+  display: grid;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
 }
@@ -108,6 +127,13 @@ export default {
   margin-bottom: auto;
 }
 
+.keyword_link{
+  color: $blue;
+   &:hover {
+     color: $green;
+   }
+}
+
 .keyword_row_data {
   color: $blue;
   font-size: 12px;
@@ -120,7 +146,6 @@ export default {
 }
 
 .keyword_search_input {
-
   float: right;
   padding: 10px;
   border: none;
@@ -129,5 +154,10 @@ export default {
 
 .keyword_table {
   padding-top: 50px;
+  height: 100%;
+}
+
+.scroll{
+  overflow: scroll;
 }
 </style>

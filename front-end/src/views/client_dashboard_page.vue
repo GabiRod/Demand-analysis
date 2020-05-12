@@ -74,6 +74,7 @@ export default {
   overflow: hidden;
   background-color: $white;
   padding: 24px;
+
 }
 
 .clients_keywords {
@@ -81,6 +82,7 @@ export default {
   overflow: hidden;
   background-color: $white;
   padding: 24px;
+
 }
 
 .clients_charts_board {
@@ -88,5 +90,6 @@ export default {
   overflow: hidden;
   background-color: $white;
   padding: 24px;
+
 }
 </style>

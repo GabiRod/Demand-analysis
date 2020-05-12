@@ -26,7 +26,14 @@
 
 <script>
 import axios from "axios";
-
+import Vue from 'vue';
+    // Import component
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
+    // Init plugin
+    Vue.use(Loading);
+    
 export default {
   name: "wordsTableComponent",
   props: ['id'],
@@ -48,6 +55,22 @@ export default {
       .get('http://demand-analysis.local/api/analysis/' + this.id +'/categories')
       .then((response) => (this.wordList = response.data));
   },
+     beforeMount(){
+    this.submit()
+  },
+  methods:{
+    submit() {
+                let loader = this.$loading.show({
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                  color: '#17bb7c',
+                });
+                // simulate AJAX
+                setTimeout(() => {
+                  loader.hide()
+                },5000)                 
+            }    
+  }
   
 };
 </script>

@@ -6,8 +6,14 @@
       <div class="column_two_full">
         <div class="categories"></div>
         <div class="clients_board2">
-          <button v-bind:class="{ active: isActive }" class="keywords_menu" @click="keywordsComponent()">Keywords</button>
-          <button class="keywords_menu" @click="wordsComponent()">Words</button>
+          <button class="keywords_menu" @click="keywordsComponent()" 
+          v-bind:style='{
+            "border-bottom" : (isActive? "solid 2px #17bb7c" : "white" )
+            }' >Keywords</button>
+          <button class="keywords_menu" @click="wordsComponent()" 
+          v-bind:style='{
+            "background-color" : (isActive? "white" : "solid 2px #17bb7c" )
+            }'>Words</button>
           <keep-alive>
             <component :is="component" :id='id'></component>
           </keep-alive>
@@ -40,6 +46,7 @@ export default {
 
   data() {
     return {
+      isActive:true,
       keywordList: null,
       component:"keywordsTableComponent"
     };
@@ -54,15 +61,34 @@ export default {
   methods: {
     keywordsComponent() {
       this.component = "keywordsTableComponent";
+      this.isActive = !this.isActive;
     },
     wordsComponent() {
       this.component = "wordsTableComponent";
+      this.isActive = !this.isActive;
     },
+    submit() {
+                let loader = this.$loading.show({
+                  canCancel: true,
+                  onCancel: this.onCancel,
+                  color: '#17bb7c',
+                });
+                // simulate AJAX
+                setTimeout(() => {
+                  loader.hide()
+                },5000)                 
+            }                      
+  },
+
+  beforeMount(){
+    this.submit()
+
   },
   mounted() {
     axios
       .get('http://demand-analysis.local/api/analysis/' + this.id)
       .then((response) => (this.keywordList = response.data));
+
   },
 };
 </script>
@@ -76,10 +102,12 @@ export default {
 }
  
 .isActive{
-  border-bottom: 5px green;
+border-bottom: 5px $green;
+color: $green;
+background-color: $bordergrey;
 }
-.column_two_full{
 
+.column_two_full{
 grid-template-rows: 100vh;
 padding-top: 24px;
 }
@@ -120,6 +148,11 @@ padding-top: 24px;
 }
 
 .keywords_menu{
-  float:left
+  float:left;
+  background-color: white;
+  border: none;
+  padding: 10px 15px 0px;
+  font-size: 18px;
+  margin-top: -20px;
 }
 </style>

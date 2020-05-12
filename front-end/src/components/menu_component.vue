@@ -29,16 +29,21 @@ export default {
 <style lang="scss">
 .menu_component {
   background-color: $white;
+ 
 }
 
 .menu_logo {
-  height: 70px;
+  height: 90px;
   width: auto;
+  z-index: 2;
+margin-left: -15px;
 }
+
 .primary_menu_bar {
   display: flex;
   justify-content: space-between;
   margin-left: -80px;
+  box-shadow: 1px 1px 10px 0.1px $bordergrey;
 }
 
 .menu_bar {
@@ -65,7 +70,6 @@ export default {
 }
 
 .secondary_menu_bar {
-      z-index: -1;
   display: flex;
   flex-direction: column;
   float: left;
@@ -75,5 +79,6 @@ export default {
   left: 0;
   height: 100vh;
   text-align: center;
+  box-shadow: 1px 90px 10px 0.1px $bordergrey;
 }
 </style>
