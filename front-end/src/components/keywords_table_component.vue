@@ -109,6 +109,7 @@ export default {
   display: grid;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
+    font-family: 'ProximaLight', sans-serif;
 }
 
 .keyword_row {
@@ -120,6 +121,7 @@ export default {
   color: $blue;
   font-size: 12px;
   padding: 1px 0px;
+    font-family: 'ProximaLight', sans-serif;
 }
 
 .keyword_data {
@@ -153,7 +155,7 @@ export default {
 }
 
 .keyword_table {
-  padding-top: 50px;
+  padding-top: 60px;
   height: 100%;
 }
 

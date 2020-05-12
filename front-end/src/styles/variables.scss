@@ -6,15 +6,24 @@ $bordergrey:#c7c7c7;
 $white: #ffffff;
 
 
-$light-font: "Proxima Nova",
-light,
-sans-serif;
-$medium-font: "Proxima Nova",
-medium,
-sans-serif;
-$bold-font: "Proxima Nova",
-bold,
-sans-serif;
-$extrabold-font: "Proxima Nova",
-extrabold,
-sans-serif;
+
+
+@font-face {
+    font-family: "ProximaLight";
+    src: url("https://demand-analysis/#/front-end/src/assets/fonts/._proxima-nova-300.eot");
+}
+
+@font-face {
+    font-family: "ProximaMedium";
+    src: url("https://demand-analysis/#/front-end/src/assets/fonts/._proxima-nova-400.eot");
+}
+
+@font-face {
+    font-family: "ProximaBold";
+    src: url("https://demand-analysis/#/front-end/src/assets/fonts/._proxima-nova-600.eot");
+}
+
+@font-face {
+    font-family: "ProximaExtra";
+    src: url("https://demand-analysis/#/front-end/src/assets/fonts/._proxima-nova-700.eot");
+}

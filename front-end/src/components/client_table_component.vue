@@ -86,6 +86,7 @@ export default {
   display: grid;
   grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
+    font-family: 'ProximaLight', sans-serif;
 }
 
 .client_row {
@@ -97,6 +98,7 @@ export default {
   color: $blue;
   font-size: 12px;
   padding: 1px 0px;
+    font-family: 'ProximaLight', sans-serif;
 }
 
 .client_data {
@@ -116,7 +118,7 @@ export default {
 }
 
 .client_table {
-  padding-top: 50px;
+  padding-top: 60px;
 }
 
 .client_button {

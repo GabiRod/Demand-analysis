@@ -83,7 +83,7 @@ h1 {
   margin: 0px;
   padding: 24px 0 0;
   color: $green;
-  font-family: $medium-font;
+
 }
 
 h2 {

@@ -153,6 +153,7 @@ padding-top: 24px;
   border: none;
   padding: 10px 15px 0px;
   font-size: 18px;
+  font-family: 'ProximaLight', sans-serif;
   margin-top: -20px;
 }
 </style>
