@@ -14,11 +14,11 @@
       </div>
   
   
-      <div class="words_row" :key="post.id" v-for="post in wordList.data.Results">
-        <div class="words_data">{{ post.Keyword }}</div>
-        <div class="words_data">{{ post.Clicks}}</div>
-         <button class="keywords_redirect" v-on:click="keywordsComponent()">Keywords</button>
-      
+      <div class="words_row" :key="post.id" v-for="post in wordList">
+        <div class="words_data">{{ post.keyword }}</div>
+        <div class="words_data">{{ post.count}}</div>
+         
+        <router-link to="/keywords_table_component" >{{post.keyword}}</router-link>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@ export default {
   },
    mounted() {
     axios
-      .get('http://demand-analysis.local/api/analysis/' + this.id +'/categories')
+      .get('http://demand-analysis.local/api/analysis/' + this.id +'/keywords')
       .then((response) => (this.wordList = response.data));
   },
      beforeMount(){
@@ -81,10 +81,8 @@ export default {
   text-align: start;
 }
 
-
-
 .words_menu_row {
-  padding: 10px 0px;
+  padding: 1px 0px;
   color: grey;
   font-size: 15px;
    display: grid;
@@ -94,13 +92,13 @@ export default {
 
 .words_row {
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
   display: grid;
   grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
   color: $blue;
   font-size: 12px;
-  padding: 1px 10px;
+  padding: 1px 1px;
 }
 
 .words_data {

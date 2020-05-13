@@ -28,6 +28,19 @@ const routes = [{
     name: "keywordsDashboardPage",
     component: keywordsDashboardPage,
     props: true,
+    children: [{
+        path: '/keywords_table_component',
+        name: 'keywordsTableComponent',
+
+        props: true
+      },
+      {
+        path: '/words_table_component',
+        name: 'wordsTableComponent',
+
+        props: true
+      }
+    ]
   }
 ]
 

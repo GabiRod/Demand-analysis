@@ -20,9 +20,6 @@
       />
 
       <br />
-      <div>
-        {{ info }}
-      </div>
       <br />
       <input
         class="login_input"
@@ -83,6 +80,7 @@ h1 {
   margin: 0px;
   padding: 24px 0 0;
   color: $green;
+   font-family: "ProximaExtra", sans-serif;
 
 }
 
@@ -90,6 +88,7 @@ h2 {
   margin: 40px 0 0;
   text-align: center;
   color: $green;
+  font-family: "ProximaBold", sans-serif;
 }
 
 .login_input_wrapper {
@@ -103,6 +102,7 @@ h2 {
 .login_input {
   padding: 10px;
   border: none;
+  font-family: "ProximaLight", sans-serif;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
 
@@ -111,6 +111,7 @@ h2 {
   text-decoration: none;
   border: 3px solid $green;
   color: $green;
+  font-family: "ProximaBold", sans-serif;
   background-color: $grey;
 
   &:hover {

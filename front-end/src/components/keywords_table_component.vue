@@ -20,7 +20,7 @@
         <div class="">Intent</div>
       </div>
     <div class="scroll" >
-      <div class="keyword_row" :key="query.id" v-for="query in keywordList.Results">
+      <div class="keyword_row" :key="query.id" v-for="query in keywordList">
         <div class="keyword_data"><a class="keyword_link" v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
@@ -71,10 +71,11 @@ export default {
     },  
   },
   mounted() {
-    axios
-      .get('http://demand-analysis.local/api/analysis/' + this.id)
-      .then((response) => (this.keywordList = response.data));
+      axios.get('http://demand-analysis.local/api/analysis/' + this.id)
+      .then((response) => (this.keywordList = response.data.Results));
+      
   },
+  
    beforeMount(){
     this.submit()
   },
@@ -89,7 +90,8 @@ export default {
                 setTimeout(() => {
                   loader.hide()
                 },5000)                 
-            }    
+            },
+
   }
   
 };
@@ -114,7 +116,7 @@ export default {
 
 .keyword_row {
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
   display: grid;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;

@@ -80,7 +80,7 @@ export default {
 }
 
 .client_menu_row {
-  padding: 10px 0px;
+  padding: 1px 0px;
   color: grey;
   font-size: 15px;
   display: grid;
@@ -91,12 +91,11 @@ export default {
 
 .client_row {
   text-align: left;
-  font-size: 12px;
+  font-size: 13px;
   display: grid;
   grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
   color: $blue;
-  font-size: 12px;
   padding: 1px 0px;
     font-family: 'ProximaLight', sans-serif;
 }
@@ -115,6 +114,7 @@ export default {
   padding: 10px;
   border: none;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
+  font-family: "ProximaLight", sans-serif;
 }
 
 .client_table {
@@ -131,6 +131,7 @@ export default {
   background-color: $white;
   font-size: 12px;
   margin: 1px 2px;
+  font-family: "ProximaBold", sans-serif;
 
   &:hover {
     background-color: $green;

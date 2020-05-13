@@ -1,7 +1,6 @@
 <template>
   <div id="client_keywords_component" class="client_keywords_component">
     <div class="client_keywords_number">{{ keywords }}</div>
-    <br />
     <div class="client_keywords">keywords</div>
   </div>
 </template>
@@ -26,9 +25,11 @@ export default {
 .client_keywords_number {
   font-size: 40px;
   color: $green;
+  font-family: "ProximaExtra", sans-serif;
 }
 
 .client_keywords {
   color: $blue;
+  font-family: "ProximaBold", sans-serif;
 }
 </style>

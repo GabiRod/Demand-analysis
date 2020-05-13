@@ -33,10 +33,10 @@ export default {
 }
 
 .menu_logo {
-  height: 90px;
+  height: 80px;
   width: auto;
   z-index: 2;
-margin-left: -15px;
+  margin-left: -10px;
 }
 
 .primary_menu_bar {
@@ -53,6 +53,7 @@ margin-left: -15px;
 .menu_title {
   padding-left: 20px;
   color: $blue;
+  font-family: "ProximaExtra", sans-serif;
 }
 
 .logout_button {

@@ -48,10 +48,6 @@ export default {
   max-width: 20px;
 }
 
-.menu_logo {
-  height: 70px;
-  width: auto;
-}
 
 .menu_bar {
   display: flex;
@@ -62,6 +58,7 @@ export default {
   color: $blue;
   margin-top: auto;
   margin-bottom: auto;
+  font-family: "ProximaExtra", sans-serif;
 }
 
 

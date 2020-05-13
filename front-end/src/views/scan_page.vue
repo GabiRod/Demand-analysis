@@ -32,9 +32,9 @@ export default {
   methods: {
    save(){
     axios
-      .post("https://demand-analysis.local/api/createAnalysis", {
-        customerName: "",
-        siteUrl: "",
+      .post("http://demand-analysis.local/api/createAnalysis", {
+        "customerName": "",
+        "siteUrl": ""
       })
      .then(function (response) {
       console.log(response);
@@ -51,11 +51,13 @@ export default {
   background-color: $grey;
   height: 100vh;
   width: 100%;
+  font-family: "ProximaExtra", sans-serif;
 }
 
 .scan_input {
   padding: 10px;
   border: none;
+  font-family: "ProximaLight", sans-serif;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
 
@@ -65,6 +67,7 @@ export default {
   border: 3px solid $green;
   color: $green;
   background-color: $grey;
+  font-family: "ProximaBold", sans-serif;
 
   &:hover {
     background-color: $green;
