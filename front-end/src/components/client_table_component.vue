@@ -18,7 +18,7 @@
         <div class="">Note</div>
       </div>
   
-      <div class="client_row" :key="client.id" v-for="client in filteredList">
+      <div class="client_row" :key="client.id" v-for="client in clientList">
         <div class="client_data">{{ client.customerName}}</div>
         <div class="client_data">{{ client.url }}</div>
         <div class="client_data">{{ client.numberOfRows }}</div>

@@ -4,7 +4,7 @@
 
     <div class="column_one">
       <div class="clients_board">
-        <clientTableComponent :clientList="clientList.data" />
+        <clientTableComponent :clientList="clientList" />
        
       </div>
 
@@ -44,7 +44,7 @@ export default {
    mounted() {
     axios
       .get("http://demand-analysis.local/api/analysis/all")
-      .then((response) => (this.clientList = response));
+      .then((response) => (this.clientList = response.data));
   },
 };
 </script>

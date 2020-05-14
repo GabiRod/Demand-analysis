@@ -26,9 +26,10 @@
         <div class="keyword_data">{{ query.Position }}</div>
         <div class="keyword_data">{{ query.Ctr }}</div>
         <input
+          @onfocusout="save()"
           :value="query.Category"
           class="keyword_data keyword_data_input"
-          v:model="query.Category"
+          v:model="category"
           v-bind:style='{
             "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
             "background-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
@@ -36,27 +37,30 @@
             }'
         />
         <input
+        @onfocusout="save()"
         :value="query.SubCategory1"
-         class="keyword_data keyword_data_input"
-        v:model="query.subcategory1"
+        class="keyword_data keyword_data_input"
+        v:model="subCategory1"
         v-bind:style='{
             "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
             "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
             }'
         />
         <input
+        @onfocusout="save()"
         :value="query.SubCategory2"
-          class="keyword_data keyword_data_input"
-          v:model="query.subcategory2"
-           v-bind:style='{
+        class="keyword_data keyword_data_input"
+        v:model="subCategory2"
+        v-bind:style='{
             "border-color" :  `${query.Colour}` == " " ? "$grey" : "solid 2px `${query.Colour}`",
             "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
             }'
         />
         <input 
+        @onfocusout="save()"
         :value="query.Intent" 
         class="keyword_data keyword_data_input" 
-        v:model="query.intent"/>
+        v:model="intent"/>
       </div>
       </div>
     </div>
@@ -79,6 +83,10 @@ export default {
     return {
       keywordList:null,
       search: "",
+      category: "",
+            subCategory1: "",
+            subCategory2: "",
+            intent: "",
       intents : [
         {
         intent : "IntentTest",
@@ -107,11 +115,12 @@ export default {
       });
     },  
   },
-  mounted() {
-      axios.get('http://demand-analysis.local/api/analysis/' + this.id)
-      .then((response) => (this.keywordList = response.data.Results));
-      
-  },
+ mounted(){
+    axios.get('http://demand-analysis.local/api/analysis/' + this.id)
+    .then((response) => (this.keywordList = response.data.Results));
+ 
+
+ },
   
    beforeMount(){
     this.submit()
@@ -128,6 +137,19 @@ export default {
                   loader.hide()
                 },5000)                 
             },
+ 
+    save(){
+      axios
+      .put('http://demand-analysis.local/api/analysis/category/'+ this.keywordList.DataId, {
+            "category": "",
+            "subCategory1": "",
+            "subCategory2": "",
+            "intent": ""
+        })
+      .then(function (response) {
+        console.log(response);
+      })
+    }
 
   }
   

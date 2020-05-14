@@ -6,14 +6,13 @@
       <div class="column_two_full">
         <div class="categories"></div>
         <div class="clients_board2">
-          <button class="keywords_menu" @click="keywordsComponent()" 
-          v-bind:style='{
-            "border-bottom" : (isActive? "solid 2px #17bb7c" : "white" )
-            }' >Keywords</button>
-          <button class="keywords_menu" @click="wordsComponent()" 
-          v-bind:style='{
-            "background-color" : (isActive? "white" : "solid 2px #17bb7c" )
-            }'>Words</button>
+          <button class="keywords_menu" 
+                  @click="keywordsComponent()" 
+                  :class="{isActive:selected == 1}" >Keywords</button>
+
+          <button class="keywords_menu" 
+                  @click="wordsComponent()" 
+                  :class="{isActive:selected == 2}">Words</button>
           <keep-alive>
             <component :is="component" :id='id'></component>
           </keep-alive>
@@ -46,7 +45,7 @@ export default {
 
   data() {
     return {
-      isActive:true,
+      selected: 1,
       keywordList: null,
       component:"keywordsTableComponent"
     };
@@ -61,11 +60,12 @@ export default {
   methods: {
     keywordsComponent() {
       this.component = "keywordsTableComponent";
-      this.isActive = !this.isActive;
+      this.selected = 1;
+    
     },
     wordsComponent() {
       this.component = "wordsTableComponent";
-      this.isActive = !this.isActive;
+      this.selected = 2;
     },
     submit() {
                 let loader = this.$loading.show({
@@ -102,9 +102,7 @@ export default {
 }
  
 .isActive{
-border-bottom: 5px $green;
-color: $green;
-background-color: $bordergrey;
+border-bottom: solid 3px $green !important;
 }
 
 .column_two_full{
