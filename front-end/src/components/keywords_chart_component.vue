@@ -46,7 +46,7 @@ export default {
 };
 
  const keywordsChartData = {
- type: 'pie',
+ type: 'doughnut',
  data: {
       labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
       datasets: [{
@@ -57,7 +57,7 @@ export default {
     },
   options: {
     responsive: true,
-    labels: true,
+    labels: false,
   }
 }
 const intentChartData = {

@@ -26,18 +26,37 @@
         <div class="keyword_data">{{ query.Position }}</div>
         <div class="keyword_data">{{ query.Ctr }}</div>
         <input
+          :value="query.Category"
           class="keyword_data keyword_data_input"
-          v:model="query.category"
+          v:model="query.Category"
+          v-bind:style='{
+            "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
+            "background-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
+            "color" :`${query.Colour}` == " " ? "$blue" : "white"
+            }'
         />
         <input
+        :value="query.SubCategory1"
          class="keyword_data keyword_data_input"
-          v:model="query.subcategory1"
+        v:model="query.subcategory1"
+        v-bind:style='{
+            "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
+            "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
+            }'
         />
         <input
+        :value="query.SubCategory2"
           class="keyword_data keyword_data_input"
           v:model="query.subcategory2"
+           v-bind:style='{
+            "border-color" :  `${query.Colour}` == " " ? "$grey" : "solid 2px `${query.Colour}`",
+            "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
+            }'
         />
-        <input class="keyword_data keyword_data_input" v:model="query.intent"/>
+        <input 
+        :value="query.Intent" 
+        class="keyword_data keyword_data_input" 
+        v:model="query.intent"/>
       </div>
       </div>
     </div>
@@ -60,6 +79,24 @@ export default {
     return {
       keywordList:null,
       search: "",
+      intents : [
+        {
+        intent : "IntentTest",
+        color : "red"
+    },
+    {
+        intent : "transactional",
+        color: "green"
+    },
+    {
+        intent: "brand",
+        color: "red"
+    },
+    {
+        intent:"commertial",
+        color:"orange"
+    }
+      ]
     };
    
   },
@@ -101,7 +138,6 @@ export default {
 .keywords_table_component {
   background-color: $white;
   text-align: start;
-
 }
 
 .keyword_menu_row {
@@ -109,6 +145,7 @@ export default {
   color: grey;
   font-size: 15px;
   display: grid;
+  text-align: left;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
     font-family: 'ProximaLight', sans-serif;
@@ -123,7 +160,8 @@ export default {
   color: $blue;
   font-size: 12px;
   padding: 1px 0px;
-    font-family: 'ProximaLight', sans-serif;
+  margin: 3px 0px;
+  font-family: 'ProximaLight', sans-serif;
 }
 
 .keyword_data {
@@ -147,12 +185,19 @@ export default {
 .keyword_data_input {
   margin: 1px 10px 1px 0px;
   border-radius: 5px;
+  text-align: center;
+  border: solid 2px ;
+  color: $blue;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: $grey;
 }
 
 .keyword_search_input {
   float: right;
   padding: 10px;
   border: none;
+
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
 

@@ -152,7 +152,7 @@ padding-top: 24px;
   background-color: white;
   border: none;
   padding: 10px 15px 0px;
-  font-size: 18px;
+  font-size: 16px;
   font-family: 'ProximaLight', sans-serif;
   margin-top: -20px;
 }
