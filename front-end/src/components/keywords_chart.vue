@@ -1,20 +1,21 @@
 <template>
-  <div id="keywords_intent_component" class="keywords_intent_component">
+  <div id="keywords_chart" class="keywords_chart">
     <div class="chart">
+      <div>By categories</div>
       <canvas id="keywords-chart"></canvas>
       <br>
-      <br>
+ 
+      <div>By intent</div>
        <canvas id="intent-chart"></canvas>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import Chart from "chart.js";
 
 export default {
-  name: "keywordsChartComponent",
+  name: "keywords_chart",
   props: ['id'],
   data() {
     return {
@@ -23,8 +24,6 @@ export default {
       intentChartData: intentChartData,
     };
   },
-
-  
   methods: {
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
@@ -36,10 +35,6 @@ export default {
     },
   },
   mounted() {
-    axios
-      .get('http://demand-analysis.local/api/analysis/' + this.id +'/categories')
-      .then((response) => (this.categoriesChart = response.data));
- 
     this.createChart("keywords-chart", this.keywordsChartData);
     this.createChart("intent-chart", this.intentChartData);
   },
@@ -48,9 +43,9 @@ export default {
  const keywordsChartData = {
  type: 'doughnut',
  data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      labels: ["Kitchen", "Living room", "Bw", "Latin America", "North America"],
       datasets: [{
-        label: "Population (millions)",
+       
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
         data: [2478,5267,734,784,433]
       }]
@@ -58,15 +53,15 @@ export default {
   options: {
     responsive: true,
     labels: false,
+    legend:false,
   }
 }
 const intentChartData = {
   type: 'line',
   data: {
-    labels: ['Janurary', 'February', 'March', 'April', 'May'],
     datasets: [{ // one line graph
         label: ' Upper',
-        data: [0, 56, 1, 2, 67, 144],
+        data: [100, 56, 1, 2, 67, 14],
         backgroundColor: [
           'rgba(251,43,43,.8)', // Red
         ],

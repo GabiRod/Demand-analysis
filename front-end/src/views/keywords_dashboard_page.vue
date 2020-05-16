@@ -23,8 +23,23 @@
         <div class="clients_keywords"><clientKeywordsComponent /></div>
 
         <div class="clients_charts_board">
-          Number of keywords by intent
-          <keywordsChartComponent :id='id' />
+          <button class="keywords_menu" 
+                  @click="keywords_chart()" 
+                  :class="{isActive:active == 1}" >Keywords</button>
+         <button class="keywords_menu" 
+                  @click="clicks_chart()" 
+                  :class="{isActive:active == 2}" >Clicks</button>
+          <button class="keywords_menu" 
+                  @click="position_chart()" 
+                  :class="{isActive:active == 3}">Position</button>
+          <button class="keywords_menu" 
+                  @click="ctr_chart()" 
+                  :class="{isActive:active == 4}">Ctr</button>
+
+          <keep-alive>
+            <component :is="chart" :id='id'></component>
+          </keep-alive>
+         
         </div>
       </div>
     </div>
@@ -37,7 +52,10 @@ import menuComponentClient from "../components/menu_component_client.vue";
 import keywordsTableComponent from "../components/keywords_table_component.vue";
 import wordsTableComponent from "../components/words_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
-import keywordsChartComponent from "../components/keywords_chart_component.vue";
+import keywords_chart from "../components/keywords_chart.vue";
+import clicks_chart from "../components/clicks_chart.vue";
+import position_chart from "../components/position_chart.vue";
+import ctr_chart from "../components/ctr_chart.vue";
 
 export default {
   name: "keywordsDashboardPage",
@@ -45,8 +63,10 @@ export default {
 
   data() {
     return {
+      active:1,
       selected: 1,
       keywordList: null,
+      chart:"keywords_chart",
       component:"keywordsTableComponent"
     };
   },
@@ -55,17 +75,35 @@ export default {
     keywordsTableComponent,
     wordsTableComponent,
     clientKeywordsComponent,
-    keywordsChartComponent,
+    keywords_chart,
+    clicks_chart,
+    position_chart,
+    ctr_chart,
   },
   methods: {
     keywordsComponent() {
       this.component = "keywordsTableComponent";
       this.selected = 1;
-    
     },
     wordsComponent() {
       this.component = "wordsTableComponent";
       this.selected = 2;
+    },
+    KeywordsChartComponent() {
+      this.chart = "keywords_chart";
+      this.selected = 1;
+    },
+    ClicksChartComponent() {
+      this.chart = "clicks_chart";
+      this.selected = 2;
+    },
+    PositionChrtComponent() {
+      this.chart = "position_chart";
+      this.selected = 3;
+    },
+    CtrChartComponent() {
+      this.chart = "ctr_chart";
+      this.selected = 4;
     },
     submit() {
                 let loader = this.$loading.show({
@@ -113,14 +151,14 @@ padding-top: 24px;
 .column_one {
   overflow: hidden;
   display: grid;
-  grid-template-columns: 75vw 21vw;
+  grid-template-columns: 75vw 23vw;
   height: 88%;
   width: 100%;
 }
 
 .column_two {
   display: grid;
-  grid-template-rows: 20vh 77vh;
+  grid-template-rows: 20vh 78vh;
   row-gap: 24px;
 }
 

@@ -82,6 +82,7 @@ export default {
   data() {
     return {
       keywordList:null,
+      ascending: false,
       search: "",
       category: "",
             subCategory1: "",
@@ -118,11 +119,8 @@ export default {
  mounted(){
     axios.get('http://demand-analysis.local/api/analysis/' + this.id)
     .then((response) => (this.keywordList = response.data.Results));
- 
-
- },
-  
-   beforeMount(){
+  },
+  beforeMount(){
     this.submit()
   },
   methods:{
@@ -137,8 +135,8 @@ export default {
                   loader.hide()
                 },5000)                 
             },
- 
-    save(){
+
+     save(){
       axios
       .put('http://demand-analysis.local/api/analysis/category/'+ this.keywordList.DataId, {
             "category": "",
@@ -170,7 +168,7 @@ export default {
   text-align: left;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
-    font-family: 'ProximaLight', sans-serif;
+  font-family: 'ProximaLight', sans-serif;
 }
 
 .keyword_row {
@@ -193,6 +191,7 @@ export default {
 
 .keyword_link{
   color: $blue;
+  font-family: 'ProximaMedium', sans-serif;
    &:hover {
      color: $green;
    }
@@ -201,11 +200,12 @@ export default {
 .keyword_row_data {
   color: $blue;
   font-size: 12px;
-  padding: 5px 5%;
+  padding: 5px 0px;
 }
 
 .keyword_data_input {
-  margin: 1px 10px 1px 0px;
+  margin: 1px 20px 1px 0px;
+  
   border-radius: 5px;
   text-align: center;
   border: solid 2px ;
@@ -229,6 +229,7 @@ export default {
 }
 
 .scroll{
+  display: block;
   overflow: scroll;
 }
 </style>

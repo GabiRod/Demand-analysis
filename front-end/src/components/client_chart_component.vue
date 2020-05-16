@@ -41,7 +41,8 @@ export default {
 }
 
 .chart {
-  height: 80%;
+  padding-top:50px;
+  height: 100%;
   width: 100%;
 }
 </style>

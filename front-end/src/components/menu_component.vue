@@ -42,7 +42,7 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-left: -80px;
-  height: 80px;
+  height: 60px;
   box-shadow: 1px 1px 10px 0.1px $bordergrey;
 }
 
@@ -80,6 +80,6 @@ export default {
   left: 0;
   height: 100vh;
   text-align: center;
-  box-shadow: 1px 80px 10px 0.1px $bordergrey;
+  box-shadow: 1px 60px 10px 0.1px $bordergrey;
 }
 </style>
