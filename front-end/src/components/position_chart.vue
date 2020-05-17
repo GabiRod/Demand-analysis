@@ -46,7 +46,7 @@ export default {
       datasets: [{
        
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: [2478,5267,734,784,433]
+        data: [478,5267,234,784,433]
       }]
     },
   options: {
@@ -58,9 +58,10 @@ export default {
 const intentChartData = {
   type: 'line',
   data: {
+    labels: ['Janurary', 'February', 'March', 'April', 'May'],
     datasets: [{ // one line graph
         label: ' Upper',
-        data: [100, 56, 1, 2, 67, 14],
+        data: [100, 56, 10, 20, 67, 140],
         backgroundColor: [
           'rgba(251,43,43,.8)', // Red
         ],

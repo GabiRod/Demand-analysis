@@ -58,7 +58,9 @@ export default {
 }
 const intentChartData = {
   type: 'line',
+  
   data: {
+    labels: ['Janurary', 'February', 'March', 'April', 'May'],
     datasets: [{ // one line graph
         label: ' Upper',
         data: [100, 56, 1, 2, 67, 14],
@@ -72,7 +74,7 @@ const intentChartData = {
       },
       { // another line graph
         label: 'Middle',
-        data: [7.8, 12.1, 122.7, 69.7, 139.8],
+        data: [7, 12, 122, 69, 139,568],
         backgroundColor: [
           'rgba(250, 124,7,.8)', // Orange
         ],
@@ -83,7 +85,7 @@ const intentChartData = {
       },
       { // another line graph
         label: 'Lower',
-        data: [195.8, 78.1, 122.7, 6.7, 115.8, 116.4, 50.7, 49.2],
+        data: [195, 78, 122, 6, 115, 116],
         backgroundColor: [
           'rgba(71, 183,132,.8)', // Green
         ],

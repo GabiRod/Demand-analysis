@@ -58,6 +58,7 @@ export default {
 const intentChartData = {
   type: 'line',
   data: {
+    labels: ['Janurary', 'February', 'March', 'April', 'May'],
     datasets: [{ // one line graph
         label: ' Upper',
         data: [100, 56, 1, 2, 67, 14],

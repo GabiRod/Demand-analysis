@@ -52,7 +52,7 @@
         class="keyword_data keyword_data_input"
         v:model="subCategory2"
         v-bind:style='{
-            "border-color" :  `${query.Colour}` == " " ? "$grey" : "solid 2px `${query.Colour}`",
+            "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
             "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
             }'
         />
@@ -60,7 +60,13 @@
         @onfocusout="save()"
         :value="query.Intent" 
         class="keyword_data keyword_data_input" 
-        v:model="intent"/>
+        v:model="intent"
+        v-bind:style='{
+            "border-color" :  `${query.Intent}` == intent in intents ? `${intent.color}` :  "$grey",
+            "background-color" :  `${query.Intent}` == intent in intents ? `${intent.color}` :  "$grey",
+            "color" :`${query.Colour}` == " " ? "$blue" : "white"
+            }'
+            />
       </div>
       </div>
     </div>
@@ -208,7 +214,7 @@ export default {
   
   border-radius: 5px;
   text-align: center;
-  border: solid 2px ;
+ 
   color: $blue;
   margin-top: auto;
   margin-bottom: auto;

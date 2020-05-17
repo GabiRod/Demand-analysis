@@ -66,7 +66,7 @@ export default {
       active:1,
       selected: 1,
       keywordList: null,
-      chart:"keywords_chart",
+      chart:"ctr_chart",
       component:"keywordsTableComponent"
     };
   },
@@ -89,38 +89,23 @@ export default {
       this.component = "wordsTableComponent";
       this.selected = 2;
     },
-    KeywordsChartComponent() {
+    keywords_chart() {
       this.chart = "keywords_chart";
-      this.selected = 1;
+      this.active = 1;
     },
-    ClicksChartComponent() {
+    clicks_chart() {
       this.chart = "clicks_chart";
-      this.selected = 2;
+      this.active = 2;
     },
-    PositionChrtComponent() {
+    position_chart() {
       this.chart = "position_chart";
-      this.selected = 3;
+      this.active = 3;
     },
-    CtrChartComponent() {
+    ctr_chart() {
       this.chart = "ctr_chart";
-      this.selected = 4;
+      this.active = 4;
     },
-    submit() {
-                let loader = this.$loading.show({
-                  canCancel: true,
-                  onCancel: this.onCancel,
-                  color: '#17bb7c',
-                });
-                // simulate AJAX
-                setTimeout(() => {
-                  loader.hide()
-                },5000)                 
-            }                      
-  },
-
-  beforeMount(){
-    this.submit()
-
+                 
   },
   mounted() {
     axios
