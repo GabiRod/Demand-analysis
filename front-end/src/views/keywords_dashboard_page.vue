@@ -23,16 +23,16 @@
         <div class="clients_keywords"><clientKeywordsComponent /></div>
 
         <div class="clients_charts_board">
-          <button class="keywords_menu" 
+          <button class="chart_menu" 
                   @click="keywords_chart()" 
                   :class="{isActive:active == 1}" >Keywords</button>
-         <button class="keywords_menu" 
+         <button class="chart_menu" 
                   @click="clicks_chart()" 
                   :class="{isActive:active == 2}" >Clicks</button>
-          <button class="keywords_menu" 
+          <button class="chart_menu" 
                   @click="position_chart()" 
                   :class="{isActive:active == 3}">Position</button>
-          <button class="keywords_menu" 
+          <button class="chart_menu" 
                   @click="ctr_chart()" 
                   :class="{isActive:active == 4}">Ctr</button>
 
@@ -66,7 +66,7 @@ export default {
       active:1,
       selected: 1,
       keywordList: null,
-      chart:"ctr_chart",
+      chart:"keywords_chart",
       component:"keywordsTableComponent"
     };
   },
@@ -136,7 +136,7 @@ padding-top: 24px;
 .column_one {
   overflow: hidden;
   display: grid;
-  grid-template-columns: 75vw 23vw;
+  grid-template-columns: 75vw 21vw;
   height: 88%;
   width: 100%;
 }
@@ -168,12 +168,22 @@ padding-top: 24px;
   padding: 24px;
 }
 
+.chart_menu{
+  float:left;
+  background-color: white;
+  border: none;
+  padding: 10px 10px 0px;
+  font-size: 13px;
+  font-family: 'ProximaLight', sans-serif;
+  margin-top: -20px;
+}
+
 .keywords_menu{
   float:left;
   background-color: white;
   border: none;
-  padding: 10px 15px 0px;
-  font-size: 16px;
+  padding: 10px 10px 0px;
+  font-size: 15px;
   font-family: 'ProximaLight', sans-serif;
   margin-top: -20px;
 }

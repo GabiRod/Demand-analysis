@@ -118,7 +118,7 @@ export default {
 }
 
 .client_table {
-  padding-top: 60px;
+  padding-top: 40px;
 }
 
 .client_button {

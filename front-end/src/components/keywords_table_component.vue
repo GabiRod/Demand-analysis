@@ -33,7 +33,7 @@
           v-bind:style='{
             "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
             "background-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
-            "color" :`${query.Colour}` == " " ? "$blue" : "white"
+             "color" :`${query.Colour}` == " " ? "$blue" : "white"
             }'
         />
         <input
@@ -61,11 +61,7 @@
         :value="query.Intent" 
         class="keyword_data keyword_data_input" 
         v:model="intent"
-        v-bind:style='{
-            "border-color" :  `${query.Intent}` == intent in intents ? `${intent.color}` :  "$grey",
-            "background-color" :  `${query.Intent}` == intent in intents ? `${intent.color}` :  "$grey",
-            "color" :`${query.Colour}` == " " ? "$blue" : "white"
-            }'
+       
             />
       </div>
       </div>
@@ -95,7 +91,7 @@ export default {
             subCategory2: "",
             intent: "",
       intents : [
-        {
+    {
         intent : "IntentTest",
         color : "red"
     },
@@ -126,8 +122,9 @@ export default {
     axios.get('http://demand-analysis.local/api/analysis/' + this.id)
     .then((response) => (this.keywordList = response.data.Results));
   },
-  beforeMount(){
+  Mount(){
     this.submit()
+    this.color()
   },
   methods:{
     submit() {
@@ -141,8 +138,15 @@ export default {
                   loader.hide()
                 },5000)                 
             },
-
-     save(){
+    color() {
+      if (this.query.Intent.toLowerCase().includes("intenttest")){
+      this.element.classList.add(".green_intent");
+      }
+      else{
+        this.element.classList.add(".red_intent");
+      }
+    },
+    save(){
       axios
       .put('http://demand-analysis.local/api/analysis/category/'+ this.keywordList.DataId, {
             "category": "",
@@ -164,6 +168,7 @@ export default {
 .keywords_table_component {
   background-color: $white;
   text-align: start;
+  margin: 2px;
 }
 
 .keyword_menu_row {
@@ -211,10 +216,9 @@ export default {
 
 .keyword_data_input {
   margin: 1px 20px 1px 0px;
-  
   border-radius: 5px;
   text-align: center;
- 
+  border: 2px solid $grey;
   color: $blue;
   margin-top: auto;
   margin-bottom: auto;
@@ -235,7 +239,15 @@ export default {
 }
 
 .scroll{
-  display: block;
-  overflow: scroll;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.green_intent{
+background-color: green;
+}
+
+.red_intent{
+background-color: red;
 }
 </style>

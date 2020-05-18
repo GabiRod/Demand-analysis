@@ -13,13 +13,14 @@
         <div class="">Volume</div>
       </div>
   
-  
+   <div class="scroll" >
       <div class="words_row" :key="post.id" v-for="post in wordList">
         <div class="words_data">{{ post.keyword }}</div>
         <div class="words_data">{{ post.count}}</div>
          
         <router-link to="/keywords_table_component" >{{post.keyword}}</router-link>
       </div>
+   </div>
     </div>
   </div>
 </template>
@@ -79,6 +80,7 @@ export default {
 .words_table_component {
   background-color: $white;
   text-align: start;
+ 
 }
 
 .words_menu_row {
@@ -123,5 +125,10 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   background-position-y: bottom;
+}
+
+.scroll{
+  max-height: 70vh;
+  overflow-y: auto;
 }
 </style>

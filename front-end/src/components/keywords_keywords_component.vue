@@ -26,6 +26,7 @@ export default {
 .client_keywords_number {
   font-size: 40px;
   color: $green;
+
 }
 
 .client_keywords {
