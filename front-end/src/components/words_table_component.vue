@@ -53,7 +53,7 @@ export default {
   },
    mounted() {
     axios
-      .get('http://demand-analysis.local/api/analysis/' + this.id +'/keywords')
+      .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id +'/keywords')
       .then((response) => (this.wordList = response.data));
   },
      beforeMount(){

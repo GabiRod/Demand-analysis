@@ -32,7 +32,7 @@ export default {
   methods: {
    save(){
     axios
-      .post("http://demand-analysis.local/api/createAnalysis", {
+      .post("https://demand-analysis.nozebrahosting.dk/api/createAnalysis", {
         "customerName": "",
         "siteUrl": ""
       })

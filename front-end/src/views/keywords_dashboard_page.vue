@@ -109,7 +109,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://demand-analysis.local/api/analysis/' + this.id)
+      .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id)
       .then((response) => (this.keywordList = response.data));
 
   },
@@ -174,7 +174,7 @@ padding-top: 24px;
   border: none;
   padding: 10px 10px 0px;
   font-size: 13px;
-  font-family: 'ProximaLight', sans-serif;
+  font-weight:300;
   margin-top: -20px;
 }
 
@@ -184,7 +184,7 @@ padding-top: 24px;
   border: none;
   padding: 10px 10px 0px;
   font-size: 15px;
-  font-family: 'ProximaLight', sans-serif;
+  font-weight:300;
   margin-top: -20px;
 }
 </style>

@@ -22,16 +22,21 @@
       <br />
       <br />
       <input
+      id="myInput"
         class="login_input"
-        type="text"
+        type="password"
         name="password"
         v-model="input.password"
         placeholder="password"
       />
+      <br>
+      <div class="show_pass" >
+      <input type="checkbox" @click="showPass()">Show Password
+      </div>
     </div>
     <br />
     <br />
-    <button class="login_button" v-on:click="login()">LOG IN</button>
+    <button class="login_button" @click="login()">LOG IN</button>
   </div>
 </template>
 
@@ -63,6 +68,14 @@ export default {
         console.log("A username and password must be present");
       }
     },
+    showPass() {
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+    x.type = "text";
+    } else {
+    x.type = "password";
+    }
+}
   },
 };
 </script>
@@ -104,6 +117,14 @@ h2 {
   border: none;
   font-family: "ProximaLight", sans-serif;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
+}
+
+.show_pass{
+  color: $blue;
+   font-family: "ProximaLight", sans-serif;
+   font-size: 10px;
+   padding: 2px 0 0 0 ;
+   margin-left: -90px;
 }
 
 .login_button {

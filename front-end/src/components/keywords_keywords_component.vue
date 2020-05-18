@@ -26,10 +26,12 @@ export default {
 .client_keywords_number {
   font-size: 40px;
   color: $green;
+  font-weight:600;
 
 }
 
 .client_keywords {
   color: $blue;
+  font-weight:400;
 }
 </style>

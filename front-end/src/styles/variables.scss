@@ -10,6 +10,14 @@ $white: #ffffff;
 @font-face {
     font-family: "ProximaLight";
     src: url("./../assets/fonts/._proxima-nova-300.eot");
+    src: url('./../assets/fonts/._proxima-nova-300.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('./../assets/fonts/._proxima-nova-300.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('./../assets/fonts/._proxima-nova-300.woff') format('woff'),
+        /* Pretty Modern Browsers */
+        url('./../assets/fonts/._proxima-nova-300.ttf') format('truetype'),
+        /* Safari, Android, iOS */
 }
 
 @font-face {

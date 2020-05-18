@@ -24,9 +24,9 @@
         <div class="keyword_data"><a class="keyword_link" v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
-        <div class="keyword_data">{{ query.Ctr }}</div>
+        <div class="keyword_data">{{ query.Ctr}}</div>
         <input
-          @onfocusout="save()"
+          @blur="save"
           :value="query.Category"
           class="keyword_data keyword_data_input"
           v:model="category"
@@ -37,7 +37,7 @@
             }'
         />
         <input
-        @onfocusout="save()"
+        @blur="save"
         :value="query.SubCategory1"
         class="keyword_data keyword_data_input"
         v:model="subCategory1"
@@ -47,7 +47,7 @@
             }'
         />
         <input
-        @onfocusout="save()"
+        @blur="save()"
         :value="query.SubCategory2"
         class="keyword_data keyword_data_input"
         v:model="subCategory2"
@@ -57,11 +57,10 @@
             }'
         />
         <input 
-        @onfocusout="save()"
+        @blur="save()"
         :value="query.Intent" 
         class="keyword_data keyword_data_input" 
         v:model="intent"
-       
             />
       </div>
       </div>
@@ -90,24 +89,7 @@ export default {
             subCategory1: "",
             subCategory2: "",
             intent: "",
-      intents : [
-    {
-        intent : "IntentTest",
-        color : "red"
-    },
-    {
-        intent : "transactional",
-        color: "green"
-    },
-    {
-        intent: "brand",
-        color: "red"
-    },
-    {
-        intent:"commertial",
-        color:"orange"
-    }
-      ]
+     
     };
    
   },
@@ -119,12 +101,14 @@ export default {
     },  
   },
  mounted(){
-    axios.get('http://demand-analysis.local/api/analysis/' + this.id)
+    axios
+    .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id)
     .then((response) => (this.keywordList = response.data.Results));
-  },
-  Mount(){
-    this.submit()
     this.color()
+  },
+  beforeMount(){
+    this.submit()
+    
   },
   methods:{
     submit() {
@@ -139,7 +123,7 @@ export default {
                 },5000)                 
             },
     color() {
-      if (this.query.Intent.toLowerCase().includes("intenttest")){
+      if (this.intent.toLowerCase == "intenttest"){
       this.element.classList.add(".green_intent");
       }
       else{
@@ -148,7 +132,7 @@ export default {
     },
     save(){
       axios
-      .put('http://demand-analysis.local/api/analysis/category/'+ this.keywordList.DataId, {
+      .put('https://demand-analysis.nozebrahosting.dk/api/analysis/category/'+ this.keywordList.query.DataId, {
             "category": "",
             "subCategory1": "",
             "subCategory2": "",
@@ -160,7 +144,6 @@ export default {
     }
 
   }
-  
 };
 </script>
 
@@ -179,7 +162,7 @@ export default {
   text-align: left;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
-  font-family: 'ProximaLight', sans-serif;
+  font-weight:400;
 }
 
 .keyword_row {
@@ -192,7 +175,7 @@ export default {
   font-size: 12px;
   padding: 1px 0px;
   margin: 3px 0px;
-  font-family: 'ProximaLight', sans-serif;
+  font-weight:300;
 }
 
 .keyword_data {
@@ -202,7 +185,7 @@ export default {
 
 .keyword_link{
   color: $blue;
-  font-family: 'ProximaMedium', sans-serif;
+  font-weight:300;
    &:hover {
      color: $green;
    }

@@ -107,6 +107,9 @@ export default {
 
 .client_data_note {
   margin-right: 15px;
+  background-color: $grey;
+  border: solid 1px $grey;
+  border-radius: 5px;
 }
 
 .search_input {

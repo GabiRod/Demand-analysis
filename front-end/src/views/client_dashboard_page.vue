@@ -43,7 +43,7 @@ export default {
   },
    mounted() {
     axios
-      .get("http://demand-analysis.local/api/analysis/all")
+      .get("https://demand-analysis.nozebrahosting.dk/api/analysis/all")
       .then((response) => (this.clientList = response.data));
   },
 };
