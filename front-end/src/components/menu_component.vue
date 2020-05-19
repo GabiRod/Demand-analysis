@@ -18,6 +18,7 @@
 export default {
   name: "menuComponent",
   methods: {
+    //logout- sending data to parent component
     logout() {
       this.$emit("authenticated", false);
       this.$router.replace({ path: "/" });
@@ -36,6 +37,7 @@ export default {
   width: auto;
   z-index: 2;
   margin-left: -10px;
+  margin-top: -10px;
 }
 
 .primary_menu_bar {
@@ -43,7 +45,7 @@ export default {
   justify-content: space-between;
   margin-left: -80px;
   height: 60px;
-  box-shadow: 1px 1px 10px 0.1px $bordergrey;
+  box-shadow: 1px 1px 10px 0.5px $bordergrey;
 }
 
 .menu_bar {
@@ -53,7 +55,7 @@ export default {
 .menu_title {
   padding-left: 20px;
   color: $blue;
-  font-family: "ProximaExtra", sans-serif;
+  font-weight:700;
 }
 
 .logout_button {

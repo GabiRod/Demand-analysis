@@ -25,6 +25,7 @@ export default {
     };
   },
   methods: {
+    //logout- sending data to parent component
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
       new Chart(ctx, {
@@ -43,10 +44,10 @@ export default {
  const keywordsChartData = {
  type: 'doughnut',
  data: {
-      labels: ["Kitchen", "Living room", "Bw", "Latin America", "North America"],
+      labels: ["Kitchen", "Living room", "Bedroom", "Garden", "Bathroom"],
       datasets: [{
        
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        backgroundColor: ["#9BE1E3", "#E28383","#F1C491","#A99BE3","#F8D983"],
         data: [2478,967,734,84,433]
       }]
     },

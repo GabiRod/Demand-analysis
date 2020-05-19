@@ -86,7 +86,7 @@ export default {
   display: grid;
   grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
-    font-family: 'ProximaLight', sans-serif;
+  font-weight:300;
 }
 
 .client_row {
@@ -97,7 +97,7 @@ export default {
   border-bottom: 1px solid $grey;
   color: $blue;
   padding: 1px 0px;
-    font-family: 'ProximaLight', sans-serif;
+  font-weight:300;
 }
 
 .client_data {
@@ -117,7 +117,7 @@ export default {
   padding: 10px;
   border: none;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
-  font-family: "ProximaLight", sans-serif;
+  font-weight:300;
 }
 
 .client_table {
@@ -134,7 +134,7 @@ export default {
   background-color: $white;
   font-size: 12px;
   margin: 1px 2px;
-  font-family: "ProximaBold", sans-serif;
+ font-weight:300;
 
   &:hover {
     background-color: $green;

@@ -31,9 +31,9 @@
           class="keyword_data keyword_data_input"
           v:model="category"
           v-bind:style='{
-            "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
-            "background-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
-             "color" :`${query.Colour}` == " " ? "$blue" : "white"
+            "border-color" :  `${query.Colour}` == "" ? "$grey" : `${query.Colour}`,
+            "background-color" :  `${query.Colour}` == "" ? "$grey" : `${query.Colour}`,
+             "color" :`${query.Colour}` == "" ? "$blue" : "white"
             }'
         />
         <input
@@ -42,7 +42,7 @@
         class="keyword_data keyword_data_input"
         v:model="subCategory1"
         v-bind:style='{
-            "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
+            "border-color" :  `${query.Colour}` == "" ? "$grey" : `${query.Colour}`,
             "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
             }'
         />
@@ -52,7 +52,7 @@
         class="keyword_data keyword_data_input"
         v:model="subCategory2"
         v-bind:style='{
-            "border-color" :  `${query.Colour}` == " " ? "$grey" : `${query.Colour}`,
+            "border-color" :  `${query.Colour}` == "" ? "$grey" : `${query.Colour}`,
             "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
             }'
         />
@@ -83,17 +83,16 @@ export default {
   data() {
     return {
       keywordList:null,
-      ascending: false,
       search: "",
       category: "",
-            subCategory1: "",
-            subCategory2: "",
-            intent: "",
-     
+      subCategory1: "",
+      subCategory2: "",
+      intent: "",
     };
    
   },
   computed: {
+    //code prepared to be use for filtering the the table
     filteredList() {
       return this.keywordList.filter((query) => {
         return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
@@ -101,38 +100,44 @@ export default {
     },  
   },
  mounted(){
+   //fetching data form the database and padding the clients ID
     axios
     .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id)
     .then((response) => (this.keywordList = response.data.Results));
-    this.color()
   },
   beforeMount(){
-    this.submit()
-    
+    this.submit()    
+  },
+  created(){
+    this.color()
   },
   methods:{
+    //loader
     submit() {
-                let loader = this.$loading.show({
-                  canCancel: true,
-                  onCancel: this.onCancel,
-                  color: '#17bb7c',
-                });
-                // simulate AJAX
-                setTimeout(() => {
-                  loader.hide()
-                },5000)                 
-            },
+      let loader = this.$loading.show({
+        canCancel: true,
+        onCancel: this.onCancel,
+        color: '#17bb7c',
+      });
+      // simulate AJAX
+      setTimeout(() => {
+        loader.hide()
+      },5000)                 
+    },
+    
+    // prepared function for adding the color to the intent
     color() {
-      if (this.intent.toLowerCase == "intenttest"){
-      this.element.classList.add(".green_intent");
+      if (this.intent.toLowerCase() !== "intenttest"){
+        this.element.classList.add("green_intent");
       }
       else{
-        this.element.classList.add(".red_intent");
+        this.element.classList.add("red_intent");
       }
     },
+    //posting the data from inputs to the database not accepting for now
     save(){
       axios
-      .put('https://demand-analysis.nozebrahosting.dk/api/analysis/category/'+ this.keywordList.query.DataId, {
+      .put('https://demand-analysis.nozebrahosting.dk/api/analysis/category/1', {
             "category": "",
             "subCategory1": "",
             "subCategory2": "",
@@ -161,13 +166,12 @@ export default {
   display: grid;
   text-align: left;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
-  border-bottom: 1px solid $grey;
+  border-bottom: 1.5px solid $grey;
   font-weight:400;
 }
 
 .keyword_row {
   text-align: left;
-  font-size: 13px;
   display: grid;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1px solid $grey;
@@ -201,7 +205,7 @@ export default {
   margin: 1px 20px 1px 0px;
   border-radius: 5px;
   text-align: center;
-  border: 2px solid $grey;
+  border: 1px solid $grey;
   color: $blue;
   margin-top: auto;
   margin-bottom: auto;
@@ -212,7 +216,6 @@ export default {
   float: right;
   padding: 10px;
   border: none;
-
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
 
@@ -222,7 +225,7 @@ export default {
 }
 
 .scroll{
-  max-height: 70vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 

@@ -11,7 +11,7 @@ export default {
   name: "clientKeywordsComponent",
   data() {
     return {
-      keywords: 268238,
+      keywords: '268 238',
     };
   },
 };
@@ -32,6 +32,7 @@ export default {
 
 .client_keywords {
   color: $blue;
+  font-size: 20px;
   font-weight:400;
 }
 </style>

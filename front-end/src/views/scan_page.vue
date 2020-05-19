@@ -3,17 +3,18 @@
     <h1>Add new client</h1>
     <br />
     <br />
+    Enter client's name
+    <br>
     <input type="text" class="scan_input" placeholder="Enter client's name" v-model="customerName" />
     <br/>
     <br/>
+    Enter the URL
+    <br>
     <input type="text" class="scan_input" placeholder="Enter the URL" v-model="siteUrl" />
     <br />
     <br />
     <br />
-    <button @click="save()">
-      save
-    </button>
-    <router-link  class="scan_button" to="/client_dashboard_page">SAVE</router-link>
+    <router-link @click="save()" class="scan_button" to="/client_dashboard_page">SAVE</router-link>
   </div>
 </template>
 
@@ -31,6 +32,7 @@ export default {
 
   methods: {
    save(){
+     // posting the data to the database - database not accepting data
     axios
       .post("https://demand-analysis.nozebrahosting.dk/api/createAnalysis", {
         "customerName": "",
@@ -51,13 +53,13 @@ export default {
   background-color: $grey;
   height: 100vh;
   width: 100%;
-  font-family: "ProximaExtra", sans-serif;
+font-weight:300;
 }
 
 .scan_input {
   padding: 10px;
   border: none;
-  font-family: "ProximaLight", sans-serif;
+ font-weight:300;
   box-shadow: 3px 3px 7px rgb(161, 161, 161);
 }
 
@@ -67,7 +69,7 @@ export default {
   border: 3px solid $green;
   color: $green;
   background-color: $grey;
-  font-family: "ProximaBold", sans-serif;
+font-weight:600;
 
   &:hover {
     background-color: $green;

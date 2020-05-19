@@ -29,6 +29,7 @@ export default {
     }
   },
   methods: {
+    //logout- sending data to parent component
     logout() {
       this.$emit("authenticated", false);
       this.$router.replace({ path: "/" });
@@ -44,8 +45,9 @@ export default {
 }
 
 .go_back{
-  padding-right: 20px;
+  padding-right: 40px;
   max-width: 20px;
+  margin-left: -20px;
 }
 
 
@@ -58,7 +60,7 @@ export default {
   color: $blue;
   margin-top: auto;
   margin-bottom: auto;
-  font-family: "ProximaExtra", sans-serif;
+  font-weight:700;
 }
 
 

@@ -25,11 +25,12 @@ export default {
 .client_keywords_number {
   font-size: 40px;
   color: $green;
-  font-family: "ProximaExtra", sans-serif;
+ font-weight: 700;
 }
 
 .client_keywords {
   color: $blue;
-  font-family: "ProximaBold", sans-serif;
+  font-size: 20px;
+ font-weight: 400;
 }
 </style>

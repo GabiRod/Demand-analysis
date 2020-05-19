@@ -5,42 +5,43 @@
     <div class="column_one">
       <div class="column_two_full">
         <div class="categories"></div>
-        <div class="clients_board2">
-          <button class="keywords_menu" 
-                  @click="keywordsComponent()" 
-                  :class="{isActive:selected == 1}" >Keywords</button>
+          <div class="clients_board2">
+            <div class="component_menu">
+              <button class="keywords_menu" 
+                      @click="keywordsComponent()" 
+                      :class="{isActive:selected == 1}" >Keywords</button>
 
-          <button class="keywords_menu" 
-                  @click="wordsComponent()" 
-                  :class="{isActive:selected == 2}">Words</button>
-          <keep-alive>
-            <component :is="component" :id='id'></component>
-          </keep-alive>
-        </div>
+              <button class="keywords_menu" 
+                      @click="wordsComponent()" 
+                      :class="{isActive:selected == 2}">Words</button>
+            </div>
+              <keep-alive>
+                <component :is="component" :id='id'></component>
+              </keep-alive>
+          </div>
       </div>
 
       <div class="column_two">
         <div class="clients_keywords"><clientKeywordsComponent /></div>
-
-        <div class="clients_charts_board">
-          <button class="chart_menu" 
-                  @click="keywords_chart()" 
-                  :class="{isActive:active == 1}" >Keywords</button>
-         <button class="chart_menu" 
-                  @click="clicks_chart()" 
-                  :class="{isActive:active == 2}" >Clicks</button>
-          <button class="chart_menu" 
-                  @click="position_chart()" 
-                  :class="{isActive:active == 3}">Position</button>
-          <button class="chart_menu" 
-                  @click="ctr_chart()" 
-                  :class="{isActive:active == 4}">Ctr</button>
-
-          <keep-alive>
-            <component :is="chart" :id='id'></component>
-          </keep-alive>
-         
-        </div>
+          <div class="clients_charts_board">
+            <div class="component_menu">
+                <button class="chart_menu" 
+                        @click="keywords_chart()" 
+                        :class="{isActive:active == 1}" >Keywords</button>
+                <button class="chart_menu" 
+                        @click="clicks_chart()" 
+                        :class="{isActive:active == 2}" >Clicks</button>
+                <button class="chart_menu" 
+                        @click="position_chart()" 
+                        :class="{isActive:active == 3}">Position</button>
+                <button class="chart_menu" 
+                        @click="ctr_chart()" 
+                        :class="{isActive:active == 4}">Ctr</button>
+              </div>
+            <keep-alive>
+              <component :is="chart" :id='id'></component>
+            </keep-alive>
+          </div>
       </div>
     </div>
   </div>
@@ -49,9 +50,11 @@
 <script>
 import axios from "axios";
 import menuComponentClient from "../components/menu_component_client.vue";
+//import table components
 import keywordsTableComponent from "../components/keywords_table_component.vue";
 import wordsTableComponent from "../components/words_table_component.vue";
 import clientKeywordsComponent from "../components/client_keywords_component.vue";
+//import chart components
 import keywords_chart from "../components/keywords_chart.vue";
 import clicks_chart from "../components/clicks_chart.vue";
 import position_chart from "../components/position_chart.vue";
@@ -81,13 +84,16 @@ export default {
     ctr_chart,
   },
   methods: {
+    //calling diffrent-dynamic components on click
     keywordsComponent() {
       this.component = "keywordsTableComponent";
       this.selected = 1;
+      this.submit()
     },
     wordsComponent() {
       this.component = "wordsTableComponent";
       this.selected = 2;
+      this.submit()
     },
     keywords_chart() {
       this.chart = "keywords_chart";
@@ -105,9 +111,22 @@ export default {
       this.chart = "ctr_chart";
       this.active = 4;
     },
-                 
+
+    //loader
+    submit() {
+      let loader = this.$loading.show({
+        canCancel: true,
+        onCancel: this.onCancel,
+        color: '#17bb7c',
+      });
+      // simulate AJAX
+      setTimeout(() => {
+        loader.hide()
+      },5000)                 
+    },             
   },
   mounted() {
+    //fetching the data from database and passing ID of the client
     axios
       .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id)
       .then((response) => (this.keywordList = response.data));
@@ -176,6 +195,10 @@ padding-top: 24px;
   font-size: 13px;
   font-weight:300;
   margin-top: -20px;
+}
+
+.component_menu{
+  margin-left: -20px;
 }
 
 .keywords_menu{

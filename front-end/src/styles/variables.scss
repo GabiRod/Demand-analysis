@@ -4,33 +4,3 @@ $blue: #283c66;
 $grey: #f2f2f2;
 $bordergrey:#c7c7c7;
 $white: #ffffff;
-
-
-
-@font-face {
-    font-family: "ProximaLight";
-    src: url("./../assets/fonts/._proxima-nova-300.eot");
-    src: url('./../assets/fonts/._proxima-nova-300.eot?#iefix') format('embedded-opentype'),
-        /* IE6-IE8 */
-        url('./../assets/fonts/._proxima-nova-300.woff2') format('woff2'),
-        /* Super Modern Browsers */
-        url('./../assets/fonts/._proxima-nova-300.woff') format('woff'),
-        /* Pretty Modern Browsers */
-        url('./../assets/fonts/._proxima-nova-300.ttf') format('truetype'),
-        /* Safari, Android, iOS */
-}
-
-@font-face {
-    font-family: "ProximaMedium";
-    src: url("./../assets/fonts/._proxima-nova-400.eot");
-}
-
-@font-face {
-    font-family: "ProximaBold";
-    src: url("https://demand-analysis/#/front-end/src/assets/fonts/._proxima-nova-600.eot");
-}
-
-@font-face {
-    font-family: "ProximaExtra";
-    src: url("https://demand-analysis/#/front-end/src/assets/fonts/._proxima-nova-700.eot");
-}

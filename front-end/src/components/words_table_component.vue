@@ -18,7 +18,11 @@
         <div class="words_data">{{ post.keyword }}</div>
         <div class="words_data">{{ post.count}}</div>
          
-        <router-link to="/keywords_table_component" >{{post.keyword}}</router-link>
+        <router-link class="word_link" to="/keywords_table_component" >to keywords <img
+          class="arrow_right"
+          src="../assets/arrow_right.webp"
+          alt="linking"
+        /></router-link>
       </div>
    </div>
     </div>
@@ -45,6 +49,7 @@ export default {
     };
   },
   computed: {
+    //code prepared to be use for filtering the the table
     filteredList() {
       return this.wordList.filter((post) => {
         return post.keyword.toLowerCase().includes(this.search.toLowerCase());
@@ -52,6 +57,7 @@ export default {
     },
   },
    mounted() {
+     //fething data from the database
     axios
       .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id +'/keywords')
       .then((response) => (this.wordList = response.data));
@@ -60,17 +66,18 @@ export default {
     this.submit()
   },
   methods:{
+    //loader
     submit() {
-                let loader = this.$loading.show({
-                  canCancel: true,
-                  onCancel: this.onCancel,
-                  color: '#17bb7c',
-                });
-                // simulate AJAX
-                setTimeout(() => {
-                  loader.hide()
-                },5000)                 
-            }    
+      let loader = this.$loading.show({
+        canCancel: true,
+        onCancel: this.onCancel,
+        color: '#17bb7c',
+      });
+      // simulate AJAX
+      setTimeout(() => {
+        loader.hide()
+      },5000)                 
+    }    
   }
   
 };
@@ -80,7 +87,6 @@ export default {
 .words_table_component {
   background-color: $white;
   text-align: start;
- 
 }
 
 .words_menu_row {
@@ -94,7 +100,6 @@ export default {
 
 .words_row {
   text-align: left;
-  font-size: 13px;
   display: grid;
   grid-template-columns: 15% 20% 15% auto 70px;
   border-bottom: 1px solid $grey;
@@ -118,6 +123,13 @@ export default {
   padding-top: 40px;
 }
 
+.word_link{
+  color: $blue;
+     &:hover {
+     color: $green;
+   }
+}
+
 .arrow {
   float: right;
   width: 12px;
@@ -130,5 +142,11 @@ export default {
 .scroll{
   max-height: 70vh;
   overflow-y: auto;
+}
+
+.arrow_right{
+   margin-top: auto;
+  margin-bottom: auto;
+  max-height: 12px;
 }
 </style>

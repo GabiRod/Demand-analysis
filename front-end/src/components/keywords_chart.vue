@@ -4,6 +4,7 @@
       <div>By categories</div>
       <canvas id="keywords-chart"></canvas>
       <br>
+      <br>
  
       <div>By intent</div>
        <canvas id="intent-chart"></canvas>
@@ -25,6 +26,7 @@ export default {
     };
   },
   methods: {
+    // create chart- chart.js documentation
     createChart(chartId, chartData) {
       const ctx = document.getElementById(chartId);
       new Chart(ctx, {
@@ -43,16 +45,17 @@ export default {
  const keywordsChartData = {
  type: 'doughnut',
  data: {
-      labels: ["Kitchen", "Living room", "Bw", "Latin America", "North America"],
+      labels: ["Kitchen", "Living room", "Bedroom", "Garden", "Bathroom"],
       datasets: [{
        
-        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        backgroundColor: ["#9BE1E3", "#E28383","#F1C491","#A99BE3","#F8D983"],
         data: [2478,5267,734,784,433]
       }]
     },
   options: {
     responsive: true,
     legend:false,
+    weight: 10,
   }
 }
 const intentChartData = {
@@ -62,7 +65,7 @@ const intentChartData = {
     labels: ['Janurary', 'February', 'March', 'April', 'May'],
     datasets: [{ // one line graph
         label: ' Upper',
-        data: [100, 56, 139, 2, 67, 143],
+        data: [100, 156, 139, 200, 67, 143],
         backgroundColor: [
           'rgba(251,43,43,.8)', // Red
         ],
@@ -73,7 +76,7 @@ const intentChartData = {
       },
       { // another line graph
         label: 'Middle',
-        data: [200, 12, 122, 69, 139, 268],
+        data: [200, 120, 122, 69, 139, 268],
         backgroundColor: [
           'rgba(250, 124,7,.8)', // Orange
         ],
@@ -84,7 +87,7 @@ const intentChartData = {
       },
       { // another line graph
         label: 'Lower',
-        data: [195, 78, 122, 6, 115, 116],
+        data: [195, 178, 122, 60, 115, 116],
         backgroundColor: [
           'rgba(71, 183,132,.8)', // Green
         ],
