@@ -19,7 +19,7 @@
         <div class="">Subcategory2</div>
         <div class="">Intent</div>
       </div>
-    <div class="scroll" >
+    <div class="scroll1" >
       <div class="keyword_row" :key="query.id" v-for="query in keywordList">
         <div class="keyword_data"><a class="keyword_link" v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
@@ -108,9 +108,9 @@ export default {
   beforeMount(){
     this.submit()    
   },
-  created(){
-    this.color()
-  },
+ // created(){
+ //   this.color()
+ // },
   methods:{
     //loader
     submit() {
@@ -224,8 +224,8 @@ export default {
   height: 100%;
 }
 
-.scroll{
-  max-height: 60vh;
+.scroll1{
+  max-height: 68vh;
   overflow-y: auto;
 }
 
