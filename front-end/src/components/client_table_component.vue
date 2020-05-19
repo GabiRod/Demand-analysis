@@ -109,7 +109,6 @@ export default {
   margin-right: 15px;
   background-color: $grey;
   border: solid 1px $grey;
-  border-radius: 5px;
 }
 
 .search_input {
@@ -134,7 +133,7 @@ export default {
   background-color: $white;
   font-size: 12px;
   margin: 1px 2px;
- font-weight:300;
+  font-weight:300;
 
   &:hover {
     background-color: $green;
