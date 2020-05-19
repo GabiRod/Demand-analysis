@@ -126,14 +126,14 @@ export default {
     },
     
     // prepared function for adding the color to the intent
-    color() {
-      if (this.intent.toLowerCase() !== "intenttest"){
-        this.element.classList.add("green_intent");
-      }
-      else{
-        this.element.classList.add("red_intent");
-      }
-    },
+    //color() {
+    //  if (this.intent.toLowerCase() !== "intenttest"){
+    //    this.element.classList.add("green_intent");
+     // }
+     // else{
+     //   this.element.classList.add("red_intent");
+     // }
+    //},
     //posting the data from inputs to the database not accepting for now
     save(){
       axios
