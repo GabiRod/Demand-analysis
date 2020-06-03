@@ -20,7 +20,7 @@
   
       <div class="client_row" :key="client.id" v-for="client in clientList">
         <div class="client_data">{{ client.customerName}}</div>
-        <div class="client_data">{{ client.url }}</div>
+        <div class="client_data"><a class="keyword_link" v-bind:href="''+client.url +''">{{ client.url }}</a></div>
         <div class="client_data">{{ client.numberOfRows }}</div>
         <input class="client_data client_data_note" v:model="client.note" />
         <router-link class="client_button" :to="'/keywords_dashboard_page/' + client.id + ''"

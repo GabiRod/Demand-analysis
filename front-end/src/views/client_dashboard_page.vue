@@ -45,7 +45,7 @@ export default {
    mounted() {
      // fetchig the data from database
     axios
-      .get("https://demand-analysis.nozebrahosting.dk/api/analysis/all")
+      .get("http://demand-analysis.local/api/analysis/all")
       .then((response) => (this.clientList = response.data));
   },
 };

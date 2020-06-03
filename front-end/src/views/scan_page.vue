@@ -34,7 +34,7 @@ export default {
    save(){
      // posting the data to the database - database not accepting data
     axios
-      .post("https://demand-analysis.nozebrahosting.dk/api/createAnalysis", {
+      .post("http://demand-analysis.local/api/createAnalysis", {
         "customerName": "",
         "siteUrl": ""
       })

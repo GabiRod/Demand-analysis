@@ -128,7 +128,7 @@ export default {
   mounted() {
     //fetching the data from database and passing ID of the client
     axios
-      .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id)
+      .get('http://demand-analysis.local/api/analysis/' + this.id)
       .then((response) => (this.keywordList = response.data));
 
   },

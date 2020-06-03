@@ -22,12 +22,13 @@
       <br />
       <br />
       <input
-      id="myInput"
+        id="myInput"
         class="login_input"
         type="password"
         name="password"
         v-model="input.password"
         placeholder="password"
+        v-on:keyup.enter="onEnter"
       />
       <br>
       <div class="show_pass" >
@@ -36,7 +37,7 @@
     </div>
     <br />
     <br />
-    <button class="login_button" @click="login()">LOG IN</button>
+    <button class="login_button" id="login_button" @click="login()">LOG IN</button>
   </div>
 </template>
 
@@ -68,8 +69,14 @@ export default {
         console.log("A username and password must be present");
       }
     },
+
+     onEnter: function() {
+      let click = document.getElementById("login_button");
+      click.click();
+    },
+
     showPass() {
-    var x = document.getElementById("myInput");
+    let x = document.getElementById("myInput");
     if (x.type === "password") {
     x.type = "text";
     } else {

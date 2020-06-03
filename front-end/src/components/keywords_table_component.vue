@@ -56,12 +56,27 @@
             "color" :`${query.Colour}` == " " ? "$blue" : `${query.Colour}`
             }'
         />
-        <input 
+        <autocomplete-vue
         @blur="save()"
-        :value="query.Intent" 
-        class="keyword_data keyword_data_input" 
-        v:model="intent"
-            />
+        inputClass="keyword_data keyword_data_input" 
+        :value="query.Intent"
+        :list="[{
+                 name: 'Informational',
+                 color:'green'}, 
+                {
+                 name: 'Commertial',
+                 color:'orange'},    
+                {
+                 name: 'Transactional',
+                 color:'red'}, 
+                {
+                 name: 'Brand',
+                 color:'red'
+                 }]"
+        
+        
+        ></autocomplete-vue>
+
       </div>
       </div>
     </div>
@@ -76,6 +91,9 @@ import Vue from 'vue';
     import 'vue-loading-overlay/dist/vue-loading.css';
     // Init plugin
     Vue.use(Loading);
+    import AutocompleteVue from 'autocomplete-vue';
+
+    Vue.component('autocomplete-vue', AutocompleteVue);
 import axios from "axios";
 export default {
   name: "keywordsTableComponent",
@@ -102,7 +120,7 @@ export default {
  mounted(){
    //fetching data form the database and padding the clients ID
     axios
-    .get('https://demand-analysis.nozebrahosting.dk/api/analysis/' + this.id)
+    .get('http://demand-analysis.local/api/analysis/' + this.id)
     .then((response) => (this.keywordList = response.data.Results));
   },
   beforeMount(){
@@ -137,7 +155,7 @@ export default {
     //posting the data from inputs to the database not accepting for now
     save(){
       axios
-      .put('https://demand-analysis.nozebrahosting.dk/api/analysis/category/1', {
+      .put('http://demand-analysis.local/api/analysis/category/1', {
             "category": "",
             "subCategory1": "",
             "subCategory2": "",
