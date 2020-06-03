@@ -20,7 +20,7 @@
         <div class="">Intent</div>
       </div>
     <div class="scroll1" >
-      <div class="keyword_row" :key="query.id" v-for="query in keywordList">
+      <div class="keyword_row" :key="query.id" v-for="query in filteredList">
         <div class="keyword_data"><a class="keyword_link" v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
         <div class="keyword_data">{{ query.Position }}</div>
@@ -58,7 +58,7 @@
         />
         <autocomplete-vue
         @blur="save()"
-        inputClass="keyword_data keyword_data_input" 
+        inputClass="keyword_data keyword_data_input_intent" 
         :value="query.Intent"
         :list="[{
                  name: 'Informational',
@@ -100,7 +100,7 @@ export default {
   props: ['id'],
   data() {
     return {
-      keywordList:null,
+      keywordList: "",
       search: "",
       category: "",
       subCategory1: "",
@@ -110,10 +110,11 @@ export default {
    
   },
   computed: {
-    //code prepared to be use for filtering the the table
+    //code prepared to be use for filtering the table
     filteredList() {
-      return this.keywordList.filter((query) => {
-        return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
+      const filterList = Object.values(this.keywordList)
+      return filterList.filter((query) => {
+      return query.Keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },  
   },
@@ -178,8 +179,8 @@ export default {
 }
 
 .keyword_menu_row {
-  padding: 1px 0px;
-  color: grey;
+  padding: 1px 5px 1px 0px;
+  color: darkgrey;
   font-size: 15px;
   display: grid;
   text-align: left;
@@ -220,7 +221,7 @@ export default {
 }
 
 .keyword_data_input {
-  margin: 1px 20px 1px 0px;
+  margin: 1px 15px 1px 0px;
   border-radius: 5px;
   text-align: center;
   border: 1px solid $grey;
@@ -228,6 +229,18 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   background-color: $grey;
+}
+
+.keyword_data_input_intent{
+  margin: 1px 5px 1px 0px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid $grey;
+  color: $blue;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: $grey;
+
 }
 
 .keyword_search_input {
