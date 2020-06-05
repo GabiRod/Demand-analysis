@@ -21,7 +21,7 @@ export default {
         options: {
           useEasing: true,
           useGrouping: false,
-          duration:2,
+          duration:3,
     }
     }
   },
