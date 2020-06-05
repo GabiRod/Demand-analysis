@@ -1,18 +1,44 @@
 <template>
   <div id="client_keywords_component" class="client_keywords_component">
-    <div class="client_keywords_number">{{ keywords }}</div>
+    <div class="client_keywords_number">
+      <ICountUp
+      :delay="delay"
+      :endVal="endVal"
+      :options="options"
+      @ready="onReady"
+    /></div>
     <div class="client_keywords">keywords</div>
   </div>
 </template>
 
 <script>
+ import ICountUp from 'vue-countup-v2';
 export default {
   name: "clientKeywordsComponent",
+  components: {
+      ICountUp
+    },
   data() {
     return {
-      keywords: 268238,
-    };
+      delay: 1000,
+        endVal: 120500,
+        options: {
+          useEasing: true,
+          useGrouping: false,
+          duration:3,
+          
+   
+        }
+    }
   },
+   methods: {
+      onReady: function(instance) {
+        const that = this;
+        instance.update(that.endVal);
+      }
+    }
+
+ 
 };
 </script>
 

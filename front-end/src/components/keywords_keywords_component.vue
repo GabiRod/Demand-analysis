@@ -1,6 +1,11 @@
 <template>
   <div id="client_keywords_component" class="client_keywords_component">
-    <div class="client_keywords_number">{{ keywords }}</div>
+    <div class="client_keywords_number"> <ICountUp
+      :delay="delay"
+      :endVal="endVal"
+      :options="options"
+      @ready="onReady"
+    /></div>
   
     <div class="client_keywords">keywords</div>
   </div>
@@ -11,9 +16,21 @@ export default {
   name: "clientKeywordsComponent",
   data() {
     return {
-      keywords: '268 238',
-    };
+         delay: 1000,
+        endVal: 120500,
+        options: {
+          useEasing: true,
+          useGrouping: false,
+          duration:2,
+    }
+    }
   },
+   methods: {
+      onReady: function(instance) {
+        const that = this;
+        instance.update(that.endVal);
+      }
+    }  
 };
 </script>
 

@@ -14,7 +14,7 @@
       </div>
   
    <div class="scroll" >
-      <div class="words_row" :key="post.id" v-for="post in wordList">
+      <div class="words_row" :key="post.id" v-for="post in filteredList">
         <div class="words_data">{{ post.keyword }}</div>
         <div class="words_data">{{ post.count}}</div>
          
@@ -44,15 +44,16 @@ export default {
   props: ['id'],
   data() {
     return {
-      wordList:null,
+      wordList:"",
       search: "",
     };
   },
   computed: {
     //code prepared to be use for filtering the the table
     filteredList() {
-      return this.wordList.filter((post) => {
-        return post.keyword.toLowerCase().includes(this.search.toLowerCase());
+      const filterList = Object.values(this.wordList)
+      return filterList.filter((post) => {
+      return post.keyword.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },

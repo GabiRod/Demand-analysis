@@ -9,6 +9,7 @@
     />
 
     <div class="keyword_table">
+      <div class="scroll1" >
       <div class="keyword_menu_row">
         <div class="">Keyword</div>
         <div class="">Clicks</div>
@@ -19,7 +20,7 @@
         <div class="">Subcategory2</div>
         <div class="">Intent</div>
       </div>
-    <div class="scroll1" >
+ 
       <div class="keyword_row" :key="query.id" v-for="query in filteredList">
         <div class="keyword_data"><a class="keyword_link" v-bind:href="''+query.Page+''">{{ query.Keyword }}</a></div>
         <div class="keyword_data">{{ query.Clicks }}</div>
@@ -179,14 +180,15 @@ export default {
 }
 
 .keyword_menu_row {
-  padding: 1px 5px 1px 0px;
-  color: darkgrey;
+ padding: 1px 10px 1px 0px;
+  color: grey;
   font-size: 15px;
   display: grid;
   text-align: left;
   grid-template-columns: auto 10% 10% 10% 15% 15% 15% 10%;
   border-bottom: 1.5px solid $grey;
   font-weight:400;
+  margin: 3px 0px;
 }
 
 .keyword_row {
@@ -196,7 +198,7 @@ export default {
   border-bottom: 1px solid $grey;
   color: $blue;
   font-size: 12px;
-  padding: 1px 0px;
+ padding:1px 10px 1px 0px;
   margin: 3px 0px;
   font-weight:300;
 }
@@ -214,12 +216,6 @@ export default {
    }
 }
 
-.keyword_row_data {
-  color: $blue;
-  font-size: 12px;
-  padding: 5px 0px;
-}
-
 .keyword_data_input {
   margin: 1px 15px 1px 0px;
   border-radius: 5px;
@@ -229,10 +225,11 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   background-color: $grey;
+
 }
 
 .keyword_data_input_intent{
-  margin: 1px 5px 1px 0px;
+  margin: 1px 15px 1px 0px;
   border-radius: 5px;
   text-align: center;
   border: 1px solid $grey;
@@ -256,15 +253,15 @@ export default {
 }
 
 .scroll1{
+  ::-webkit-scrollbar {
+  width: 10px;
+}
   max-height: 68vh;
   overflow-y: auto;
+  overflow-x: hidden;
+
 }
 
-.green_intent{
-background-color: green;
-}
 
-.red_intent{
-background-color: red;
-}
+
 </style>

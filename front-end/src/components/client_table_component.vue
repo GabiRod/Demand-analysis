@@ -18,7 +18,7 @@
         <div class="">Note</div>
       </div>
   
-      <div class="client_row" :key="client.id" v-for="client in clientList">
+      <div class="client_row" :key="client.id" v-for="client in filteredList">
         <div class="client_data">{{ client.customerName}}</div>
         <div class="client_data"><a class="keyword_link" v-bind:href="''+client.url +''">{{ client.url }}</a></div>
         <div class="client_data">{{ client.numberOfRows }}</div>
@@ -49,8 +49,9 @@ export default {
   },
    computed: {
     filteredList() {
-      return this.clientList.filter((client) => {
-        return client.customerName.toLowerCase().includes(this.search.toLowerCase());
+      const filterList = Object.values(this.clientList)
+      return filterList.filter((client) => {
+      return client.customerName.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },

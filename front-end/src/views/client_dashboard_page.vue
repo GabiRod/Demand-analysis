@@ -32,7 +32,7 @@ export default {
   name: "clientDashboardPage",
   data(){
     return{
-      clientList: null,
+      clientList: "",
     }
   },
   components: {

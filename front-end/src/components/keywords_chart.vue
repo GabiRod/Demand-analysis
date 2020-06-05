@@ -70,7 +70,7 @@ const intentChartData = {
           'rgba(251,43,43,.8)', // Red
         ],
         borderColor: [
-          'rgba(251,43,43,.5)'
+          'rgba(251,43,43,.8)'
         ],
         borderWidth: 3
       },
@@ -81,7 +81,7 @@ const intentChartData = {
           'rgba(250, 124,7,.8)', // Orange
         ],
         borderColor: [
-          'rgba(250, 124,7,.5)',
+          'rgba(250, 124,7,.8)',
         ],
         borderWidth: 3
       },
@@ -92,7 +92,7 @@ const intentChartData = {
           'rgba(71, 183,132,.8)', // Green
         ],
         borderColor: [
-          'rgba(71, 183,132,.5)',
+          'rgba(71, 183,132,.8)',
         ],
         borderWidth: 1
       }
