@@ -256,7 +256,7 @@ export default {
   ::-webkit-scrollbar {
   width: 10px;
 }
-  max-height: 68vh;
+  max-height: 71vh;
   overflow-y: auto;
   overflow-x: hidden;
 
