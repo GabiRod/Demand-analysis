@@ -34,6 +34,7 @@ namespace back_end.Controllers
 
         public GSCController(IOptions<ConnectionStrings> connStringsAccessor)
         {
+            // Lets us get connection string from appsettings.json
             connString = connStringsAccessor.Value;
         }
 
@@ -47,6 +48,7 @@ namespace back_end.Controllers
             {
                 using SqlConnection conn = new SqlConnection(connString.SQLConnection);
 
+                // Output the ID from the newly generated analysis for later use
                 var sqlQuery = "INSERT INTO Analyses (Customer, Url, CreatedDate) output INSERTED.Id " +
                                "VALUES (@Customer, @Url, @CreatedDate) ";
 
@@ -59,6 +61,7 @@ namespace back_end.Controllers
 
                 var newId = (int) cmd.ExecuteScalar();
 
+                // Datatable for quickly bulk inserting new analysis into DB.
                 var table = new DataTable();
                 var idColumn = new DataColumn("Id", typeof(int))
                 {
@@ -81,6 +84,8 @@ namespace back_end.Controllers
 
                 List<string> keywords = new List<string>();
 
+                // Populate datatable using data fetched from google.
+                // Also adds all keywords to seperate list, for splitting later.
                 foreach (var data in dataResult.Results)
                 {
                     var row = table.NewRow();
@@ -95,14 +100,10 @@ namespace back_end.Controllers
                     table.Rows.Add(row);
                 }
 
-                using var bulk = new SqlBulkCopy(conn)
-                {
-                    DestinationTableName = "AnalysisData"
-                };
-
+                using var bulk = new SqlBulkCopy(conn);
+                bulk.DestinationTableName = "AnalysisData";
                 bulk.WriteToServer(table);
 
-                bulk.DestinationTableName = "SplitKeywords";
                 var keywordsTable = new DataTable();
                 keywordsTable.Columns.Add("Id", typeof(int));
                 var analysisIdColumn = new DataColumn("AnalysisId", typeof(int))
@@ -114,6 +115,7 @@ namespace back_end.Controllers
                 keywordsTable.Columns.Add("Keyword", typeof(string));
                 keywordsTable.Columns.Add("Count", typeof(int));
 
+                // Remove all keywords length 2 or less, and return only unique keywords.
                 var distinctKeywords = keywords.Distinct().ToList();
                 distinctKeywords.RemoveAll(word => word.Length <= 2);
                 Dictionary<string,int> keywordDictionary = distinctKeywords.ToDictionary(d => d, x => keywords.Count(s => x==s));
@@ -126,17 +128,19 @@ namespace back_end.Controllers
                     keywordsTable.Rows.Add(row);
                 }
 
+                bulk.DestinationTableName = "SplitKeywords";
                 bulk.WriteToServer(keywordsTable);
 
                 conn.Close();
 
+                // SQL Server does a bit of formatting on floats/decimals, so we fetch the newly saved data
+                // from the database, and serve it directly. Ensures same result every time.
                 var responseData = GetAnalysis(conn, newId);
 
                 responseData.NumberOfRows = responseData.Results.Count;
                 responseData.AnalysisId = newId;
                 responseData.CustomerName = request.customerName;
                 responseData.SiteUrl = request.siteUrl;
-
 
                 return JsonConvert.SerializeObject(responseData);
             }
@@ -158,9 +162,9 @@ namespace back_end.Controllers
 
                 var responseData = GetAnalysis(conn, id);
 
-                var sqlQuery1 = "SELECT TOP 1 Id, Customer, Url, CreatedDate FROM Analyses WHERE Id = @Id";
+                var sqlQuery = "SELECT TOP 1 Id, Customer, Url, CreatedDate FROM Analyses WHERE Id = @Id";
 
-                using SqlCommand cmd = new SqlCommand(sqlQuery1, conn);
+                using SqlCommand cmd = new SqlCommand(sqlQuery, conn);
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
 
                 conn.Open();
