@@ -25,6 +25,13 @@ namespace back_end.Controllers
     {
         private readonly ConnectionStrings connString;
 
+        private static readonly GoogleCredential credential = GoogleCredential
+            .FromFile("credentials.json")
+            .CreateScoped(new[]
+            {
+                Google.Apis.Webmasters.v3.WebmastersService.Scope.WebmastersReadonly
+            });
+
         public GSCController(IOptions<ConnectionStrings> connStringsAccessor)
         {
             connString = connStringsAccessor.Value;
@@ -123,15 +130,15 @@ namespace back_end.Controllers
 
                 conn.Close();
 
-                var dataResult2 = GetAnalysis(conn, newId);
+                var responseData = GetAnalysis(conn, newId);
 
-                dataResult2.NumberOfRows = dataResult2.Results.Count;
-                dataResult2.AnalysisId = newId;
-                dataResult2.CustomerName = request.customerName;
-                dataResult2.SiteUrl = request.siteUrl;
+                responseData.NumberOfRows = responseData.Results.Count;
+                responseData.AnalysisId = newId;
+                responseData.CustomerName = request.customerName;
+                responseData.SiteUrl = request.siteUrl;
 
 
-                return JsonConvert.SerializeObject(dataResult2);
+                return JsonConvert.SerializeObject(responseData);
             }
             catch (Exception e)
             {
@@ -149,7 +156,7 @@ namespace back_end.Controllers
             {
                 using SqlConnection conn = new SqlConnection(connString.SQLConnection);
 
-                var dataResult = GetAnalysis(conn, id);
+                var responseData = GetAnalysis(conn, id);
 
                 var sqlQuery1 = "SELECT TOP 1 Id, Customer, Url, CreatedDate FROM Analyses WHERE Id = @Id";
 
@@ -161,17 +168,17 @@ namespace back_end.Controllers
 
                 while (reader.Read())
                 {
-                    dataResult.CustomerName = (string) reader["Customer"];
-                    dataResult.SiteUrl = (string) reader["Url"];
+                    responseData.CustomerName = (string) reader["Customer"];
+                    responseData.SiteUrl = (string) reader["Url"];
                 }
 
                 reader.Close();
                 conn.Close();
 
-                dataResult.NumberOfRows = dataResult.Results.Count;
-                dataResult.AnalysisId = id;
+                responseData.NumberOfRows = responseData.Results.Count;
+                responseData.AnalysisId = id;
 
-                return JsonConvert.SerializeObject(dataResult);
+                return JsonConvert.SerializeObject(responseData);
             }
             catch (Exception e)
             {
@@ -302,7 +309,6 @@ namespace back_end.Controllers
                 Debug.WriteLine(e.Message);
             }
 
-
             return JsonConvert.SerializeObject(keywords);
         }
 
@@ -331,7 +337,7 @@ namespace back_end.Controllers
                 {
                     categories.Add(reader["Category"].ToString(), (int)reader["Count"]);
                 }
-                
+
                 reader.Close();
             }
             catch (Exception e)
@@ -341,31 +347,6 @@ namespace back_end.Controllers
 
 
             return JsonConvert.SerializeObject(categories);
-        }
-
-        public class KeywordData
-        {
-            public int analysisId { get; set; }
-            public string keyword { get; set; }
-            public int count { get; set; }
-        }
-
-        public class CategoryData
-        {
-            public string? category { get; set; }
-            public string? subCategory1 { get; set; }
-            public string? subCategory2 { get; set; }
-            public string? intent { get; set; }
-            public string? colour { get; set; }
-        }
-
-        private class AnalysisMeta
-        {
-            public int numberOfRows { get; set; }
-            public string id { get; set; }
-            public string customerName { get; set; }
-            public string url { get; set; }
-            public DateTime createdDate { get; set; }
         }
 
         private SearchConsoleData GetAnalysis(SqlConnection conn, int id)
@@ -450,12 +431,5 @@ namespace back_end.Controllers
 
             return dataResult;
         }
-
-        private static readonly GoogleCredential credential = GoogleCredential
-            .FromFile("credentials.json")
-            .CreateScoped(new[]
-            {
-                Google.Apis.Webmasters.v3.WebmastersService.Scope.WebmastersReadonly
-            });
     }
 }

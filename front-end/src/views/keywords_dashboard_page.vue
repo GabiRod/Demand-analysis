@@ -156,7 +156,7 @@ padding-top: 24px;
   overflow: hidden;
   display: grid;
   grid-template-columns: 75vw 21vw;
-  height: 88%;
+  height: 85%;
   width: 100%;
 }
 
